@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 16:08:58 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 15:00:40 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:42:21 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 char	*malloctrim(char *new, char *s1, int start, int end)
 {

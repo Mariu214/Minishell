@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:14:35 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 14:56:57 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:37:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {

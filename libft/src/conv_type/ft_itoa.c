@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:17:33 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 15:06:27 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:32:59 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 static long int	size(long int n)
 {

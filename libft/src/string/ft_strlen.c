@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 12:28:40 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 14:59:31 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:41:48 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 size_t	ft_strlen(const char *s)
 {

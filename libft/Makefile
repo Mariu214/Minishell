@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/10 10:38:52 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/10 16:04:31 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJ_DIR = obj/
 CC = cc
 FLAGS = -Wall -Werror -Wextra
 
-INCLUDE =  libft.h
+INCLUDE =  include/libft.h
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix) .c, $(FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
@@ -46,7 +46,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rcs $@ $^
-	@echo -e "$(GREEN)libft Compiled!$(RESET)"
+	@echo "$(GREEN)libft Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 	@$(CC) $(FLAGS) -c $< -o $@
@@ -54,11 +54,11 @@ $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
-	@echo -e "$(YELLOW)libft: make clean$(RESET)"
+	@echo "$(YELLOW)libft: make clean$(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo -e "$(YELLOW)libft: make fclean$(RESET)"
+	@echo "$(YELLOW)libft: make fclean$(RESET)"
 
 re: fclean all
 
