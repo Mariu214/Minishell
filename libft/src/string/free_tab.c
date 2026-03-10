@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:21:12 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 14:59:39 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:40:43 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 void	free_tab(char **tab)
 {

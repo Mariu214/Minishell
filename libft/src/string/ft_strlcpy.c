@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 13:21:28 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 15:00:12 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:41:41 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 {

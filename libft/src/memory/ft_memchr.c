@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 14:15:33 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 14:57:33 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:38:40 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 void	*ft_memchr(const void *s1, int c, size_t n)
 {

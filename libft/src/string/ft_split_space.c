@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:03:36 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 10:12:20 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:40:51 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 static void	free_split(char **split, int count)
 {

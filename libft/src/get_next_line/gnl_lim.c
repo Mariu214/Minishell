@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 11:30:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 09:05:42 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:33:18 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 11
