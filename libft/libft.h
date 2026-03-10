@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:19:31 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/02/10 14:22:37 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:12:39 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 
 char				*get_next_line(int fd);
 char				*renew(char *buffer, char *retu);
+char				*gnl_lim(int fd, char *lim);
 
 int					ft_putnbr(int i);
 int					ft_putnbr_base(unsigned int i, char *base);
@@ -98,5 +99,7 @@ int					ft_putnbr_u_fd(unsigned int s, int fd);
 
 char				*ft_getenv(const char *name, char **env);
 void				free_tab(char **tab);
+int					is_there(const char str, char *start);
+char				**ft_split_space(char *str, const char sep, char *start);
 
 #endif

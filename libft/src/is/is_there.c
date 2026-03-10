@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   is_there.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 14:55:14 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 10:15:08 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/10 10:08:12 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/10 10:14:42 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-int	ft_atoi(const char *nptr)
+int	is_there(const char str, char *start)
 {
-	int	signe;
-	int	nbr;
 	int	i;
 
-	signe = 1;
-	nbr = 0;
 	i = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	while (start[i])
 	{
-		if (nptr[i] == '-')
-			signe = -signe;
+		if (str == start[i])
+			return (1);
 		i++;
 	}
-	while (ft_isdigit(nptr[i]))
-	{
-		nbr = nbr * 10 + (nptr[i] - '0');
-		i++;
-	}
-	return (nbr * signe);
+	return (0);
 }
