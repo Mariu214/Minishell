@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 10:37:05 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 13:57:37 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:40:22 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 static int	ft_print(unsigned long i, int fd)
 {

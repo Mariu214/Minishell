@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 08:58:33 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 15:00:26 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:42:04 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 char	*ft_strnstr_back(const char *big, const char *little, size_t n)
 {

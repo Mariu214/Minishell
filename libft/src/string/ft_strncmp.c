@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 14:08:26 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 15:00:22 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:41:59 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

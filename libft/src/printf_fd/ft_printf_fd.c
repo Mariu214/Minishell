@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:01:41 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 13:57:15 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:39:57 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 static int	verif(const char *str, va_list *lst, int *i, int fd)
 {

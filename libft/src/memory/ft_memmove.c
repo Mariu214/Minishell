@@ -6,11 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 12:37:13 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/09 14:57:49 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:38:58 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../include/libft.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
