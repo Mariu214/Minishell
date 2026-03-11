@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_gc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 12:28:40 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:41:48 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/11 14:53:37 by malaimo           #+#    #+#             */
+/*   Updated: 2026/03/11 14:53:44 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_lstadd_gc(t_gc **gc, void *content)
 {
-	size_t	i;
+	t_gc	*new;
 
-	i = 0;
-	if (s)
-	{
-		while (s[i])
-			i++;
-	}
-	return (i);
+	new = malloc(sizeof(t_gc));
+	if (!new)
+		return (1);
+	new->content = content;
+	new->previous = NULL;
+	new->next = *gc;
+	if (*gc)
+		(*gc)->previous = new;
+	*gc = new;
+	return (0);
 }
