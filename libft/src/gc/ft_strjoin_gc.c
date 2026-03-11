@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_gc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 16:02:19 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:41:28 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/11 14:54:12 by malaimo           #+#    #+#             */
+/*   Updated: 2026/03/11 14:54:13 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_gc(char const *s1, char const *s2, t_gc **gc)
 {
 	char	*new;
 	size_t	len_s1;
@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	new = malloc(sizeof(char) * (len_s1 + len_s2 + 1));
+	new = ft_calloc_gc((len_s1 + len_s2 + 1), sizeof(char), gc);
 	if (!new)
 		return (NULL);
 	while (s1[i])

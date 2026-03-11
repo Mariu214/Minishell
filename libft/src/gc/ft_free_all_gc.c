@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_free_all_gc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 12:28:40 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:41:48 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/11 14:53:27 by malaimo           #+#    #+#             */
+/*   Updated: 2026/03/11 14:53:31 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-size_t	ft_strlen(const char *s)
+void    ft_free_all_gc(t_gc **gc)
 {
-	size_t	i;
+    t_gc	*temp;
+	t_gc	*tp;
 
-	i = 0;
-	if (s)
+	temp = (*gc);
+	while (temp)
 	{
-		while (s[i])
-			i++;
+		tp = temp->next;
+        if (temp->content)
+		    free(temp->content);
+        free(temp);
+		temp = tp;
 	}
-	return (i);
+	*gc = NULL;
+	exit (0);
 }

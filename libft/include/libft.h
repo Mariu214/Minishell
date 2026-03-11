@@ -31,5 +31,6 @@
 # include "include_h/printf.h"
 # include "include_h/printf_fd.h"
 # include "include_h/string.h"
+# include "include_h/gc.h"
 
 #endif
