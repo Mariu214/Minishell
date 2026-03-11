@@ -27,4 +27,5 @@ void    ft_free_all_gc(t_gc **gc)
 		temp = tp;
 	}
 	*gc = NULL;
+	exit (0);
 }
