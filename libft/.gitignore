@@ -1,5 +1,6 @@
 # files .o
 obj/
+*.o
 
 # library
 *.a
