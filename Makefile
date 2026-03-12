@@ -6,13 +6,13 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/12 09:30:14 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/12 11:52:55 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = main \
+FILES = main heredoc exec_shell \
 
 SRC_DIR = src/
 OBJ_DIR = obj/

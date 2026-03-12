@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:51:40 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:33:05 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:43:57 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,16 @@ char	*ft_getenv(const char *name, char **env)
 		while (env[i][j] && env[i][j] != '=')
 			j++;
 		temp = ft_substr(env[i], 0, j);
-		if (ft_strcmp(temp, name) == 0)
+		if (temp)
 		{
+			if (ft_strcmp(temp, name) == 0)
+			{
+				free(temp);
+				return (env[i] + j + 1);
+			}
 			free(temp);
-			return (env[i] + j + 1);
+			i++;
 		}
-		free(temp);
-		i++;
 	}
 	return (NULL);
 }
-
-/*int     main(int argc, char *argv[], char *env[])
-{
-	(void)argc;
-	(void)argv;
-	ft_printf("%s\n", ft_getenv("TERM_PROGRAM", env));
-}
-*/
