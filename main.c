@@ -18,7 +18,6 @@ int main(void)
         ft_free_all_gc(&gc);
     while (args[i])
         printf("%s\n", args[i++]);
-    rl_clear_history
     ft_free_all_gc(&gc);
     return (0);
 }

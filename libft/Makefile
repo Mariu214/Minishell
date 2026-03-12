@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/10 16:04:31 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/12 10:24:21 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint ft_strlen ft_mems
       ft_putnbr_p ft_putnbr_u ft_printf ft_putchar ft_putstr ft_putnbr ft_lstnew ft_lsadd_front ft_lstsize ft_lstlast ft_lstadd_back \
       ft_lstdelone ft_lstclear ft_lstiter ft_lstmap ft_strnstr_back ft_strcmp ft_getenv ft_printf_fd ft_putnbr_base_fd ft_putnbr_p_fd \
       ft_putnbr_u_fd free_tab gnl_lim is_there ft_split_space ft_calloc_gc ft_free_all_gc ft_lstadd_gc ft_strdup_gc ft_strjoin_gc \
-	  ft_split_gc ft_split_space_gc \
+	  ft_split_gc ft_split_space_gc ft_error_gc \
       
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -57,7 +57,9 @@ clean:
 	@rm -rf $(OBJ_DIR)
 	@echo "$(YELLOW)libft: make clean$(RESET)"
 
-fclean: clean
+fclean:
+	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 	@rm -f $(NAME)
 	@echo "$(YELLOW)libft: make fclean$(RESET)"
 
