@@ -40,7 +40,7 @@ $(OBJF):
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iincludes -g3 -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iincludes -lreadline -g3 -o $(NAME)
 	@echo "$(GREEN)Minishell Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
