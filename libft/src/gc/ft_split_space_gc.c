@@ -59,7 +59,8 @@ static int	get_words(const char *str, char c, char *start)
 	return (j);
 }
 
-static char	**do_split(t_split_space *data, const char *str, char *start, t_gc **gc)
+static char	**do_split(t_split_space *data, const char *str, char *start,
+		t_gc **gc)
 {
 	int	words;
 	int	i;
@@ -86,9 +87,10 @@ static char	**do_split(t_split_space *data, const char *str, char *start, t_gc *
 	return (data->split);
 }
 
-char	**ft_split_space_gc(char *str, const char separateur, char *start, t_gc **gc)
+char	**ft_split_space_gc(char *str, const char separateur, char *start,
+		t_gc **gc)
 {
-	int		words;
+	int				words;
 	t_split_space	data;
 
 	if (!str)

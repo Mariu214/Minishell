@@ -72,7 +72,7 @@ char	**ft_split_gc(const char *str, char sep, t_gc **gc)
 		return (split);
 	split = do_split(split, str, sep, gc);
 	if (!split)
-		return(NULL);
+		return (NULL);
 	return (split);
 }
 

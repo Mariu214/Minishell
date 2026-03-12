@@ -14,9 +14,9 @@
 
 void	*ft_calloc_gc(size_t nmemb, size_t size, t_gc **gc)
 {
-	void			*tab;
-	long int		n2;
-	long int		s2;
+	void		*tab;
+	long int	n2;
+	long int	s2;
 
 	n2 = (long int)nmemb;
 	s2 = (long int)size;
