@@ -11,7 +11,7 @@ int main(void)
     i = 0;
     line = readline(">minishell ");
     if (!line)
-        ft_free_all_gc(&gc);
+        ft_error_gc("Error\ncouldn't read line\n", &gc);
     printf("%s\n", line);
     args = ft_split_gc(line, ' ', &gc);
     if (!args)
