@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/12 11:52:55 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/12 14:25:40 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,9 @@ $(NAME): $(OBJ) $(LIBFT)
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 	@$(CC) $(FLAGS) -c -g3 $< -o $@
 	
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
