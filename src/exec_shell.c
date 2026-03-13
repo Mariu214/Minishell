@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/12 13:46:43 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/13 15:56:19 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 static int	no_fil_dir(t_command *command)
 {

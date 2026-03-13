@@ -6,14 +6,15 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/12 09:16:55 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/13 16:46:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/include/libft.h"
+# include "../libft/include/libft.h"
+# include "include_h/parsing.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>

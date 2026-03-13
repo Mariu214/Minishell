@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
+#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/12 14:25:40 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/13 16:42:48 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = main heredoc exec_shell \
+FILES = parsing main heredoc exec_shell \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -20,9 +20,9 @@ OBJ_DIR = obj/
 CC = cc
 FLAGS = -Wall -Werror -Wextra
 
-INCLUDE =  minishell.h
+INCLUDE =  include/minishell.h
 
-SRC = $(addprefix $(SRC_DIR), $(addsuffix) .c, $(FILES))
+SRC = $(addprefix $(SRC_DIR), $(addsuffix .c), $(FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
 LIBFT_DIR = ./libft
@@ -37,17 +37,16 @@ RESET = \033[0;39m
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
+vpath %.c $(SRC_DIR)
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iincludes -lreadline -g3 -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iinclude -lreadline -g3 -o $(NAME)
 	@echo "$(GREEN)Minishell Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 	@$(CC) $(FLAGS) -c -g3 $< -o $@
-	
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
