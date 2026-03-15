@@ -1,8 +1,9 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "../minishell.h"
+typedef struct s_data t_data;
 
-void    init_parsing(char **str, t_gc **gc);
+void    init_parsing(t_data *data, char **envp);
+void    parsing_heredoc(t_data *data);
 
 #endif
