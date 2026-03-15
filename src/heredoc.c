@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/13 15:56:16 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/15 15:42:15 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb)
 	}
 	free(join);
 	free(gnl);
-	exit(0);
+	// exit(0);
+	return;
 }
 
 void	here_doc(char *lim, int pipenb)
