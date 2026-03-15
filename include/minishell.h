@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/13 16:46:04 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/15 15:24:51 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <sys/wait.h>
+
+typedef struct s_data
+{
+    t_gc    *gc;
+    char    **str;
+}			t_data;
 
 typedef struct s_command
 {
