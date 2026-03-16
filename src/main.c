@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/16 10:33:43 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:57:12 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char *argv[], char *envp[])
         //printf("%s\n", line);
         if (!line)
             ft_error_gc("Error\nCouldn't read line\n", &data.gc);
-        data.str = ft_split_gc(line, ' ', &data.gc);
+        data.str = ft_split_space_gc(line, ' ', "'", &data.gc);
         init_parsing(&data, envp);
     }
     rl_clear_history();

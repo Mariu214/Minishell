@@ -1,10 +1,13 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
-void    init_parsing(t_data *data, char **envp);
-void    parsing_heredoc(t_data *data);
-void	count_pipe(t_data *data);
+void					init_parsing(t_data *data, char **envp);
+void					parsing_heredoc(t_data *data);
+void					count_pipe(t_data *data);
+void					test_parsing_pipe(t_data *data, int i, char *envp[]);
+void					pipe_handler(t_data *data, char *envp[], int i);
+void					maybe_pipe(t_data *data, char *envp[]);
 
 #endif

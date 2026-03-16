@@ -6,13 +6,13 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/16 10:57:56 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:51:27 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	print_pipe(int pipenb)
+void	print_pipe(int pipenb)
 {
 	int	i;
 
