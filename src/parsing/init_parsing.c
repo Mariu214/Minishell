@@ -13,7 +13,7 @@ void    init_parsing(t_data *data, char **envp)
         while (data->str[i])
         {
             if (ft_strcmp(data->str[i], "<<") == 0)
-                parsing_heredoc(data);
+                parsing_heredoc(data, envp);
             if (ft_strcmp(data->str[i], "cat") == 0)
                 exec("cat", envp);
             i++;
