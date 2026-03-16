@@ -8,8 +8,10 @@ void    init_parsing(t_data *data, char **envp)
 
     i = 0;
     child_line = fork();
+    count_pipe(data);// executer pipe_handler en fonction de pipe
     if (!child_line)
     {
+        pipe_handler(data->str[i], envp);
         while (data->str[i])
         {
             if (ft_strcmp(data->str[i], "<<") == 0)
@@ -22,6 +24,4 @@ void    init_parsing(t_data *data, char **envp)
     }
     else
         wait(NULL);
-    //printf("%i\n", dup(0));
-    //exec(data->str[1], envp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/16 09:50:49 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 12:07:58 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
 {
 	t_gc	*gc;
 	char	**str;
+	int		pipenb;
 }			t_data;
 
 typedef struct s_command
