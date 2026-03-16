@@ -6,13 +6,13 @@
 #    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/16 12:04:47 by malaimo          ###   ########.fr        #
+#    Updated: 2026/03/16 12:16:51 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = init_parsing main heredoc exec_shell parsing_heredoc signal_handler \
+FILES = init_parsing main heredoc exec_shell parsing_heredoc signals_handlers \
 
 SRC_DIR = src/
 OBJ_DIR = obj/

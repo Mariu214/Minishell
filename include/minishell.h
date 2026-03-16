@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/16 12:03:19 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 14:09:00 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@
 # include <sys/wait.h>
 # include <signal.h>
 
+extern volatile int signal_received;
+
 typedef struct s_data
 {
 	t_gc	*gc;
 	char	**str;
+	struct sigaction	sig_int;
+	struct sigaction	sig_quit;
 }			t_data;
 
 typedef struct s_command
