@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/15 15:48:02 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 09:58:38 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main(int argc, char *argv[], char *envp[])
     t_data  data;
 
     (void)argc;
-    (void)envp;
     (void)argv;
     data.gc = NULL;
     line = NULL;

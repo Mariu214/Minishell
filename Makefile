@@ -6,7 +6,7 @@
 #    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/15 14:46:35 by malaimo          ###   ########.fr        #
+#    Updated: 2026/03/16 09:42:11 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ RESET = \033[0;39m
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
-vpath %.c $(SRC_DIR) $(SRC_DIR)parsing
+vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution
 
 all: $(NAME)
 

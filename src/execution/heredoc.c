@@ -6,11 +6,11 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/15 15:42:15 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 09:49:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static void	print_pipe(int pipenb)
 {
