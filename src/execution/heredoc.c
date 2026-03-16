@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/16 10:57:56 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/16 11:06:50 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb)
 	}
 	free(join);
 	free(gnl);
-	// exit(0);
-	return;
+	exit(0);
 }
 
 void	here_doc(char *lim, int pipenb)
