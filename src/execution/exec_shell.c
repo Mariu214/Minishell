@@ -6,11 +6,11 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/13 15:56:19 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 09:49:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static int	no_fil_dir(t_command *command)
 {
@@ -30,7 +30,7 @@ static int	no_fil_dir(t_command *command)
 				command->free = 1;
 				free_tab(split);
 				free(path);
-				ft_printf_fd(2, "pipex: no such file or directory: %s\n",
+				ft_printf_fd(2, "minishell: no such file or directory: %s\n",
 					command->s_cmd[0]);
 				return (127);
 			}
@@ -98,7 +98,7 @@ void	exec(char *cmd, char *envp[])
 	{
 		free_tab(command.s_cmd);
 		if (command.free == 0)
-			ft_printf_fd(2, "pipex: command not found: \n");
+			ft_printf_fd(2, "minishell: command not found: \n");
 		exit(127);
 	}
 	if (path == NULL)
@@ -107,7 +107,7 @@ void	exec(char *cmd, char *envp[])
 	{
 		free_tab(command.s_cmd);
 		if (command.free == 0)
-			ft_printf_fd(2, "pipex: command not found: %s\n", cmd);
+			ft_printf_fd(2, "minishell: command not found: %s\n", cmd);
 		exit(127);
 	}
 }

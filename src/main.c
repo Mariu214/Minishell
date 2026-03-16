@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/15 15:26:11 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 09:58:38 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@ int main(int argc, char *argv[], char *envp[])
     t_data  data;
 
     (void)argc;
-    (void)envp;
     (void)argv;
     data.gc = NULL;
     line = NULL;
     while (ft_strcmp(line, "exit") != 0)
     {
         line = readline(">minishell ");
+        printf("%s\n", line);
         if (!line)
             ft_error_gc("Error\nCouldn't read line\n", &data.gc);
         data.str = ft_split_gc(line, ' ', &data.gc);
         init_parsing(&data, envp);
     }
+    rl_clear_history();
     ft_free_all_gc(&data.gc);
     return (0);
 }
