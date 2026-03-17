@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 12:50:21 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 13:27:05 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,43 +73,44 @@ void	define_line(t_data *data)
 		else if (is_pipe(data->str[i][0]))
 		{
 			data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
-            data->line[i].is_pipe = 1;
+			data->line[i].is_pipe = 1;
 		}
-        else 
-        {
-            data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
-            data->line[i].is_cmd = 1;
-        }
+		else
+		{
+			data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
+			data->line[i].is_cmd = 1;
+		}
 		i++;
 	}
-//     for (int a = 0; data->str[a]; a++)
-//     ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n", data->line[a].is_pipe, data->line[a].is_redirection, data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
+	//     for (int a = 0; data->str[a]; a++)
+	//     ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n",
+		// data->line[a].is_pipe, data->line[a].is_redirection,
+		// data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
 }
 
-void    parsing(t_data *data, char *envp[])
+void	parsing(t_data *data, char *envp[])
 {
-    int     i;
-    pid_t child;
+	int		i;
+	pid_t	child;
 
-    i = 0;
-    count_pipe(data);
-    define_line(data);
-    child = fork();
-    if (!child)
-    {
-        while (data->str[i])
-        {
-            if (ft_strcmp(data->str[i], "exit") == 0)
-                ft_free_all_gc(&data->gc);
-            if (data->line[i].is_redirection && ft_strcmp(data->line[i].str, "<<") == 0)
-                parsing_heredoc(data);
-            if (data->line[i].is_cmd)
-                exec(data->line[i].str, envp);
-            i++;
-        }
-    }
-    else
-        wait(NULL);
+	i = 0;
+	count_pipe(data);
+	define_line(data);
+	child = fork();
+	if (!child)
+	{
+		while (data->str[i])
+		{
+			if (ft_strcmp(data->str[i], "exit") == 0)
+				ft_free_all_gc(&data->gc);
+			if (data->line[i].is_redirection && ft_strcmp(data->line[i].str,
+					"<<") == 0)
+				parsing_heredoc(data);
+			if (data->line[i].is_cmd)
+				exec(data->line[i].str, envp);
+			i++;
+		}
+	}
+	else
+		wait(NULL);
 }
-
-void    
