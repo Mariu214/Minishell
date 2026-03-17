@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.h                                             :+:      :+:    :+:   */
+/*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/17 10:47:57 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 15:53:13 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/17 14:27:35 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/17 15:13:28 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPE_H
-# define PIPE_H
+#ifndef REDIRECTION_H
+# define REDIRECTION_H
 
-typedef struct s_data	t_data;
-
-void					count_pipe(t_data *data);
-void					test_parsing_pipe(t_data *data, int i, char *envp[]);
-void					pipe_handler(t_data *data, char *envp[], int i);
-void					maybe_pipe(t_data *data, char *envp[]);
+int	open_file(char *fd_arg, int mode);
+void	input_redirection(char *file1);
+void    output_redirection_trunc(char *file);
+void    do_redirection(t_data *data);
+void    output_redirection_append(char *file);
 
 #endif

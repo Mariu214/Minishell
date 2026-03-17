@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 14:16:41 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 15:53:34 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,6 @@ void	count_pipe(t_data *data)
 	}
 }
 
-// void    end_pipe(t_data *data, char *envp[])
-// {
-// 	char *cmd;
-	
-// 	cmd = ft_strdup("");
-// }
-
 void	maybe_pipe(t_data *data, char *envp[])
 {
 	int	i;
@@ -100,3 +93,4 @@ void	maybe_pipe(t_data *data, char *envp[])
 		exec("cat", envp);
 	}
 }
+

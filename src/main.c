@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/17 14:16:01 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 16:29:22 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int main(int argc, char *argv[], char *envp[])
         sigaction(SIGINT, &data.sig_int, NULL);
         sigaction(SIGQUIT, &data.sig_quit, NULL);
         line = readline(">minishell ");
+        add_history(line);
         if (!line)
             ft_free_all_gc(&data.gc);
         if (signal_received)
@@ -36,7 +37,7 @@ int main(int argc, char *argv[], char *envp[])
         else
         {
             data.str = ft_split_gc(line, ' ', &data.gc);
-            init_parsing(&data, envp);
+            parsing(&data, envp);
         }
     }
     ft_free_all_gc(&data.gc);

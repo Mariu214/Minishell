@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 14:16:49 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 16:43:56 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	init_null(t_data *data, int size)
 	{
 		data->line[i].is_cmd = 0;
 		data->line[i].is_file = 0;
-		data->line[i].is_pipe = 0;
 		data->line[i].is_pipe = 0;
 		data->line[i].is_redirection = 0;
 		i++;
@@ -90,6 +89,7 @@ void	parsing(t_data *data, char *envp[])
 {
 	int		i;
 	pid_t	child;
+	int		signal;
 
 	i = 0;
 	count_pipe(data);
@@ -97,18 +97,20 @@ void	parsing(t_data *data, char *envp[])
 	child = fork();
 	if (!child)
 	{
+		do_redirection(data);
 		while (data->str[i])
 		{
-			if (ft_strcmp(data->str[i], "exit") == 0)
-				ft_free_all_gc(&data->gc);
-			if (data->line[i].is_redirection && ft_strcmp(data->line[i].str,
-					"<<") == 0)
-				parsing_heredoc(data, envp);
-			if (data->line[i].is_cmd)
-				exec(data->line[i].str, envp);
-			i++;
+		if (ft_strcmp(data->str[i], "exit") == 0)
+			ft_free_all_gc(&data->gc);
+		if (data->line[i].is_redirection && ft_strcmp(data->line[i].str,
+			"<<") == 0)
+			parsing_heredoc(data, envp);
+		if (data->line[i].is_cmd)
+			exec(data->line[i].str, envp);
+		i++;
 		}
+		exit (0);
 	}
 	else
-		wait(NULL);
+		waitpid(child, &signal, 0);
 }
