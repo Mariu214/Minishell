@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/16 11:06:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/17 11:24:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,22 @@ static void	print_pipe(int pipenb)
 	}
 }
 
-static void	here_doc_next(char *lim, int end_pipe[2], int pipenb)
+static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 {
 	char	*gnl;
 	char	*join;
 
 	print_pipe(pipenb);
+	(void)data;
+	// init_signal(&data->sig_int, &data->sig_quit, 1);
+    // sigaction(SIGINT, &data->sig_int, NULL);
+    // sigaction(SIGQUIT, &data->sig_quit, NULL);
+	// printf("%d\n", getpid());
 	ft_printf_fd(2, "heredoc> ");
 	join = ft_strjoin(lim, "\n");
 	gnl = gnl_lim(0, join);
 	close(end_pipe[0]);
+	printf("jsvp\n");
 	while (ft_strcmp(gnl, join) != 0)
 	{
 		print_pipe(pipenb);
@@ -42,12 +48,13 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb)
 		free(gnl);
 		gnl = gnl_lim(0, join);
 	}
+	printf("jsvp\n");
 	free(join);
 	free(gnl);
 	exit(0);
 }
 
-void	here_doc(char *lim, int pipenb)
+void	here_doc(char *lim, int pipenb, t_data *data)
 {
 	int		end_pipe[2];
 	pid_t	parent;
@@ -55,10 +62,11 @@ void	here_doc(char *lim, int pipenb)
 	pipe(end_pipe);
 	parent = fork();
 	if (!parent)
-		here_doc_next(lim, end_pipe, pipenb);
+		here_doc_next(lim, end_pipe, pipenb, data);
 	else
 	{
 		wait(NULL);
+		printf("1\n");
 		close(end_pipe[1]);
 		dup2(end_pipe[0], 0);
 	}

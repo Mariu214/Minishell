@@ -4,10 +4,11 @@
 void    child_quit(int signum)
 {
     (void)signum;
-    printf("abcdefg\n");
-    if (kill(getpid(), SIGCHLD) <= 0)
+    if (kill(getpid(), SIGINT) <= 0)
         exit(1);
-    printf("abcdefg\n");
+    rl_on_new_line();
+    rl_redisplay();
+    signal_received = 1;
 }
 
 void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, int i)
@@ -21,23 +22,21 @@ void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, int i
 	    sigemptyset(&sig_quit->sa_mask);
 	    sig_quit->sa_flags = SA_RESTART;
     }
-    else
-    {      
-        printf("12345678\n");  
-        sig_int->sa_handler = child_quit;
-	    sigemptyset(&sig_int->sa_mask);
-	    sig_int->sa_flags = SA_RESTART;
-        sig_quit->sa_handler = child_quit;
-	    sigemptyset(&sig_quit->sa_mask);
-	    sig_quit->sa_flags = SA_RESTART;
-    }
+    // else
+    // {
+    //     sig_int->sa_handler = child_quit;
+	//     sigemptyset(&sig_int->sa_mask);
+	//     sig_int->sa_flags = 0;
+    //     sig_quit->sa_handler = child_quit;
+	//     sigemptyset(&sig_quit->sa_mask);
+	//     sig_quit->sa_flags = 0;
+    // }
 }
 
 void    signal_handler(int signum)
 {
     if (signum == SIGINT)
     {
-        write(1, "\n", 1);  
         rl_on_new_line();
         rl_redisplay();
         signal_received = 1;

@@ -3,7 +3,15 @@
 
 # include <signal.h>
 
-void		here_doc(char *lim, int pipenb);
+typedef struct s_sic
+{
+	pid_t		    content;
+	struct s_sic	*next;
+	struct s_sic	*previous;
+}				t_sic;
+
+
+void	    here_doc(char *lim, int pipenb, t_data *data);
 void		exec(char *cmd, char *envp[]);
 void        signal_handler(int signum);
 void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, int i);

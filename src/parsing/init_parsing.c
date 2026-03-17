@@ -10,9 +10,6 @@ void    init_parsing(t_data *data, char **envp)
     child_line = fork();
     if (!child_line)
     {
-        init_signal(&data->sig_int, &data->sig_quit, 1);
-        sigaction(SIGINT, &data->sig_int, NULL);
-        sigaction(SIGQUIT, &data->sig_quit, NULL);
         while (data->str[i])
         {
             if (ft_strcmp(data->str[i], "<<") == 0)
@@ -24,7 +21,10 @@ void    init_parsing(t_data *data, char **envp)
         exit (0);
     }
     else
+    {
         wait(NULL);
+        printf("8\n");
+    }
     //printf("%i\n", dup(0));
     //exec(data->str[1], envp);
 }
