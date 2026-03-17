@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/16 11:34:00 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 10:57:19 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/17 10:47:57 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/17 10:49:28 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef PIPE_H
+# define PIPE_H
 
-# include <signal.h>
+typedef struct s_data	t_data;
 
-void	here_doc(char *lim, int pipenb);
-void	exec(char *cmd, char *envp[]);
-void	signal_handler(int signum);
-void	init_signal(struct sigaction *sig_int, struct sigaction *sig_quit);
-void	parsing_heredoc(t_data *data);
-void	print_pipe(int pipenb);
+void					count_pipe(t_data *data);
+void					test_parsing_pipe(t_data *data, int i, char *envp[]);
+void					pipe_handler(t_data *data, char *envp[], int i);
+void					maybe_pipe(t_data *data, char *envp[]);
 
 #endif

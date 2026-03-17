@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/16 14:09:00 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/17 10:56:01 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../libft/include/libft.h"
 # include "include_h/parsing.h"
 # include "include_h/exec.h"
+# include "include_h/pipe.h"
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -33,6 +34,7 @@ typedef struct s_data
 	char	**str;
 	struct sigaction	sig_int;
 	struct sigaction	sig_quit;
+	int		pipenb;
 }			t_data;
 
 typedef struct s_command
