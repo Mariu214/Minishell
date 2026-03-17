@@ -6,32 +6,40 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/12 09:19:03 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 14:12:20 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
-int	main(void)
+volatile int signal_received = 0;
+
+int main(int argc, char *argv[], char *envp[])
 {
 	char	*line;
-	t_gc	*gc;
-	char	**args;
-	int		i;
+    t_data  data;
 
-	gc = NULL;
-	i = 0;
-	line = readline(">minishell ");
-	if (!line)
-		ft_free_all_gc(&gc);
-	ft_lstadd_gc(&gc, line);
-	printf("%s\n", line);
-	args = ft_split_gc(line, ' ', &gc);
-	if (!args)
-		ft_free_all_gc(&gc);
-	while (args[i])
-		printf("%s\n", args[i++]);
-	rl_clear_history();
-	ft_free_all_gc(&gc);
-	return (0);
+    (void)argc;
+    (void)argv;
+    data.gc = NULL;
+    line = NULL;
+    while (ft_strcmp(line, "exit") != 0)
+    {
+        init_signal(&data.sig_int, &data.sig_quit);
+        sigaction(SIGINT, &data.sig_int, NULL);
+        sigaction(SIGQUIT, &data.sig_quit, NULL);
+        line = readline(">minishell ");
+        if (!line)
+            ft_free_all_gc(&data.gc);
+        if (signal_received)
+            signal_received = 0;
+        else
+        {
+            data.str = ft_split_gc(line, ' ', &data.gc);
+            init_parsing(&data, envp);
+        }
+    }
+    ft_free_all_gc(&data.gc);
+    return (0);
 }
+

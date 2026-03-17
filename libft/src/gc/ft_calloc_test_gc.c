@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   ft_calloc_test_gc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 16:51:40 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/12 12:43:57 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/14 09:34:10 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/14 09:45:13 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-char	*ft_getenv(const char *name, char **env)
+void	*ft_calloc_test_gc(size_t nmemb, size_t size, t_gc **gc)
 {
-	int		i;
-	int		j;
-	char	*temp;
+	void		*tab;
+	long int	n2;
+	long int	s2;
 
-	i = 0;
-	while (env[i])
-	{
-		j = 0;
-		while (env[i][j] && env[i][j] != '=')
-			j++;
-		temp = ft_substr(env[i], 0, j);
-		if (temp)
-		{
-			if (ft_strcmp(temp, name) == 0)
-			{
-				free(temp);
-				return (env[i] + j + 1);
-			}
-			free(temp);
-			i++;
-		}
-	}
-	return (NULL);
+	n2 = (long int)nmemb;
+	s2 = (long int)size;
+	if ((nmemb > SIZE_MAX / size) || (n2 < 0 && s2 < 0))
+		return (NULL);
+	tab = (void *)malloc(nmemb * size);
+	if (!tab)
+		ft_free_all_gc(gc);
+	ft_bzero(tab, (nmemb * size));
+	if (ft_lstadd_gc(gc, tab))
+        ft_free_all_gc(gc);
+	return (tab);
 }

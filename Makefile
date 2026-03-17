@@ -3,26 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
+#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/12 09:10:12 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/16 12:16:51 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = main \
-      
+FILES = init_parsing main heredoc exec_shell parsing_heredoc signals_handlers \
+
 SRC_DIR = src/
 OBJ_DIR = obj/
 
 CC = cc
 FLAGS = -Wall -Werror -Wextra
 
-INCLUDE =  minishell.h
+INCLUDE =  include/minishell.h
 
-SRC = $(addprefix $(SRC_DIR), $(addsuffix) .c, $(FILES))
+SRC = $(addprefix $(SRC_DIR), $(addsuffix .c), $(FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
 LIBFT_DIR = ./libft
@@ -37,23 +37,32 @@ RESET = \033[0;39m
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
+vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iincludes -lreadline -g3 -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iinclude -lreadline -g3 -o $(NAME)
 	@echo "$(GREEN)Minishell Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 	@$(CC) $(FLAGS) -c -g3 $< -o $@
 
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
-	@echo "$(YELLOW)libft: make clean$(RESET)"
+	@make clean -C $(LIBFT_DIR)
+	@echo "$(YELLOW)minishell: make clean$(RESET)"
 
-fclean: clean
+fclean:
+	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 	@rm -f $(NAME)
-	@echo "$(YELLOW)libft: make fclean$(RESET)"
+	@make fclean -C $(LIBFT_DIR)
+	@echo "$(YELLOW)minishell: make fclean$(RESET)"
 
 re: fclean all
 
