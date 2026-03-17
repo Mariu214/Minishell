@@ -10,18 +10,18 @@ void	init_parsing(t_data *data, char **envp)
 	if (!child_line)
 	{
 		printf("iic\n");
-	// 	while (data->str[i])
-	// 	{
-	// 		if (ft_strcmp(data->str[i], "<<") == 0)
-	// 			parsing_heredoc(data);
-	// 		if (ft_strcmp(data->str[i], "cat -e") == 0)
-	// 			exec("cat -e", envp);
-	// 		if (ft_strcmp(data->str[i], "cat") == 0)
-	// 			exec("cat", envp);
-	// 		if (ft_strcmp(data->str[i], "ls") == 0)
-	// 			exec("ls", envp);
-	// 		i++;
-	// 	}
+		while (data->str[i])
+		{
+			if (ft_strcmp(data->str[i], "<<") == 0)
+				parsing_heredoc(data);
+			if (ft_strcmp(data->str[i], "cat -e") == 0)
+				exec("cat -e", envp);
+			if (ft_strcmp(data->str[i], "cat") == 0)
+				exec("cat", envp);
+			if (ft_strcmp(data->str[i], "ls") == 0)
+				exec("ls", envp);
+			i++;
+		}
 		exit (0);
 	}
 	else
