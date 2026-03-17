@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 10:39:40 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 14:16:41 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	test_parsing_pipe(t_data *data, int i, char *envp[])
 	while (data->str[i] && ft_strcmp(data->str[i], "|") != 0)
 	{
 		if (ft_strcmp(data->str[i], "<<") == 0)
-			parsing_heredoc(data);
+			parsing_heredoc(data, envp);
 		if (ft_strcmp(data->str[i], "cat") == 0)
 			exec("cat -e", envp);
 		if (ft_strcmp(data->str[i], "ls") == 0)
