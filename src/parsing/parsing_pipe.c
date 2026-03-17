@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/16 17:34:44 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 09:24:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,35 @@ void	count_pipe(t_data *data)
 void	pipe_end(t_data *data, char *envp[])
 {
 	char	*cmd;
-    int     end_pipe[2];
+	int		end_pipe[2];
 
-    // exec("cat", envp);
-    pipe(end_pipe);
-    cmd = ft_strdup("");
+	// exec("cat", envp);
+	pipe(end_pipe);
+	cmd = ft_strdup("");
 	if (!fork())
 	{
-        dup2(end_pipe[1], 1);
-        close(end_pipe[0]);
+		dup2(end_pipe[1], 1);
+		close(end_pipe[0]);
 		print_pipe(data->pipenb - 1);
 		ft_printf_fd(2, "pipe> ");
-        while (cmd)
-        {
-            free(cmd);
-		    cmd = get_next_line(end_pipe[0]);
-        }
-        while (!cmd)
-        {
-            free(cmd);
-            cmd = get_next_line(end_pipe[0]);
-        }
-        exec(cmd, envp);
+		// while (cmd)
+		// {
+		// 	free(cmd);
+		// 	cmd = get_next_line(end_pipe[end_pipe[1]]);
+		// }
+		while (!cmd)
+		{
+			free(cmd);
+			cmd = get_next_line(end_pipe[1]);
+		}
+		ft_printf_fd(2, "%s\n", cmd);
+		exec(cmd, envp);
 	}
 	else
-    {
-        dup2(end_pipe[0], 0);
-        close(end_pipe[1]);
-    }
+	{
+		dup2(end_pipe[0], 0);
+		close(end_pipe[1]);
+	}
 }
 
 void	maybe_pipe(t_data *data, char *envp[])
@@ -113,20 +114,16 @@ void	maybe_pipe(t_data *data, char *envp[])
 	{
 		while (data->str[i])
 		{
-			// if ((ft_strcmp(data->str[i], "|") == 0) && data->str[i + 1])
-			// {
-			// 	pipe_handler(data, envp, last_pipe);
-			// 	last_pipe = i + 1;
-			// }
-            if (ft_strcmp(data->str[i], "|") == 0 && !data->str[i + 1])
-            {
-				pipe_handler(data, envp, last_pipe);
-				last_pipe = i + 1;
-            }
+			if (((ft_strcmp(data->str[i], "|") == 0) && data->str[i + 1])
+				|| ((ft_strcmp(data->str[i], "|") != 0) && !data->str[i + 1]))
+				{
+					pipe_handler(data, envp, last_pipe);
+					last_pipe = i + 1;
+				}
 			i++;
 		}
 		if (ft_strcmp(data->str[i - 1], "|") == 0)
-		    pipe_end(data, envp);
+			pipe_end(data, envp);
 		exec("cat", envp);
 	}
 }
