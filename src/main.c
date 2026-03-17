@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/16 14:12:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/16 15:45:39 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[], char *envp[])
     line = NULL;
     while (ft_strcmp(line, "exit") != 0)
     {
-        init_signal(&data.sig_int, &data.sig_quit);
+        init_signal(&data.sig_int, &data.sig_quit, 0);
         sigaction(SIGINT, &data.sig_int, NULL);
         sigaction(SIGQUIT, &data.sig_quit, NULL);
         line = readline(">minishell ");
