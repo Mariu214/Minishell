@@ -22,8 +22,9 @@ void    init_parsing(t_data *data, char **envp)
     }
     else
     {
-        wait(NULL);
-        printf("8\n");
+        int signal;
+
+        waitpid(child_line, &signal, 0);
     }
     //printf("%i\n", dup(0));
     //exec(data->str[1], envp);

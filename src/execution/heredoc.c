@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 11:30:01 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/17 14:11:36 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,25 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 	char	*join;
 
 	print_pipe(pipenb);
-	init_signal(&data->sig_int, &data->sig_quit, 1);
+	(void)data;
     sigaction(SIGINT, &data->sig_int, NULL);
-	printf("%d\n", getpid());
 	ft_printf_fd(2, "heredoc> ");
 	join = ft_strjoin(lim, "\n");
-	gnl = gnl_lim(0, join);
-	close(end_pipe[0]);
-	while (ft_strcmp(gnl, join) != 0)
+	if (!signal_received)
 	{
-		print_pipe(pipenb);
-		ft_printf_fd(2, "heredoc> ");
-		ft_printf_fd(end_pipe[1], "%s", gnl);
-		free(gnl);
 		gnl = gnl_lim(0, join);
+		close(end_pipe[0]);
+		while (ft_strcmp(gnl, join) != 0 && !signal_received)
+		{
+			print_pipe(pipenb);
+			ft_printf_fd(2, "heredoc> ");
+			ft_printf_fd(end_pipe[1], "%s", gnl);
+			free(gnl);
+			gnl = gnl_lim(0, join);
+		}
+		free(gnl);
 	}
-	printf("jsvp\n");
 	free(join);
-	free(gnl);
 	exit(0);
 }
 
@@ -62,8 +63,10 @@ void	here_doc(char *lim, int pipenb, t_data *data)
 		here_doc_next(lim, end_pipe, pipenb, data);
 	else
 	{
-		wait(NULL);
-		printf("1\n");
+		int signal;
+
+        waitpid(parent, &signal, 0);
+		// printf("\na");
 		close(end_pipe[1]);
 		dup2(end_pipe[0], 0);
 	}

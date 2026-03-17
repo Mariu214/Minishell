@@ -17,9 +17,14 @@ delimiter is seen. However, it doesn’t have to update the history! -->
 - >> should redirect output in append mode.
 
 
-- ctrl-C displays a new prompt on a new line.
+- ctrl-C end the current process and return to prompt.
+- ctrl-D send EOF to the current process
+- ctrl-\ quit process (core dumped).
+
+## interactive mode
+<!-- - ctrl-C displays a new prompt on a new line.
 <!-- - ctrl-D exits the shell. -->
-- ctrl-\ does nothing.
+<!-- - ctrl-\ does nothing. -->
 
 - Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline.
