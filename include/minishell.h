@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/17 10:34:27 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 10:49:44 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/include/libft.h"
 # include "include_h/parsing.h"
 # include "include_h/exec.h"
+# include "include_h/pipe.h"
 
 # include <readline/history.h>
 # include <readline/readline.h>
