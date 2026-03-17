@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:34:00 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 10:57:19 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 10:58:24 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	here_doc(char *lim, int pipenb);
 void	exec(char *cmd, char *envp[]);
 void	signal_handler(int signum);
 void	init_signal(struct sigaction *sig_int, struct sigaction *sig_quit);
-void	parsing_heredoc(t_data *data);
 void	print_pipe(int pipenb);
 
 #endif
