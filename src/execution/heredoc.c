@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 11:24:25 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/17 11:30:01 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,13 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 	char	*join;
 
 	print_pipe(pipenb);
-	(void)data;
-	// init_signal(&data->sig_int, &data->sig_quit, 1);
-    // sigaction(SIGINT, &data->sig_int, NULL);
-    // sigaction(SIGQUIT, &data->sig_quit, NULL);
-	// printf("%d\n", getpid());
+	init_signal(&data->sig_int, &data->sig_quit, 1);
+    sigaction(SIGINT, &data->sig_int, NULL);
+	printf("%d\n", getpid());
 	ft_printf_fd(2, "heredoc> ");
 	join = ft_strjoin(lim, "\n");
 	gnl = gnl_lim(0, join);
 	close(end_pipe[0]);
-	printf("jsvp\n");
 	while (ft_strcmp(gnl, join) != 0)
 	{
 		print_pipe(pipenb);
