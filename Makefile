@@ -6,21 +6,21 @@
 #    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/16 12:16:51 by malaimo          ###   ########.fr        #
+#    Updated: 2026/03/17 15:29:52 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = init_parsing main heredoc exec_shell parsing_heredoc signals_handlers \
+FILES = main \
 
-SRC_DIR = src/
+
 OBJ_DIR = obj/
 
 CC = cc
 FLAGS = -Wall -Werror -Wextra
 
-INCLUDE =  include/minishell.h
+INCLUDE =  minishell.h
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c), $(FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
@@ -36,8 +36,6 @@ RESET = \033[0;39m
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
-
-vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution
 
 all: $(NAME)
 

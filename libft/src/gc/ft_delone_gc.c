@@ -1,19 +1,28 @@
 #include "../../include/libft.h"
 
-void	ft_free_all_gc(t_gc **gc, int index)
+int	ft_delone_gc(t_gc **gc, void *target)
 {
 	t_gc	*temp;
-	t_gc	*tp;
+	t_gc	*next;
+	t_gc	*prev;
+	int		i;
+	int		lim;
 
+	i = 0;
 	temp = (*gc);
-	while (temp)
-	{
-		tp = temp->next;
-		if (temp->content)
+	lim = ft_srch_gc(gc, target);
+	if (!lim)
+		return (1);
+	while (i++ < lim)
+		temp = temp->next;
+	next = temp->next;
+	prev = temp->previous;
+	if (temp->content)
 			free(temp->content);
-		free(temp);
-		temp = tp;
-	}
-	*gc = NULL;
-	exit(0);
+	free(temp);
+	temp = prev;
+	temp->next = next;
+	while((*gc)->previous)
+		(*gc) = (*gc)->previous;
+	return (0);
 }
