@@ -6,13 +6,13 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/17 09:37:35 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/17 11:36:45 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = init_parsing main heredoc exec_shell parsing_heredoc parsing_pipe \
+FILES = init_parsing main heredoc exec_shell parsing_heredoc parsing_pipe parsing \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -37,7 +37,7 @@ RESET = \033[0;39m
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
-vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution
+vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe
 
 all: $(NAME)
 

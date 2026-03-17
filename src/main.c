@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/16 14:57:12 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/17 12:49:39 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ int main(int argc, char *argv[], char *envp[])
     while (ft_strcmp(line, "exit") != 0)
     {
         line = readline(">minishell ");
+        add_history(line);
         //printf("%s\n", line);
         if (!line)
             ft_error_gc("Error\nCouldn't read line\n", &data.gc);
         data.str = ft_split_space_gc(line, ' ', "'", &data.gc);
-        init_parsing(&data, envp);
+        parsing(&data, envp);
+        // init_parsing(&data, envp);
     }
     rl_clear_history();
     ft_free_all_gc(&data.gc);
