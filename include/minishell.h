@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/03/17 14:13:34 by jdelmott         ###   ########.fr       */
-=======
-/*   Updated: 2026/03/18 11:33:13 by malaimo          ###   ########.fr       */
->>>>>>> marius
+/*   Updated: 2026/03/18 14:03:12 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +49,7 @@ typedef struct s_data
 	struct sigaction	sig_quit;
 	struct sigaction	sig_child;
 	struct sigaction	sig_child_slash;
+	int		pipenb;
 }			t_data;
 
 typedef struct s_command

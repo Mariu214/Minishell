@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 14:00:03 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/18 14:07:13 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int argc, char *argv[], char *envp[])
     (void)argv;
     data.gc = NULL;
     line = NULL;
-    printf("%d\n", getpid());
     while (ft_strcmp(line, "exit") != 0)
     {
         init_signal(&data.sig_int, &data.sig_quit, &data.sig_child, &data.sig_child_slash);
@@ -34,7 +33,7 @@ int main(int argc, char *argv[], char *envp[])
             ft_error_gc("", &data.gc);
         process_running = 1;
         data.str = ft_split_gc(line, ' ', &data.gc);
-        init_parsing(&data, envp);
+        parsing(&data, envp);
         process_running = 0;
     }
     ft_free_all_gc(&data.gc);
