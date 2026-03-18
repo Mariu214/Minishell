@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/12 14:26:13 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 10:02:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ char			**ft_split_gc(const char *str, char sep, t_gc **gc);
 char			**ft_split_space_gc(char *str, const char separateur,
 					char *start, t_gc **gc);
 void			ft_error_gc(char *str, t_gc **gc);
+int				ft_delone_gc(void *target, t_gc **gc);
 
 #endif
