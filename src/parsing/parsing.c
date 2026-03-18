@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 10:54:00 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:44:05 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,52 +45,92 @@ void	init_null(t_data *data, int size)
 void	define_line(t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (data->str[i])
 		i++;
 	init_null(data, i);
 	i = 0;
+	j = 0;
 	while (data->str[i])
 	{
-		if (is_redirection(data->str[i][0]))
+		if (data->str[i] && is_redirection(data->str[i][0]))
 		{
-			data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
-			data->line[i].is_redirection = 1;
+			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
+			if (data->str[i] && ft_strcmp(data->str[i], "<<") == 0)
+			{
+				data->line[j].str = ft_renew_gc(data->line[i].str, " ",
+						&data->gc);
+				data->line[j].str = ft_renew_gc(data->line[i].str, data->str[i
+						+ 1], &data->gc);
+				i++;
+			}
+			i++;
+			data->line[j].is_redirection = 1;
+			j++;
 		}
-		else if (i == 0 && !data->line[i].is_redirection)
+		else if (data->str[i] && is_pipe(data->str[i][0]))
 		{
-			data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
-			data->line[i].is_cmd = 1;
+			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
+			data->line[j].is_pipe = 1;
+			i++;
+			j++;
 		}
-		else if ((data->line[i - 1].is_cmd || data->line[i - 1].is_redirection)
-			&& !is_redirection(data->str[i][0]) && !is_pipe(data->str[i][0]))
+		else if (data->str[i] && !is_pipe(data->str[i][0])
+				&& !is_redirection(data->str[i][0]))
 		{
-			data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
-			data->line[i].is_file = 1;
+			if (i > 0 && (is_redirection(data->str[i - 1][0]) && !ft_strnstr(data->str[i
+					- 1], "<<", 3)))
+				break;
+			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
+			i++;
+			while (data->str[i] && !is_pipe(data->str[i][0])
+				&& !is_redirection(data->str[i][0]))
+			{
+				data->line[j].str = ft_renew_gc(data->line[j].str, " ",
+						&data->gc);
+				data->line[j].str = ft_renew_gc(data->line[j].str, data->str[i],
+						&data->gc);
+				i++;
+			}
+			data->line[j].is_cmd = 1;
+			j++;
 		}
-		else if (is_pipe(data->str[i][0]))
+		else // if (data->str[i] && (j > 0 && data->line[j - 1].is_redirection))
 		{
-			data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
-			data->line[i].is_pipe = 1;
+			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
+			data->line[j].is_file = 1;
+			j++;
+			i++;
 		}
-		else
-		{
-			data->line[i].str = ft_strdup_gc(data->str[i], &data->gc);
-			data->line[i].is_cmd = 1;
-		}
-		i++;
 	}
-	//     for (int a = 0; data->str[a]; a++)
-	//     ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n", data->line[a].is_pipe, data->line[a].is_redirection, data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
+	for (int a = 0; data->str[a]; a++)
+		ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n",
+			data->line[a].is_pipe, data->line[a].is_redirection,
+			data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
 }
+
+// void	apply_args(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (data->line[i].str)
+// 	{
+// 		if (data->line[i].is_cmd)
+// 		{
+// 			while (data->line[i])
+// 		}
+// 	}
+// }
 
 void	parsing(t_data *data, char *envp[])
 {
 	int		i;
 	pid_t	child;
 	int		signal;
-
 	i = 0;
 	count_pipe(data);
 	define_line(data);
