@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 12:32:08 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:38:30 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 10:05:24 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_bzero(void *s, size_t n)
 	unsigned char	*t;
 	size_t			m;
 
+	if (!s)
+		return ;
 	t = (unsigned char *)s;
 	m = 0;
 	while (m < n)

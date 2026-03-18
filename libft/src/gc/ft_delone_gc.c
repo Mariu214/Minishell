@@ -1,28 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_delone_gc.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 10:04:34 by malaimo           #+#    #+#             */
+/*   Updated: 2026/03/18 10:04:35 by malaimo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/libft.h"
 
-int	ft_delone_gc(t_gc **gc, void *target)
+int	ft_delone_gc(void *target, t_gc **gc)
 {
 	t_gc	*temp;
-	t_gc	*next;
-	t_gc	*prev;
 	int		i;
-	int		lim;
 
 	i = 0;
-	temp = (*gc);
-	lim = ft_srch_gc(gc, target);
-	if (!lim)
-		return (1);
-	while (i++ < lim)
+	temp = *gc;
+	while (temp && temp->content != target)
+	{
+		i++;
 		temp = temp->next;
-	next = temp->next;
-	prev = temp->previous;
+	}
+	if (!temp)
+		return (1);
+	if (temp->previous)
+		temp->previous->next = temp->next;
+	else
+		*gc = temp->next;
+	if (temp->next)
+		temp->next->previous = temp->previous;
 	if (temp->content)
-			free(temp->content);
+		free(temp->content);
 	free(temp);
-	temp = prev;
-	temp->next = next;
-	while((*gc)->previous)
-		(*gc) = (*gc)->previous;
 	return (0);
 }
