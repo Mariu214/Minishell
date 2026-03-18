@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 16:30:00 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:01:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	data.gc = NULL;
+    data.env = ft_splitcpy_gc(envp, &data.gc);
 	line = NULL;
 	while (ft_strcmp(line, "exit") != 0)
 	{
