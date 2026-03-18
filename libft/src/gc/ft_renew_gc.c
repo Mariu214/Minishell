@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc_gc.c                                     :+:      :+:    :+:   */
+/*   ft_renew_gc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/11 14:53:19 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 15:11:03 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/18 15:08:18 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/18 15:09:43 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-void	*ft_calloc_gc(size_t nmemb, size_t size, t_gc **gc)
+char	*ft_renew_gc(char *start, char *end, t_gc **gc)
 {
-	void		*tab;
-	long int	n2;
-	long int	s2;
+	char *temp;
 
-	n2 = (long int)nmemb;
-	s2 = (long int)size;
-	if ((nmemb > SIZE_MAX / size) || (n2 < 0 && s2 < 0))
-		return (NULL);
-	tab = (void *)malloc(nmemb * size);
-	if (!tab)
-		ft_error_gc("", gc, 1);
-	ft_bzero(tab, (nmemb * size));
-	if (ft_lstadd_gc(gc, tab))
-		ft_error_gc("", gc, 1);
-	return (tab);
+    if (!start || !end || !gc)
+        return (NULL);
+    temp = ft_strjoin_gc(start, end, gc);
+    ft_delone_gc(start, gc);
+	return (temp);
 }
