@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error_gc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/12 14:25:46 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 09:56:50 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@ void	ft_error_gc(char *str, t_gc **gc)
 {
 	ft_printf_fd(2, "%s", str);
 	ft_free_all_gc(gc);
+	exit(1);
 }

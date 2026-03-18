@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_all_gc.c                                   :+:      :+:    :+:   */
+/*   ft_delone_gc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/11 14:53:27 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 09:56:32 by malaimo          ###   ########.fr       */
+/*   Created: 2026/03/18 10:04:34 by malaimo           #+#    #+#             */
+/*   Updated: 2026/03/18 10:04:35 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-void	ft_free_all_gc(t_gc **gc)
+int	ft_delone_gc(void *target, t_gc **gc)
 {
 	t_gc	*temp;
-	t_gc	*tp;
+	int		i;
 
-	temp = (*gc);
-	while (temp)
+	i = 0;
+	temp = *gc;
+	while (temp && temp->content != target)
 	{
-		tp = temp->next;
-		if (temp->content)
-			free(temp->content);
-		free(temp);
-		temp = tp;
+		i++;
+		temp = temp->next;
 	}
-	*gc = NULL;
+	if (!temp)
+		return (1);
+	if (temp->previous)
+		temp->previous->next = temp->next;
+	else
+		*gc = temp->next;
+	if (temp->next)
+		temp->next->previous = temp->previous;
+	if (temp->content)
+		free(temp->content);
+	free(temp);
+	return (0);
 }
