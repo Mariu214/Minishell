@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_space.c                                   :+:      :+:    :+:   */
+/*   ft_split_sentence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -94,7 +94,7 @@ static char	**do_split(char **split, const char *str, char c, char *start)
 	return (split);
 }
 
-char	**ft_split_space(char *str, const char sep, char *start)
+char	**ft_split_sentence(char *str, const char sep, char *start)
 {
 	char	**split;
 	int		words;

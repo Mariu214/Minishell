@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is.h                                               :+:      :+:    :+:   */
+/*   ft_free_tab_gc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 15:48:49 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 15:59:07 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/18 16:14:32 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/18 16:15:16 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IS_H
-# define IS_H
+#include "../../include/libft.h"
 
-int					ft_isalpha(int c);
-int					ft_isdigit(int c);
-int					ft_isalnum(int c);
-int					ft_isascii(int c);
-int					ft_isprint(int c);
-int					ft_toupper(int c);
-int					ft_tolower(int c);
-int					is_there(const char okay, char *look_inside_me);
+void	ft_free_tab_gc(char **tab, t_gc **gc)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (tab[i])
+	{
+		ft_delone_gc(tab[i], gc);
+		i++;
+	}
+	ft_delone_gc(tab, gc);
+}

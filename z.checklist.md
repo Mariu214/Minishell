@@ -10,16 +10,16 @@ characters in the quoted sequence.
 - Handle " (double quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence except for $ (dollar sign)
 
-- < should redirect input.
-- > should redirect output.
+<!-- - < should redirect input.
+- > should redirect output. -->
 <!-- - << should be given a delimiter, then read the input until a line containing the
 delimiter is seen. However, it doesn’t have to update the history! -->
-- >> should redirect output in append mode.
+<!-- - >> should redirect output in append mode. -->
 
 
-- ctrl-C end the current process and return to prompt.
+<!-- - ctrl-C end the current process and return to prompt. -->
 - ctrl-D send EOF to the current process
-- ctrl-\ quit process (core dumped).
+<!-- - ctrl-\ quit process (core dumped). -->
 
 ## interactive mode
 <!-- - ctrl-C displays a new prompt on a new line.
@@ -35,4 +35,4 @@ foreground pipeline.
 - export with no options
 - unset with no options
 - env with no options or arguments
-- exit with no options
+<!-- - exit with no options -->

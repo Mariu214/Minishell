@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_space_gc.c                                :+:      :+:    :+:   */
+/*   ft_split_sentence_gc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -59,7 +59,7 @@ static int	get_words(const char *str, char c, char *start)
 	return (j);
 }
 
-static char	**do_split(t_split_space *data, const char *str, char *start,
+static char	**do_split(t_split_sentence *data, const char *str, char *start,
 		t_gc **gc)
 {
 	int	words;
@@ -87,11 +87,11 @@ static char	**do_split(t_split_space *data, const char *str, char *start,
 	return (data->split);
 }
 
-char	**ft_split_space_gc(char *str, const char separateur, char *start,
+char	**ft_split_sentence_gc(char *str, const char separateur, char *start,
 		t_gc **gc)
 {
 	int				words;
-	t_split_space	data;
+	t_split_sentence	data;
 
 	if (!str)
 		return (NULL);
