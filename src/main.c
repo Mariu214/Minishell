@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 10:50:08 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 13:05:05 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main(int argc, char *argv[], char *envp[])
             signal_received = 0;
         else
         {
-            data.str = ft_split_space_gc(line, ' ', "\"", &data.gc);
+            data.str = ft_split_gc(line, ' ', &data.gc);
             parsing(&data, envp);
         }
     }
