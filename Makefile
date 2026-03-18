@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/17 15:52:56 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/18 10:15:51 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iinclude -lreadline -g3 -o $(NAME)
-	@echo "$(GREEN)Minishell Compiled!$(RESET)"
+	@echo -e "$(GREEN)Minishell Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 	@$(CC) $(FLAGS) -c -g3 $< -o $@
@@ -55,14 +55,14 @@ clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIBFT_DIR)
-	@echo "$(YELLOW)minishell: make clean$(RESET)"
+	@echo -e "$(YELLOW)minishell: make clean$(RESET)"
 
 fclean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT_DIR)
-	@echo "$(YELLOW)minishell: make fclean$(RESET)"
+	@echo -e "$(YELLOW)minishell: make fclean$(RESET)"
 
 re: fclean all
 

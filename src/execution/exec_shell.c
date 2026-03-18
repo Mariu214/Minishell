@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/17 14:24:14 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 10:41:21 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,33 @@ static char	*is_accessible(char *cmd, char *envp[])
 	return (cmd);
 }
 
+static char	*remove_double_quote(char *cmd)
+{
+	int		i;
+	int		j;
+	char	*removed;
+
+	i = 1;
+	j = 0;
+	if (!is_there(cmd[0], "\""))
+	{
+		removed = ft_strdup(cmd);
+		if (!removed)
+			return (NULL);
+		return (removed);
+	}
+	removed = ft_calloc(sizeof(char), (ft_strlen(cmd) - 1));
+	if (!removed)
+		return (NULL);
+	while (cmd[i + 1])
+	{
+		removed[j] = cmd[i];
+		i++;
+		j++;
+	}
+	return (removed);
+}
+
 void	exec(char *cmd, char *envp[])
 {
 	char		*path;
@@ -91,6 +118,7 @@ void	exec(char *cmd, char *envp[])
 
 	if (!cmd[0])
 		exit(1);
+	cmd = remove_double_quote(cmd);
 	command.free = 0;
 	command.s_cmd = ft_split_space(cmd, ' ', "'");
 	path = is_already_path(&command);
