@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by malaimo*
+*This project has been created as part of the 42 curriculum by malaimo and jdelmott*
 
 # Description
 The objective of the so_long project is to create a basic 2D video game. This project covers the fundamentals of the MiniLibX library as well as the basics of visual management. The player takes on the role of a skeleton searching for bones to reassemble their lover, all while dodging dogs eager to snatch those sweet and succulent bones.
