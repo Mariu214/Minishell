@@ -26,7 +26,6 @@ void    init_parsing(t_data *data, char **envp)
 
         waitpid(child_line, &signal, 0);
     }
-    //printf("%i\n", dup(0));
     //exec(data->str[1], envp);
 }
 

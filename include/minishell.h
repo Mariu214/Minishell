@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/17 10:49:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/18 11:33:13 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
+# include <unistd.h>
 # include <sys/wait.h>
 # include <signal.h>
 
-extern volatile int signal_received;
+extern volatile int process_running;
 
 
 
@@ -35,6 +36,8 @@ typedef struct s_data
 	char	**str;
 	struct sigaction	sig_int;
 	struct sigaction	sig_quit;
+	struct sigaction	sig_child;
+	struct sigaction	sig_child_slash;
 }			t_data;
 
 typedef struct s_command

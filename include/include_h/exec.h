@@ -14,6 +14,6 @@ typedef struct s_sic
 void	    here_doc(char *lim, int pipenb, t_data *data);
 void		exec(char *cmd, char *envp[]);
 void        signal_handler(int signum);
-void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, int i);
+void    	init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash);
 
 #endif

@@ -4,36 +4,43 @@
 void    child_quit(int signum)
 {
     (void)signum;
-    signal_received = 1;
+
+    exit (0);
 }
 
-void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, int i)
+void    signal_quit(int signum)
 {
-    (void)i;
-        sig_int->sa_handler = child_quit;
+    (void)signum;
+
+    exit (0);
+}
+
+void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash)
+{
+        sig_int->sa_handler = signal_handler;
 	    sigemptyset(&sig_int->sa_mask);
 	    sig_int->sa_flags = SA_RESTART;
         sig_quit->sa_handler = SIG_IGN;
 	    sigemptyset(&sig_quit->sa_mask);
 	    sig_quit->sa_flags = SA_RESTART;
-    // else
-    // {
-    //     sig_int->sa_handler = SIG_IGN;
-	//     sigemptyset(&sig_int->sa_mask);
-	//     sig_int->sa_flags = 0;
-    //     sig_quit->sa_handler = child_quit;
-	//     sigemptyset(&sig_quit->sa_mask);
-	//     sig_quit->sa_flags = 0;
-    // }
+        sig_child->sa_handler = child_quit;
+	    sigemptyset(&sig_child->sa_mask);
+	    sig_child->sa_flags = SA_RESTART;
+        sig_child_slash->sa_handler = signal_quit;
+	    sigemptyset(&sig_child_slash->sa_mask);
+	    sig_child_slash->sa_flags = SA_RESTART;
 }
 
 void    signal_handler(int signum)
 {
-    if (signum == SIGINT)
+    (void)signum;
+    if (!process_running)
     {
         write(1, "\n", 1);
         rl_on_new_line();
         rl_redisplay();
-        signal_received = 1;
+        process_running = 1;
     }
+    else 
+        write(1, "\n", 1);
 }
