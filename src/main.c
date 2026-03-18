@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 15:09:02 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:35:48 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int main(int argc, char *argv[], char *envp[])
         sigaction(SIGINT, &data.sig_int, NULL);
         sigaction(SIGQUIT, &data.sig_quit, NULL);
         line = readline(">minishell ");
-        if (line[0])
-            add_history(line);
         if (!line)
             ft_error_gc("", &data.gc, 0);
+        if (line[0])
+            add_history(line);
         process_running = 1;
         data.str = ft_split_gc(line, ' ', &data.gc);
         parsing(&data, envp);
