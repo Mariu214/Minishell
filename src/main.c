@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 10:19:53 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 10:50:08 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int main(int argc, char *argv[], char *envp[])
         sigaction(SIGINT, &data.sig_int, NULL);
         sigaction(SIGQUIT, &data.sig_quit, NULL);
         line = readline(">minishell ");
-        add_history(line);
+        if (line[0])
+            add_history(line);
         if (!line)
             ft_free_all_gc(&data.gc);
         if (signal_received)
