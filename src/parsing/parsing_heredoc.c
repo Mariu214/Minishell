@@ -5,7 +5,5 @@ void    parsing_heredoc(t_data *data, char *lim)
     if (!data->str[1])
         ft_error_gc("Error\nInvalid limiter\n", &data->gc, 1);
     here_doc(lim, data->pipenb, data);
-    if (!data->str[2])
-            exec("cat", data);
     return;
 }
