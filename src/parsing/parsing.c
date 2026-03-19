@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 14:57:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 17:55:21 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	define_line(t_data *data)
 	j = 0;
 	while (data->str[i])
 	{
-		if (data->str[i] && is_redirection(data->str[i][0]))
+		if (data->str[i] && is_redirection(data->str[i][0]))// gerer |> et |>>
 		{
 			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
 			if (data->str[i] && ft_strcmp(data->str[i], "<<") == 0)
@@ -114,6 +114,7 @@ int	parsing(t_data *data)
 	int		i;
 	pid_t	child;
 	int		signal;
+	int		return_value;
 	
 	i = 0;
 	count_pipe(data);
@@ -126,21 +127,28 @@ int	parsing(t_data *data)
 		else
 		{
 			do_redirection(data);
-			while (data->str[i])
+			while (data->line[i].str)
 			{
-				if (ft_strcmp(data->str[i], "exit") == 0)
-				ft_free_all_gc(&data->gc);
-				if (data->line[i].is_redirection
-					&& ft_strcmp(ft_split_gc(data->line[i].str, ' ', &data->gc)[0],
-					"<<") == 0)
-					parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
-						&data->gc)[1]);
-				if (data->line[i].is_cmd)
-				exec(data->line[i].str, data);
+				if (data->pipedone == data->pipenb)
+					return_value = last_pipe(data->line[i].str, data, 1);
+				else if (data->pipenb == 0)
+					return_value = do_comm(data, i);
+				else
+				{
+					if (data->line[i].is_pipe)
+					{
+						return_value = do_pipe(data, i - 1);
+						data->pipedone++;			
+						if (!data->line[i + 1].str)
+						{
+							return_value = last_last_pipe(data);
+						}
+					}
+				}
 				i++;
 			}
 		}
-		ft_error_gc("", &data->gc, 0);
+		ft_error_gc("", &data->gc, return_value);
 	}
 	else
 	{
