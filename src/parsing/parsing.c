@@ -6,7 +6,11 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/03/19 10:35:32 by malaimo          ###   ########.fr       */
+=======
+/*   Updated: 2026/03/19 09:38:54 by jdelmott         ###   ########.fr       */
+>>>>>>> prototype
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +74,14 @@ void	define_line(t_data *data)
 			data->line[j].is_redirection = 1;
 			j++;
 		}
+		else if (data->str[i] && (j > 0 && data->line[j - 1].is_redirection)
+			&& !ft_strnstr(data->line[j - 1].str, "<<", 3))
+		{
+			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
+			data->line[j].is_file = 1;
+			j++;
+			i++;
+		}
 		else if (data->str[i] && is_pipe(data->str[i][0]))
 		{
 			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
@@ -78,11 +90,8 @@ void	define_line(t_data *data)
 			j++;
 		}
 		else if (data->str[i] && !is_pipe(data->str[i][0])
-				&& !is_redirection(data->str[i][0]))
+			&& !is_redirection(data->str[i][0]))
 		{
-			if (i > 0 && (is_redirection(data->str[i - 1][0]) && !ft_strnstr(data->str[i
-					- 1], "<<", 3)))
-				break;
 			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
 			i++;
 			while (data->str[i] && !is_pipe(data->str[i][0])
@@ -97,13 +106,6 @@ void	define_line(t_data *data)
 			data->line[j].is_cmd = 1;
 			j++;
 		}
-		else // if (data->str[i] && (j > 0 && data->line[j - 1].is_redirection))
-		{
-			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
-			data->line[j].is_file = 1;
-			j++;
-			i++;
-		}
 	}
 	// for (int a = 0; data->str[a]; a++)
 	// 	ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n",
@@ -111,27 +113,11 @@ void	define_line(t_data *data)
 	// 		data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
 }
 
-// void	apply_args(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (data->line[i].str)
-// 	{
-// 		if (data->line[i].is_cmd)
-// 		{
-// 			while (data->line[i])
-// 		}
-// 	}
-// }
-
-void	parsing(t_data *data, char *envp[])
+void	parsing(t_data *data)
 {
 	int		i;
 	pid_t	child;
 	int		signal;
-	
 	i = 0;
 	count_pipe(data);
 	define_line(data);
@@ -141,16 +127,18 @@ void	parsing(t_data *data, char *envp[])
 		do_redirection(data);
 		while (data->str[i])
 		{
-		if (ft_strcmp(data->str[i], "exit") == 0)
-			ft_free_all_gc(&data->gc);
-		if (data->line[i].is_redirection && ft_strcmp(data->line[i].str,
-			"<<") == 0)
-			parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ', &data->gc)[1], envp);
-		if (data->line[i].is_cmd)
-			exec(data->line[i].str, envp);
-		i++;
+			if (ft_strcmp(data->str[i], "exit") == 0)
+				ft_free_all_gc(&data->gc);
+			if (data->line[i].is_redirection
+				&& ft_strcmp(ft_split_gc(data->line[i].str, ' ', &data->gc)[0],
+					"<<") == 0)
+				parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
+						&data->gc)[1]);
+			if (data->line[i].is_cmd)
+				exec(data->line[i].str, data->env);
+			i++;
 		}
-		exit (0);
+		ft_error_gc("", &data->gc, 0);
 	}
 	else
 		waitpid(child, &signal, 0);

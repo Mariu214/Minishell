@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/19 10:35:43 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 10:42:35 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(line);
 		process_running = 1;
 		data.str = ft_split_gc(line, ' ', &data.gc);
-		parsing(&data, envp);
+		parsing(&data);
 		process_running = 0;
 	}
 	ft_free_all_gc(&data.gc);
