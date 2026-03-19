@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 12:38:58 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:00:13 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ void	define_line(t_data *data)
 	// 		data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
 }
 
-void	parsing(t_data *data)
+int	parsing(t_data *data)
 {
 	int		i;
 	pid_t	child;
 	int		signal;
-
+	
 	i = 0;
 	count_pipe(data);
 	define_line(data);
@@ -138,5 +138,23 @@ void	parsing(t_data *data)
 		ft_error_gc("", &data->gc, 0);
 	}
 	else
+	{
 		waitpid(child, &signal, 0);
+		if (WIFEXITED(signal))
+		{
+			if (WEXITSTATUS(signal) == 131)
+				printf("\n[1]	%d quit (core dumped) %s\n", child, data->str[0]);
+			return(WEXITSTATUS(signal));
+		}
+		if (WIFSIGNALED(signal))
+		{
+			if (WTERMSIG(signal) == 3)
+			{
+				printf("[1]	%d quit (core dumped) %s\n", child, data->str[0]);
+				return (131);
+			}
+			return (130);
+		}
+	}
+	return(0);
 }

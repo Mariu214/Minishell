@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 12:48:41 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:00:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	exec(char *cmd, t_data *data)
 
 	if (!cmd[0])
 		exit(1);
+	(void)data;
+	sigaction(SIGINT, &data->sig_child, NULL);
+	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
 	command.free = 0;
 	command.s_cmd = ft_split_sentence_gc(cmd, ' ', "'", &data->gc);
 	path = is_already_path(&command, data);
