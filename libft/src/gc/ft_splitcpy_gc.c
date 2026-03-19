@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is.h                                               :+:      :+:    :+:   */
+/*   ft_splitcpy_gc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 15:48:49 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 15:59:07 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/18 16:31:57 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/19 12:29:20 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IS_H
-# define IS_H
+#include "../../include/libft.h"
 
-int					ft_isalpha(int c);
-int					ft_isdigit(int c);
-int					ft_isalnum(int c);
-int					ft_isascii(int c);
-int					ft_isprint(int c);
-int					ft_toupper(int c);
-int					ft_tolower(int c);
-int					is_there(const char okay, char *look_inside_me);
+char	**ft_splitcpy_gc(char **str, t_gc **gc)
+{
+	int		i;
+	char	**cpy;
 
-#endif
+	i = 0;
+	if (!str)
+		return (NULL);
+	cpy = ft_calloc_gc(sizeof(char *), (ft_splitlen(str) + 1), gc);
+	while (str[i])
+	{
+		cpy[i] = ft_strdup_gc(str[i], gc);
+		i++;
+	}
+	return (cpy);
+}

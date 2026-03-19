@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 13:59:22 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 14:00:07 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,18 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 	print_pipe(pipenb);
 	(void)data;
 	ft_printf_fd(2, "heredoc> ");
-	join = ft_strjoin(lim, "\n");
-	gnl = gnl_lim(0, join);
+	join = ft_strjoin_gc(lim, "\n", &data->gc);
+	gnl = ft_gnl_gc(0, &data->gc);
 	close(end_pipe[0]);
 	while (ft_strcmp(gnl, join) != 0)
 	{
 		print_pipe(pipenb);
 		ft_printf_fd(2, "heredoc> ");
 		ft_printf_fd(end_pipe[1], "%s", gnl);
-		free(gnl);
-		gnl = gnl_lim(0, join);
+		ft_delone_gc(gnl, &data->gc);
+		gnl = ft_gnl_gc(0, &data->gc);
 	}
-	free(gnl);
-	free(join);
-	exit(0);
+	ft_error_gc("", &data->gc, 0);
 }
 
 void	here_doc(char *lim, int pipenb, t_data *data)
@@ -55,7 +53,7 @@ void	here_doc(char *lim, int pipenb, t_data *data)
 
 	pipe(end_pipe);
 	sigaction(SIGINT, &data->sig_child, NULL);
-	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
+	sigaction(SIGQUIT, &data->sig_quit, NULL);
 	parent = fork();
 	if (!parent)
 		here_doc_next(lim, end_pipe, pipenb, data);

@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_space.c                                   :+:      :+:    :+:   */
+/*   ft_split_sentence_gc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 12:03:36 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:40:51 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/19 12:29:45 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/19 12:29:47 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
-
-static void	free_split(char **split, int count)
-{
-	while (count--)
-		free(split[count]);
-	free(split);
-	exit(1);
-}
 
 static int	count_words(const char *str, char c, char *start)
 {
@@ -67,7 +59,8 @@ static int	get_words(const char *str, char c, char *start)
 	return (j);
 }
 
-static char	**do_split(char **split, const char *str, char c, char *start)
+static char	**do_split(t_split_sentence *data, const char *str, char *start,
+		t_gc **gc)
 {
 	int	words;
 	int	i;
@@ -78,36 +71,41 @@ static char	**do_split(char **split, const char *str, char c, char *start)
 	while (str[i])
 	{
 		j = 0;
-		while (str[i] == c && str[i])
+		while (str[i] == data->sep && str[i])
 			i++;
-		j = get_words(&str[i], c, start);
-		split[words] = ft_calloc(sizeof(char), j + 1);
-		if (!split[words])
-			free_split(split, words);
-		ft_strlcpy(split[words], (char *)&str[i], j + 1);
+		j = get_words(&str[i], data->sep, start);
+		data->split[words] = ft_calloc_gc(sizeof(char), j + 1, gc);
+		if (!data->split[words])
+			return (0);
+		ft_strlcpy(data->split[words], (char *)&str[i], j + 1);
 		i += j;
 		words++;
-		if (words == count_words(str, c, start))
+		if (words == count_words(str, data->sep, start))
 			break ;
 	}
-	split[words] = NULL;
-	return (split);
+	data->split[words] = NULL;
+	return (data->split);
 }
 
-char	**ft_split_space(char *str, const char sep, char *start)
+char	**ft_split_sentence_gc(char *str, const char separateur, char *start,
+		t_gc **gc)
 {
-	char	**split;
-	int		words;
+	int					words;
+	t_split_sentence	data;
 
 	if (!str)
 		return (NULL);
-	words = count_words(str, sep, start);
-	split = ft_calloc(sizeof(char *), words + 1);
-	if (split == NULL)
+	data.sep = separateur;
+	words = count_words(str, data.sep, start);
+	data.split = ft_calloc_gc(sizeof(char *), words + 1, gc);
+	if (data.split == NULL)
 		return (0);
 	if (!str[0] || words == 0)
-		return (split);
-	return (do_split(split, str, sep, start));
+		return (data.split);
+	data.split = do_split(&data, str, start, gc);
+	if (!data.split)
+		return (NULL);
+	return (data.split);
 }
 
 /*int	main(int argc, char *argv[])

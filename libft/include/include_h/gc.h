@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 15:08:20 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 11:36:26 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ typedef struct s_gc
 	struct s_gc	*previous;
 }				t_gc;
 
-typedef struct s_split_space
+typedef struct s_split_sentence
 {
 	char		**split;
 	char		sep;
-}				t_split_space;
+}				t_split_sentence;
 
 void			*ft_calloc_gc(size_t nmemb, size_t size, t_gc **gc);
 void			ft_free_all_gc(t_gc **gc);
@@ -33,9 +33,12 @@ char			*ft_strdup_gc(const char *s, t_gc **gc);
 char			*ft_strjoin_gc(char const *s1, char const *s2, t_gc **gc);
 char			*ft_renew_gc(char *start, char *end, t_gc **gc);
 char			**ft_split_gc(const char *str, char sep, t_gc **gc);
-char			**ft_split_space_gc(char *str, const char separateur,
+char			**ft_split_sentence_gc(char *str, const char separateur,
 					char *start, t_gc **gc);
 void			ft_error_gc(char *str, t_gc **gc, int out);
 int				ft_delone_gc(void *target, t_gc **gc);
+void			ft_free_tab_gc(char **tab, t_gc **gc);
+char			**ft_splitcpy_gc(char **str, t_gc **gc);
+char			*ft_gnl_gc(int fd, t_gc **gc);
 
 #endif

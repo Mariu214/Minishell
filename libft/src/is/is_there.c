@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   is_there.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:08:12 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:34:08 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 10:28:51 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-int	is_there(const char str, char *start)
+int	is_there(const char okay, char *look_inside_me)
 {
 	int	i;
 
 	i = 0;
-	while (start[i])
+	while (look_inside_me[i])
 	{
-		if (str == start[i])
+		if (okay == look_inside_me[i])
 			return (1);
 		i++;
 	}

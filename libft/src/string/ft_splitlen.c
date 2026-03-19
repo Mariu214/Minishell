@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is.h                                               :+:      :+:    :+:   */
+/*   ft_splitlen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 15:48:49 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 15:59:07 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/18 16:33:02 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/19 12:30:06 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IS_H
-# define IS_H
+#include "../../include/libft.h"
 
-int					ft_isalpha(int c);
-int					ft_isdigit(int c);
-int					ft_isalnum(int c);
-int					ft_isascii(int c);
-int					ft_isprint(int c);
-int					ft_toupper(int c);
-int					ft_tolower(int c);
-int					is_there(const char okay, char *look_inside_me);
+size_t	ft_splitlen(char **str)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	if (!str)
+		return (i);
+	while (str[i])
+		i++;
+	return (i);
+}
