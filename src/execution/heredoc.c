@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 13:59:22 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 10:07:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	here_doc(char *lim, int pipenb, t_data *data)
 		int signal;
 
         waitpid(parent, &signal, 0);
+		printf("%d\n", data->pid);
 		close(end_pipe[1]);
 		dup2(end_pipe[0], 0);
 	}

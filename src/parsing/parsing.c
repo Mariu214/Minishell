@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 15:46:22 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 10:35:32 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	parsing(t_data *data, char *envp[])
 	int		i;
 	pid_t	child;
 	int		signal;
+	
 	i = 0;
 	count_pipe(data);
 	define_line(data);
