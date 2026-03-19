@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 16:05:47 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 16:06:38 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,46 @@
 static int	no_fil_dir(t_command *command, t_data *data)
 {
 	char	**split;
+	char	*path;
+
+	split = ft_split(command->s_cmd[0], '/');
+    if (!split)
+        return (0);
+	else if (ft_strcmp(split[0], "usr") == 0 && ft_strcmp(split[1], "bin") == 0)
+	{
+		if (access(command->s_cmd[0], X_OK | F_OK) != 0)
+		{
+			path = ft_strjoin("/", command->s_cmd[0]);
+			if (access(path, X_OK | F_OK) != 0)
+			{
+				command->free = 1;
+				free_tab(split);
+				free(path);
+				ft_printf_fd(2, "minishell: no such file or directory: %s\n",
+					command->s_cmd[0]);
+				return (127);
+			}
+		}
+	}
+	free_tab(split);
+	return (0);
+}
+
+static char	*is_already_path(t_command *command, t_data *data)
+{
+	char	*path;
+
+	if (!*command->s_cmd)
+		return (NULL);
+	if (no_fil_dir(command, data) == 127)
+		return (NULL);
+	if (access(command->s_cmd[0], X_OK | F_OK) == 0)
+		return (command->s_cmd[0]);
+	path = ft_strjoin("/", command->s_cmd[0]);
+	if (access(path, X_OK | F_OK) == 0)
+		return (path);
+	free(path);
+	return (NULL);
 }
 
 static char	*is_accessible(char *cmd, t_data *data)
