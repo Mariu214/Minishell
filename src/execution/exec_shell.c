@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 12:48:41 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:05:17 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*is_already_path(t_command *command, t_data *data)
 		return (NULL);
 	if (access(command->s_cmd[0], X_OK | F_OK) == 0)
 		return (command->s_cmd[0]);
-	path = ft_strjoin_gc("/", command->s_cmd[0], &data->gc);
+	path = ft_strjoin("/", command->s_cmd[0]);
 	if (access(path, X_OK | F_OK) == 0)
 		return (path);
 	return (NULL);
@@ -61,11 +61,11 @@ static char	*is_accessible(char *cmd, t_data *data)
 	while (temp.all_path[temp.i])
 	{
 		temp.join = ft_strjoin_gc(temp.all_path[temp.i], "/", &data->gc);
-		temp.path = ft_strjoin_gc(temp.join, temp.s_cmd[0], &data->gc);
+		temp.path = ft_strjoin(temp.join, temp.s_cmd[0]);
 		if (access(temp.path, X_OK | F_OK) == 0)
 			return (temp.path);
 		ft_delone_gc(temp.join, &data->gc);
-		ft_delone_gc(temp.path, &data->gc);
+		free(temp.path);
 		temp.i++;
 	}
 	return (cmd);
@@ -75,22 +75,27 @@ void	exec(char *cmd, t_data *data)
 {
 	char		*path;
 	t_command	command;
+	char		**envcpy;
 
 	if (!cmd[0])
 		exit(1);
 	command.free = 0;
-	command.s_cmd = ft_split_sentence_gc(cmd, ' ', "'", &data->gc);
+	command.s_cmd = ft_split_sentence(cmd, ' ', "'");
 	path = is_already_path(&command, data);
 	if (command.s_cmd[0] == NULL)
 	{
+		free_tab(command.s_cmd);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: \n");
 		ft_error_gc("", &data->gc, 127);
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
-	if (execve(path, command.s_cmd, data->env) == -1)
+	envcpy = ft_splitcpy(data->env);
+	ft_free_all_gc(&data->gc);
+	if (execve(path, command.s_cmd, envcpy) == -1)
 	{
+		free_tab(command.s_cmd);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: %s\n", cmd);
 		ft_error_gc("", &data->gc, 127);

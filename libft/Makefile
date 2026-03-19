@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/19 11:32:28 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/19 14:04:20 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint ft_strlen ft_mems
       ft_lstdelone ft_lstclear ft_lstiter ft_lstmap ft_strnstr_back ft_strcmp ft_getenv ft_printf_fd ft_putnbr_base_fd ft_putnbr_p_fd \
       ft_putnbr_u_fd free_tab gnl_lim is_there ft_split_sentence ft_calloc_gc ft_free_all_gc ft_lstadd_gc ft_strdup_gc ft_strjoin_gc \
 	  ft_split_gc ft_split_sentence_gc ft_error_gc ft_delone_gc ft_renew_gc ft_free_tab_gc ft_splitlen ft_split_gc ft_splitlen ft_splitcpy_gc \
-	  ft_gnl_gc \
+	  ft_gnl_gc ft_splitcpy \
       
 SRC_DIR = src/
 OBJ_DIR = obj/
