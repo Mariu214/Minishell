@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 17:55:21 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 18:02:57 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,7 @@ int	parsing(t_data *data)
 						return_value = do_pipe(data, i - 1);
 						data->pipedone++;			
 						if (!data->line[i + 1].str)
-						{
 							return_value = last_last_pipe(data);
-						}
 					}
 				}
 				i++;
