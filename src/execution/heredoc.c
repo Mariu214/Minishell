@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 15:27:45 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 16:16:20 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	here_doc(char *lim, int pipenb, t_data *data)
 
 	pipe(end_pipe);
 	sigaction(SIGINT, &data->sig_child, NULL);
-	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
+	sigaction(SIGQUIT, &data->sig_quit, NULL);
 	parent = fork();
 	if (!parent)
 		here_doc_next(lim, end_pipe, pipenb, data);

@@ -17,7 +17,6 @@ void    signal_quit(int signum)
 
 void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash)
 {
-    // (void)sig_child_slash;
         sig_int->sa_handler = signal_handler;
 	    sigemptyset(&sig_int->sa_mask);
 	    sig_int->sa_flags = SA_RESTART;
@@ -27,7 +26,7 @@ void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struc
         sig_child->sa_handler = child_quit;
 	    sigemptyset(&sig_child->sa_mask);
 	    sig_child->sa_flags = SA_RESTART;
-        sig_child_slash->sa_handler = SIG_IGN;
+        sig_child_slash->sa_handler = signal_quit;
 	    sigemptyset(&sig_child_slash->sa_mask);
 	    sig_child_slash->sa_flags = SA_RESTART;
 }
