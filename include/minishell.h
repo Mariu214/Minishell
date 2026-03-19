@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/19 13:38:12 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 14:03:48 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_data
 	struct sigaction	sig_child;
 	struct sigaction	sig_child_slash;
 	int		pipenb;
-	pid_t	pid;
+	int		dollar;
 }			t_data;
 
 typedef struct s_command
