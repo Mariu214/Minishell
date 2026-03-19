@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_shell2.c                                      :+:      :+:    :+:   */
+/*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 14:34:37 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:40:59 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ void	exec(char *cmd, t_data *data)
 	ft_free_all_gc(&data->gc);
 	if (execve(path, command.s_cmd, envcpy) == -1)
 	{
-		free_tab(command.s_cmd);
 		if (command.free == 0)
-			ft_printf_fd(2, "minishell: command not found: %s\n", cmd);
+			ft_printf_fd(2, "minishell: command not found: %s\n", command.s_cmd[0]);
+		free_tab(command.s_cmd);
 		ft_error_gc("", &data->gc, 127);
 	}
 }
