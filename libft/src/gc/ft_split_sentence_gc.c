@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_sentence_gc.c                                :+:      :+:    :+:   */
+/*   ft_split_sentence_gc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/11 14:53:55 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/11 14:53:57 by malaimo          ###   ########.fr       */
+/*   Created: 2026/03/19 12:29:45 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/19 12:29:47 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	**do_split(t_split_sentence *data, const char *str, char *start,
 char	**ft_split_sentence_gc(char *str, const char separateur, char *start,
 		t_gc **gc)
 {
-	int				words;
+	int					words;
 	t_split_sentence	data;
 
 	if (!str)

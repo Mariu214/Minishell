@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 10:33:21 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 11:29:57 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 	print_pipe(pipenb);
 	(void)data;
 	ft_printf_fd(2, "heredoc> ");
-	join = ft_strjoin_fd(lim, "\n");
+	join = ft_strjoin(lim, "\n");
 	gnl = gnl_lim(0, join);
 	close(end_pipe[0]);
 	while (ft_strcmp(gnl, join) != 0)

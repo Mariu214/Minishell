@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:31:57 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 17:04:09 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:29:20 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	**ft_splitcpy_gc(char **str, t_gc **gc)
 {
-	int i;
-	char **cpy;
+	int		i;
+	char	**cpy;
 
 	i = 0;
 	if (!str)
