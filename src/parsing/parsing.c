@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 14:00:13 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 14:33:27 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,19 +121,24 @@ int	parsing(t_data *data)
 	child = fork();
 	if (!child)
 	{
-		do_redirection(data);
-		while (data->str[i])
+		if (ft_strcmp(data->str[i], "$?") == 0)
+			printf("%d: command not found\n", data->dollar);
+		else
 		{
-			if (ft_strcmp(data->str[i], "exit") == 0)
+			do_redirection(data);
+			while (data->str[i])
+			{
+				if (ft_strcmp(data->str[i], "exit") == 0)
 				ft_free_all_gc(&data->gc);
-			if (data->line[i].is_redirection
-				&& ft_strcmp(ft_split_gc(data->line[i].str, ' ', &data->gc)[0],
+				if (data->line[i].is_redirection
+					&& ft_strcmp(ft_split_gc(data->line[i].str, ' ', &data->gc)[0],
 					"<<") == 0)
-				parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
+					parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
 						&data->gc)[1]);
-			if (data->line[i].is_cmd)
+				if (data->line[i].is_cmd)
 				exec(data->line[i].str, data);
-			i++;
+				i++;
+			}
 		}
 		ft_error_gc("", &data->gc, 0);
 	}
@@ -143,14 +148,14 @@ int	parsing(t_data *data)
 		if (WIFEXITED(signal))
 		{
 			if (WEXITSTATUS(signal) == 131)
-				printf("\n[1]	%d quit (core dumped) %s\n", child, data->str[0]);
+				printf("\nQuit (core dumped)\n");
 			return(WEXITSTATUS(signal));
 		}
 		if (WIFSIGNALED(signal))
 		{
 			if (WTERMSIG(signal) == 3)
 			{
-				printf("[1]	%d quit (core dumped) %s\n", child, data->str[0]);
+				printf("Quit (core dumped)\n");
 				return (131);
 			}
 			return (130);

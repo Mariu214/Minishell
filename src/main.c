@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/19 13:59:29 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 14:22:41 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	data.gc = NULL;
+	data.dollar = 0;
 	data.env = ft_splitcpy_gc(envp, &data.gc);
 	line = NULL;
 	while (ft_strcmp(line, "exit") != 0)
@@ -37,7 +38,7 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(line);
 		process_running = 1;
 		data.str = ft_split_gc(line, ' ', &data.gc);
-		parsing(&data);
+		data.dollar = parsing(&data);
 		process_running = 0;
 	}
 	ft_free_all_gc(&data.gc);
