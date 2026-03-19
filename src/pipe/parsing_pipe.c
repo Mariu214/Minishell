@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 17:09:31 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 17:32:53 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,23 @@ int		do_comm(t_data *data, int i)
 	return (0);
 }
 
+char	*rm_nl_gc(char *old, t_data *data)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = ft_calloc_gc(sizeof(char), ft_strlen(old), &data->gc);
+	while (old[i] && old[i] != '\n')
+	{
+		new[i] = old[i];
+		i++;	
+	}
+	new[i] = '\0';
+	ft_delone_gc(old, &data->gc);
+	return (new);
+}
+
 int		last_last_pipe(t_data *data)// gerer |> ou |>>
 {
 	pid_t child;
@@ -44,24 +61,24 @@ int		last_last_pipe(t_data *data)// gerer |> ou |>>
 	int		status;
 	
 	gnl = ft_strdup_gc("", &data->gc);
-	ft_printf_fd(2, "mais enfin\n");
 	child = fork();
-	ft_printf_fd(2, "la je suis pas d'accord\n");
+	dup2(1, 1);
 	if (!child)
 	{
-		ft_printf_fd(2, "y'a une couille\n");
 		while (!gnl[0] || gnl[0] == '\n')
 		{
 			ft_delone_gc(gnl, &data->gc);
-			ft_printf_fd(2,"dsaadsasdads\n");
-			print_pipe(data->pipenb);
-			gnl = ft_gnl_gc(0, &data->gc);
+			print_pipe(data->pipenb - 1);
+			ft_printf_fd(2, "pipe> ");
+			gnl = ft_gnl_gc(1, &data->gc);
 		}
-		ft_printf_fd(2, "%syoupi\n", gnl);
-		exit (1);
+		gnl = rm_nl_gc(gnl, data);
+		last_pipe(gnl, data, 1);
+		exit (0);
 	}
 	waitpid(child, &status, 0);
-	ft_printf_fd(2, "ici tout de meme\n");
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
 	return (0);
 }
 
