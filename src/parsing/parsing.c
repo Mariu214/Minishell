@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 14:45:14 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:46:22 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	parsing(t_data *data, char *envp[])
 			ft_free_all_gc(&data->gc);
 		if (data->line[i].is_redirection && ft_strcmp(data->line[i].str,
 			"<<") == 0)
-			parsing_heredoc(data, envp);
+			parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ', &data->gc)[1], envp);
 		if (data->line[i].is_cmd)
 			exec(data->line[i].str, envp);
 		i++;

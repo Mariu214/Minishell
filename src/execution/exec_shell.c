@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 13:05:59 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:52:40 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	exec(char *cmd, char *envp[])
 	if (!cmd[0])
 		exit(1);
 	command.free = 0;
-	command.s_cmd = ft_split_space(cmd, ' ', "'");
+	command.s_cmd = ft_split_sentence(cmd, ' ', "'");
 	path = is_already_path(&command);
 	if (command.s_cmd[0] == NULL)
 	{
