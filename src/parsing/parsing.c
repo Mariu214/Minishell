@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 09:38:54 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:38:58 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	parsing(t_data *data)
 				parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
 						&data->gc)[1]);
 			if (data->line[i].is_cmd)
-				exec(data->line[i].str, data->env);
+				exec(data->line[i].str, data);
 			i++;
 		}
 		ft_error_gc("", &data->gc, 0);

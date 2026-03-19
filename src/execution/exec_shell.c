@@ -6,85 +6,72 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 15:52:40 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:48:41 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	no_fil_dir(t_command *command)
+static int	no_fil_dir(t_command *command, t_data *data)
 {
 	char	**split;
 	char	*path;
 
-	split = ft_split(command->s_cmd[0], '/');
-    if (!split)
-        return (0);
-	else if (ft_strcmp(split[0], "usr") == 0 && ft_strcmp(split[1], "bin") == 0)
+	split = ft_split_gc(command->s_cmd[0], '/', &data->gc);
+	if (ft_strcmp(split[0], "usr") == 0 && ft_strcmp(split[1], "bin") == 0)
 	{
 		if (access(command->s_cmd[0], X_OK | F_OK) != 0)
 		{
-			path = ft_strjoin("/", command->s_cmd[0]);
+			path = ft_strjoin_gc("/", command->s_cmd[0], &data->gc);
 			if (access(path, X_OK | F_OK) != 0)
 			{
 				command->free = 1;
-				free_tab(split);
-				free(path);
 				ft_printf_fd(2, "minishell: no such file or directory: %s\n",
 					command->s_cmd[0]);
 				return (127);
 			}
 		}
 	}
-	free_tab(split);
 	return (0);
 }
 
-static char	*is_already_path(t_command *command)
+static char	*is_already_path(t_command *command, t_data *data)
 {
 	char	*path;
 
 	if (!*command->s_cmd)
 		return (NULL);
-	if (no_fil_dir(command) == 127)
+	if (no_fil_dir(command, data) == 127)
 		return (NULL);
 	if (access(command->s_cmd[0], X_OK | F_OK) == 0)
 		return (command->s_cmd[0]);
-	path = ft_strjoin("/", command->s_cmd[0]);
+	path = ft_strjoin_gc("/", command->s_cmd[0], &data->gc);
 	if (access(path, X_OK | F_OK) == 0)
 		return (path);
-	free(path);
 	return (NULL);
 }
 
-static char	*is_accessible(char *cmd, char *envp[])
+static char	*is_accessible(char *cmd, t_data *data)
 {
 	t_accessible	temp;
 
 	temp.i = 0;
-	temp.all_path = ft_split(ft_getenv("PATH", envp), ':');
-	temp.s_cmd = ft_split(cmd, ' ');
+	temp.all_path = ft_split_gc(ft_getenv("PATH", data->env), ':', &data->gc);
+	temp.s_cmd = ft_split_gc(cmd, ' ', &data->gc);
 	while (temp.all_path[temp.i])
 	{
-		temp.join = ft_strjoin(temp.all_path[temp.i], "/");
-		temp.path = ft_strjoin(temp.join, temp.s_cmd[0]);
+		temp.join = ft_strjoin_gc(temp.all_path[temp.i], "/", &data->gc);
+		temp.path = ft_strjoin_gc(temp.join, temp.s_cmd[0], &data->gc);
 		if (access(temp.path, X_OK | F_OK) == 0)
-		{
-			free(temp.join);
-			free_tab(temp.all_path);
-			free_tab(temp.s_cmd);
 			return (temp.path);
-		}
-		free(temp.join);
-		free(temp.path);
+		ft_delone_gc(temp.join, &data->gc);
+		ft_delone_gc(temp.path, &data->gc);
 		temp.i++;
 	}
-	free_tab(temp.s_cmd);
-	free_tab(temp.all_path);
 	return (cmd);
 }
 
-void	exec(char *cmd, char *envp[])
+void	exec(char *cmd, t_data *data)
 {
 	char		*path;
 	t_command	command;
@@ -92,22 +79,20 @@ void	exec(char *cmd, char *envp[])
 	if (!cmd[0])
 		exit(1);
 	command.free = 0;
-	command.s_cmd = ft_split_sentence(cmd, ' ', "'");
-	path = is_already_path(&command);
+	command.s_cmd = ft_split_sentence_gc(cmd, ' ', "'", &data->gc);
+	path = is_already_path(&command, data);
 	if (command.s_cmd[0] == NULL)
 	{
-		free_tab(command.s_cmd);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: \n");
-		exit(127);
+		ft_error_gc("", &data->gc, 127);
 	}
 	if (path == NULL)
-		path = is_accessible(command.s_cmd[0], envp);
-	if (execve(path, command.s_cmd, envp) == -1)
+		path = is_accessible(command.s_cmd[0], data);
+	if (execve(path, command.s_cmd, data->env) == -1)
 	{
-		free_tab(command.s_cmd);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: %s\n", cmd);
-		exit(127);
+		ft_error_gc("", &data->gc, 127);
 	}
 }
