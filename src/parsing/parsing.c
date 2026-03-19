@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 14:14:38 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:35:08 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ void	define_line(t_data *data)
 			j++;
 		}
 	}
-	for (int a = 0; data->str[a]; a++)
-		ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n",
-			data->line[a].is_pipe, data->line[a].is_redirection,
-			data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
+	// for (int a = 0; data->str[a]; a++)
+	// 	ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n",
+	// 		data->line[a].is_pipe, data->line[a].is_redirection,
+	// 		data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
 }
 
 int	parsing(t_data *data)
