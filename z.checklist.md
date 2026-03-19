@@ -18,13 +18,19 @@ delimiter is seen. However, it doesn’t have to update the history! -->
 
 
 <!-- - ctrl-C end the current process and return to prompt. -->
-- ctrl-D send EOF to the current process
+<!-- - ctrl-D send EOF to the current process -->
 <!-- - ctrl-\ quit process (core dumped). -->
 
 ## interactive mode
 <!-- - ctrl-C displays a new prompt on a new line.
 <!-- - ctrl-D exits the shell. -->
 <!-- - ctrl-\ does nothing. -->
+
+- Implement pipes (| character). The output of each command in the pipeline is
+connected to the input of the next command via a pipe.
+
+- Handle environment variables ($ followed by a sequence of characters) which
+should expand to their values
 
 - Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline.
