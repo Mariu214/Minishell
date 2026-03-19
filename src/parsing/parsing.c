@@ -6,11 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/03/19 10:35:32 by malaimo          ###   ########.fr       */
-=======
-/*   Updated: 2026/03/19 09:38:54 by jdelmott         ###   ########.fr       */
->>>>>>> prototype
+/*   Updated: 2026/03/19 13:47:11 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +109,12 @@ void	define_line(t_data *data)
 	// 		data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
 }
 
-void	parsing(t_data *data)
+int	parsing(t_data *data)
 {
 	int		i;
 	pid_t	child;
 	int		signal;
+	
 	i = 0;
 	count_pipe(data);
 	define_line(data);
@@ -135,11 +132,29 @@ void	parsing(t_data *data)
 				parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
 						&data->gc)[1]);
 			if (data->line[i].is_cmd)
-				exec(data->line[i].str, data->env);
+				exec(data->line[i].str, data->env, data);
 			i++;
 		}
 		ft_error_gc("", &data->gc, 0);
 	}
 	else
+	{
 		waitpid(child, &signal, 0);
+		if (WIFEXITED(signal))
+		{
+			if (WEXITSTATUS(signal) == 131)
+				printf("\n[1]	%d quit (core dumped) %s\n", child, data->str[0]);
+			return(WEXITSTATUS(signal));
+		}
+		if (WIFSIGNALED(signal))
+		{
+			if (WTERMSIG(signal) == 3)
+			{
+				printf("[1]	%d quit (core dumped) %s\n", child, data->str[0]);
+				return (131);
+			}
+			return (130);
+		}
+	}
+	return(0);
 }

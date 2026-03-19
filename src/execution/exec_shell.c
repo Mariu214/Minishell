@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:49:37 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 10:08:13 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/19 13:37:06 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,16 @@ static char	*is_accessible(char *cmd, char *envp[])
 	return (cmd);
 }
 
-void	exec(char *cmd, char *envp[])
+void	exec(char *cmd, char *envp[], t_data *data)
 {
 	char		*path;
 	t_command	command;
 
 	if (!cmd[0])
 		exit(1);
+	(void)data;
+	sigaction(SIGINT, &data->sig_child, NULL);
+	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
 	command.free = 0;
 	command.s_cmd = ft_split_sentence(cmd, ' ', "'");
 	path = is_already_path(&command);
