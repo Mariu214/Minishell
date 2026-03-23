@@ -1,0 +1,17 @@
+total 272
+drwxr-xr-x. 7 jdelmott jdelmott   4096 Mar 23 14:26 .
+drwxr-xr-x  3 jdelmott jdelmott     37 Mar 19 17:13 ..
+-rw-r--r--. 1 jdelmott jdelmott    354 Mar 19 17:56 fonctions_en_attentes.c
+drwxr-xr-x. 7 jdelmott jdelmott   4096 Mar 23 09:32 .git
+-rw-r--r--. 1 jdelmott jdelmott     43 Mar 19 17:13 .gitignore
+drwxr-xr-x. 3 jdelmott jdelmott     42 Mar 23 09:09 include
+-rw-r--r--. 1 jdelmott jdelmott    129 Mar 23 14:09 infile
+drwxr-xr-x. 5 jdelmott jdelmott     92 Mar 23 14:24 libft
+-rw-r--r--  1 jdelmott jdelmott   2078 Mar 23 09:09 Makefile
+-rwxr-xr-x. 1 jdelmott jdelmott 237872 Mar 23 14:24 minishell
+drwxr-xr-x. 2 jdelmott jdelmott    188 Mar 23 14:24 obj
+-rwxr-xr-x. 1 jdelmott jdelmott    920 Mar 23 14:26 outfile
+-rwxr-xr-x. 1 jdelmott jdelmott      0 Mar 23 14:26 outfile\
+-rw-r--r--  1 jdelmott jdelmott   1179 Mar 23 09:09 README.md
+drwxr-xr-x. 6 jdelmott jdelmott     83 Mar 23 09:09 src
+-rw-r--r--  1 jdelmott jdelmott   1446 Mar 23 09:09 z.checklist.md
