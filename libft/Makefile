@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/19 14:04:20 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/19 15:46:56 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rcs $@ $^
-	@echo "$(GREEN)libft Compiled!$(RESET)"
+	@echo -e "$(GREEN)libft Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 	@$(CC) $(FLAGS) -c -g3 $< -o $@
@@ -56,13 +56,13 @@ $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
-	@echo "$(YELLOW)libft: make clean$(RESET)"
+	@echo -e "$(YELLOW)libft: make clean$(RESET)"
 
 fclean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 	@rm -f $(NAME)
-	@echo "$(YELLOW)libft: make fclean$(RESET)"
+	@echo -e "$(YELLOW)libft: make fclean$(RESET)"
 
 re: fclean all
 

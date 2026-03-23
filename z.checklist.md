@@ -32,13 +32,13 @@ connected to the input of the next command via a pipe.
 - Handle environment variables ($ followed by a sequence of characters) which
 should expand to their values
 
-- Handle $? which should expand to the exit status of the most recently executed
-foreground pipeline.
+<!-- - Handle $? which should expand to the exit status of the most recently executed
+foreground pipeline. -->
 
 - echo with option -n
 - cd with only a relative or absolute path
-- pwd with no options
+<!-- - pwd with no options -->
 - export with no options
 - unset with no options
-- env with no options or arguments
+<!-- - env with no options or arguments -->
 <!-- - exit with no options -->
