@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 18:17:59 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/23 09:29:33 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,16 @@ int	parsing(t_data *data)
 	if (!child)
 	{
 		if (ft_strcmp(data->str[i], "$?") == 0)
+		{
 			printf("%d: command not found\n", data->dollar);
+			return_value = 0;
+		}
 		else
 		{
-			do_redirection(data);
 			while (data->line[i].str)
-			{
+			{//en fait t'a que l'input redirection qui marche un peu
+				if (data->line[i].is_redirection)/// faire en avant en arriere lol (une fonction qui verifie tt le temps si y'a une output redirection)
+					do_redirection(data, i);// et heredoc c'est pas bien du tt du tt
 				if (data->pipedone == data->pipenb)
 					return_value = last_pipe(data->line[i].str, data, 1);
 				else if (data->pipenb == 0)
@@ -143,6 +147,8 @@ int	parsing(t_data *data)
 							return_value = last_last_pipe(data);
 					}
 				}
+				if (data->line[i + 1].str && data->line[i + 1].is_file)
+					i++;
 				i++;
 			}
 		}
