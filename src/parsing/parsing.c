@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 18:17:59 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/23 10:48:30 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int	parsing(t_data *data)
 	pid_t	child;
 	int		signal;
 	int		return_value;
+	int		j;
 	
 	i = 0;
 	count_pipe(data);
@@ -124,6 +125,14 @@ int	parsing(t_data *data)
 	{
 		if (ft_strcmp(data->str[i], "$?") == 0)
 			printf("%d: command not found\n", data->dollar);
+		else if (ft_strcmp(data->str[i], "pwd") == 0)
+			printf("%s\n", getenv("PWD"));
+		else if (ft_strcmp(data->str[i], "pwd") == 0)
+		{
+			j = 0;
+			while (data->env[j])
+        		printf("%s\n", data->env[i]);
+		}
 		else
 		{
 			do_redirection(data);
@@ -152,20 +161,7 @@ int	parsing(t_data *data)
 	{
 		waitpid(child, &signal, 0);
 		if (WIFEXITED(signal))
-		{
-			if (WEXITSTATUS(signal) == 131)
-				printf("\nQuit (core dumped)\n");
 			return(WEXITSTATUS(signal));
-		}
-		if (WIFSIGNALED(signal))
-		{
-			if (WTERMSIG(signal) == 3)
-			{
-				printf("Quit (core dumped)\n");
-				return (131);
-			}
-			return (130);
-		}
 	}
 	return(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 18:02:06 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/23 10:27:26 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ int		do_comm(t_data *data, int i)
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == 3)
+		{
+			printf("Quit (core dumped)\n");
+			return (131);
+		}
+		return (130);
+	}
 	return (0);
 }
 
@@ -101,6 +110,15 @@ int		last_pipe(char *cmd, t_data *data, int outfile)
 	else
 	{
 		waitpid(child, &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == 3)
+			{
+				printf("Quit (core dumped)\n");
+				return (131);
+			}
+			return (130);
+		}
 		if (WIFEXITED(status))
 			return(WEXITSTATUS(status));
 		return (0);
