@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/23 10:48:30 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/24 11:49:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,26 @@ int	parsing(t_data *data)
 	count_pipe(data);
 	define_line(data);
 	child = fork();
+	if (ft_strcmp(data->str[i], "cd") == 0)
+	{
+		if (chdir(data->str[++i]) == -1 )
+			return (printf("error: path does not exist\n"), 1);
+	}
 	if (!child)
 	{
 		if (ft_strcmp(data->str[i], "$?") == 0)
 			printf("%d: command not found\n", data->dollar);
 		else if (ft_strcmp(data->str[i], "pwd") == 0)
-			printf("%s\n", getenv("PWD"));
-		else if (ft_strcmp(data->str[i], "pwd") == 0)
+		{
+			if (!getcwd(data->current_dir, 4096))
+				return (printf("error: path too long\n"), 1);
+			printf("%s\n", data->current_dir);
+		}
+		else if (ft_strcmp(data->str[i], "env") == 0)
 		{
 			j = 0;
 			while (data->env[j])
-        		printf("%s\n", data->env[i]);
+        		printf("%s\n", data->env[j++]);
 		}
 		else
 		{

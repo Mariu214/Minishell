@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/19 17:42:12 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/24 11:33:26 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <signal.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 extern volatile int process_running;
 
@@ -54,6 +56,7 @@ typedef struct s_data
 	int		pipenb;
 	int		dollar;
 	int		pipedone;
+	char	current_dir[4096];
 }			t_data;
 
 typedef struct s_command
