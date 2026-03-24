@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/23 14:56:15 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/24 17:33:37 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,18 +136,19 @@ int	parsing(t_data *data)
 				{
 					i++;
 					if (data->line[i].str && data->line[i].is_file)
-					i++;
+						i++;
 				}
 				if (data->pipedone == data->pipenb)
 					return_value = last_pipe(data->line[i].str, data, 1);
-				else if (data->pipenb == 0)
+				ft_printf_fd(2, "%i, %i\n", data->pipenb, i);
+				if (!data->pipenb) // if > il refuse de rentrer ici cet enfoiree sauf sans trunc c'est un delire
 					return_value = do_comm(data, i);
 				else
 				{
 					if (data->line[i].is_pipe)
 					{
 						return_value = do_pipe(data, i - 1);
-						data->pipedone++;			
+						data->pipedone++;
 						if (!data->line[i + 1].str)
 							return_value = last_last_pipe(data);
 					}

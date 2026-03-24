@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:27:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/23 14:24:39 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/24 17:29:51 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	open_file(char *fd_arg, int mode)
 	if (mode == 0)
 		fd = open(fd_arg, O_RDONLY, 0777);
 	else if (mode == 1)
-		fd = open(fd_arg, O_CREAT | O_RDWR | O_APPEND, 0777);
-	else if (mode == 2)
-		fd = open(fd_arg, O_CREAT | O_RDWR | O_TRUNC, 0777);
+		fd = open(fd_arg, O_CREAT | O_WRONLY | O_APPEND, 0777);
+	else
+		fd = open(fd_arg, O_CREAT | O_WRONLY | O_TRUNC, 0777);// si je retire trunc ca marche mais ca fait pas ce qui fqut donc en vrai je sais pas trop
 	if (fd == -1)
 	{
 		ft_printf_fd(2, "pipex: %s: Permission denied\n", fd_arg);
