@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/24 11:49:04 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/25 15:41:22 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,16 +120,14 @@ int	parsing(t_data *data)
 	i = 0;
 	count_pipe(data);
 	define_line(data);
-	child = fork();
+	return_value = 0;
 	if (ft_strcmp(data->str[i], "cd") == 0)
-	{
-		if (chdir(data->str[++i]) == -1 )
-			return (printf("error: path does not exist\n"), 1);
-	}
+		cd_make(data, ++i);
+	child = fork();
 	if (!child)
 	{
 		if (ft_strcmp(data->str[i], "$?") == 0)
-			printf("%d: command not found\n", data->dollar);
+			return(printf("%d: command not found\n", data->dollar), 127);
 		else if (ft_strcmp(data->str[i], "pwd") == 0)
 		{
 			if (!getcwd(data->current_dir, 4096))

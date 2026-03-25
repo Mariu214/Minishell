@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_heredoc.c                                  :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 10:41:11 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/25 10:41:12 by malaimo          ###   ########.fr       */
+/*   Created: 2026/03/24 14:09:17 by malaimo           #+#    #+#             */
+/*   Updated: 2026/03/25 11:00:54 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void    parsing_heredoc(t_data *data, char *lim)
+int cd_make(t_data *data, int i)
 {
-    if (!data->str[1])
-        ft_error_gc("Error\nInvalid limiter\n", &data->gc, 1);
-    here_doc(lim, data->pipenb, data);
-    return;
+	if (!data->str[i] || chdir(data->str[i]) == -1 )
+		return (printf("error: path does not exist\n"), 1);
+	return (0);
 }

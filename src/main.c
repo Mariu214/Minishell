@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/24 11:46:04 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/25 15:25:54 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[], char *envp[])
 		sigaction(SIGQUIT, &data.sig_quit, NULL);
 		line = readline(">minishell ");
 		if (!line)
-			ft_error_gc("", &data.gc, 0);
+			ft_error_gc("exit\n", &data.gc, 0);
 		if (line[0])
 			add_history(line);
 		process_running = 1;
@@ -52,17 +52,12 @@ int	main(int argc, char *argv[], char *envp[])
 // {
 // 	(void)argc;
 // 	(void)envp;
-// 	// (void)argv;
-// 	char t[256];
-// 	// DIR	*jsp;
-// 	// struct dirent *test;
+// 	(void)argv;
+// 	char t[0];
 
-// 	// jsp = opendir(argv[1]);
-// 	// test = readdir(jsp);
-// 	// (void)test;
-// 	getcwd(t, 256);
+// 	getcwd(t, 90);
 // 	printf("%s\n", t);
 // 	chdir(argv[1]);
-// 	getcwd(t, 256);
+// 	getcwd(t, 1024);
 // 	printf("%s\n", t);
 // }
