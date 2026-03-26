@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/26 10:51:09 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 12:44:19 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ typedef struct s_lexer
 	int j;
 	int k;
 	int	len;
+	int	done;
 	char *temp;
+	char *temp2;
 }		t_lexer;
 
 typedef struct s_cmd
