@@ -6,13 +6,14 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/19 15:46:41 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/03/26 11:12:06 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing open_files redirection \
+FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing \
+		open_files redirection lexer lexer_utils \
 
 SRC_DIR = src/
 OBJ_DIR = obj/

@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 17:41:55 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 10:52:22 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	exec(char *cmd, t_data *data)
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
-	envcpy = ft_splitcpy(data->env);
+	envcpy = ft_splitdup(data->env);
 	ft_free_all_gc(&data->gc);
 	if (execve(path, command.s_cmd, envcpy) == -1)
 	{
