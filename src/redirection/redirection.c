@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/24 17:30:09 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:48:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ void	do_redirection(t_data *data, int i)
 {
 	if (data->line[i].is_redirection)
 	{
-		if (ft_strcmp(data->line[i].str, "<") == 0)
-			input_redirection(data->line[i + 1].str);
-		else if (ft_strcmp(data->line[i].str, ">") == 0)
-			output_redirection_trunc(data->line[i + 1].str);
-		else if (ft_strcmp(data->line[i].str, ">>") == 0)
-			output_redirection_append(data->line[i + 1].str);
-		else if (ft_strcmp(ft_split_gc(data->line[i].str, ' ', &data->gc)[0], "<<") == 0)
+
+		if (ft_strnstr(data->line[i].str, ">>", 2))
+			output_redirection_append(ft_split_gc(data->line[i].str, ' ', &data->gc)[1]);
+		else if (ft_strnstr(data->line[i].str, "<<", 2))
 			parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
-					&data->gc)[1]);
+					&data->gc)[1]);		
+		else if (ft_strnstr(data->line[i].str, "<", 1))
+			input_redirection(ft_split_gc(data->line[i].str, ' ', &data->gc)[1]);
+		else if (ft_strnstr(data->line[i].str, ">", 1))
+			output_redirection_trunc(ft_split_gc(data->line[i].str, ' ', &data->gc)[1]);
 	}
 }
 

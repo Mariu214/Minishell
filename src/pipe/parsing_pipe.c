@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/23 14:07:46 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:54:24 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,18 +140,14 @@ int		do_pipe(t_data *data, int i)
 
 void	count_pipe(t_data *data)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	data->pipenb = 0;
-	while (data->str[i])
+	while (data->line[i].str)
 	{
-		if (data->str[i][0] == '|')
+		if (data->line[i].is_pipe)
 			data->pipenb++;
 		i++;
 	}
-	if (data->pipenb > 0)
-		data->pipedone = 0;
-	else
-		data->pipedone = -1;
 }

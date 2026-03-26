@@ -6,27 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 10:59:41 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/26 16:37:07 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:55:55 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// static void	define_redirection(t_data *data, t_lexer *lex)
-// {
-// 	data->line[lex->j].str = ft_strdup_gc(data->str[lex->i], &data->gc);
-// 	if (data->str[lex->i] && ft_strcmp(data->str[lex->i], "<<") == 0)
-// 	{
-// 		data->line[lex->j].str = ft_renew_gc(data->line[lex->i].str, " ",
-// 				&data->gc);
-// 		data->line[lex->j].str = ft_renew_gc(data->line[lex->i].str,
-// 				data->str[lex->i + 1], &data->gc);
-// 		lex->i++;
-// 	}
-// 	lex->i++;
-// 	data->line[lex->j].is_redirection = 1;
-// 	lex->j++;
-// }
 
 static void define_file(t_data *data, t_lexer *lex)
 {
@@ -123,7 +107,6 @@ static void	define_pipe(t_data *data, t_lexer *lex)
 
 static void	define_command_end(t_data *data, t_lexer *lex)
 {
-	lex->k = 0;
 	lex->temp2 = ft_strdup_gc(data->str[lex->i], &data->gc);
 	while (data->str[lex->i][lex->k] && !is_pipe(data->str[lex->i][lex->k])
 		&& !is_redirection(data->str[lex->i][lex->k]))
@@ -153,6 +136,7 @@ static void	define_command_end(t_data *data, t_lexer *lex)
 
 static void	define_command(t_data *data, t_lexer *lex)
 {
+	lex->k = 0;
 	define_command_end(data, lex);
 	if (lex->done == 0)
 	{
@@ -162,6 +146,7 @@ static void	define_command(t_data *data, t_lexer *lex)
 		{
 			data->line[lex->j].str = ft_renew_gc(data->line[lex->j].str, " ",
 					&data->gc);
+			lex->k = 0;
 			define_command_end(data, lex);
 			if (lex->done == 0)
 				lex->i++;
@@ -188,13 +173,8 @@ void	define_line(t_data *data)
 	lex.j = 0;
 	while (data->str[lex.i])
 	{
-		if (data->str[lex.i] && is_redirection(data->str[lex.i][0]))
-			// gerer >> , >>,>> = 3 fois plus youpi
+		if (data->str[lex.i] && is_redirection(data->str[lex.i][0])) // gerer >> , >>,>> = 3 fois plus youpi
 			define_redirection(data, &lex);
-		// else if (data->str[lex.i] && (lex.j > 0 && data->line[lex.j
-		// 		- 1].is_redirection) && !ft_strnstr(data->line[lex.j - 1].str,
-		// 		"<<", 3))
-		// 	define_file(data, &lex);
 		else if (data->str[lex.i] && is_pipe(data->str[lex.i][0]))
 			define_pipe(data, &lex);
 		else if (data->str[lex.i] && !is_pipe(data->str[lex.i][0])
