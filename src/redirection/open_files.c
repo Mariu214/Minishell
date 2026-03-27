@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:27:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/18 10:15:30 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 10:17:20 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	open_file(char *fd_arg, int mode)
 		fd = open(fd_arg, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd == -1)
 	{
-		ft_printf_fd(2, "pipex: %s: Permission denied\n", fd_arg);
+		ft_printf_fd(2, "minishell: %s: %s\n", fd_arg, strerror(errno));
 		if (mode == 0)
 			exit(126);
 		exit(1);

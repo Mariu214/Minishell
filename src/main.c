@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/25 15:25:54 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/27 15:05:14 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char *argv[], char *envp[])
 	data.gc = NULL;
 	data.dollar = 0;
 	data.env = ft_splitcpy_gc(envp, &data.gc);
-	
 	line = NULL;
 	while (ft_strcmp(line, "exit") != 0)
 	{
@@ -47,17 +46,3 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_free_all_gc(&data.gc);
 	return (0);
 }
-
-// int	main(int argc, char *argv[], char *envp[])
-// {
-// 	(void)argc;
-// 	(void)envp;
-// 	(void)argv;
-// 	char t[0];
-
-// 	getcwd(t, 90);
-// 	printf("%s\n", t);
-// 	chdir(argv[1]);
-// 	getcwd(t, 1024);
-// 	printf("%s\n", t);
-// }

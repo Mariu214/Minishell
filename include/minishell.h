@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/24 14:03:41 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/26 14:54:08 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "include_h/exec.h"
 # include "include_h/pipe.h"
 # include "include_h/redirection.h"
+# include "include_h/hardcoded.h"
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -27,8 +28,10 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <signal.h>
-#include <sys/types.h>
-#include <dirent.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <errno.h>
+#include <termios.h>
 
 extern volatile int process_running;
 

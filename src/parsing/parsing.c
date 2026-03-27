@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/25 15:41:22 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/26 11:13:32 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	define_line(t_data *data)
 		if (data->str[i] && is_redirection(data->str[i][0]))// gerer |> et |>>
 		{
 			data->line[j].str = ft_strdup_gc(data->str[i], &data->gc);
-			if (data->str[i] && ft_strcmp(data->str[i], "<<") == 0)
+			if (data->str[i] && data->str[i + 1] && ft_strcmp(data->str[i], "<<") == 0)
 			{
 				data->line[j].str = ft_renew_gc(data->line[i].str, " ",
 						&data->gc);
@@ -122,17 +122,21 @@ int	parsing(t_data *data)
 	define_line(data);
 	return_value = 0;
 	if (ft_strcmp(data->str[i], "cd") == 0)
-		cd_make(data, ++i);
+		return_value = cd_make(data, ++i);
 	child = fork();
 	if (!child)
 	{
 		if (ft_strcmp(data->str[i], "$?") == 0)
-			return(printf("%d: command not found\n", data->dollar), 127);
+		{
+			printf("%d: command not found\n", data->dollar);
+			return_value = 127;
+		}
 		else if (ft_strcmp(data->str[i], "pwd") == 0)
 		{
 			if (!getcwd(data->current_dir, 4096))
-				return (printf("error: path too long\n"), 1);
-			printf("%s\n", data->current_dir);
+				perror("error");
+			else 
+				printf("%s\n", data->current_dir);
 		}
 		else if (ft_strcmp(data->str[i], "env") == 0)
 		{

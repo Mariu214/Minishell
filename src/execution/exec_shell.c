@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/23 10:30:10 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/26 10:31:12 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static int	no_fil_dir(t_command *command, t_data *data)
 			if (access(path, X_OK | F_OK) != 0)
 			{
 				command->free = 1;
-				ft_printf_fd(2, "minishell: no such file or directory: %s\n",
-					command->s_cmd[0]);
+				ft_printf_fd(2, "%s: %s\n", command->s_cmd[0], strerror(errno));
 				return (127);
 			}
 		}
@@ -99,7 +98,7 @@ void	exec(char *cmd, t_data *data)
 	if (execve(path, command.s_cmd, envcpy) == -1)
 	{
 		if (command.free == 0)
-			ft_printf_fd(2, "minishell: command not found: %s\n", command.s_cmd[0]);
+			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
 		free_tab(command.s_cmd);
 		ft_error_gc("", &data->gc, 127);
 	}
