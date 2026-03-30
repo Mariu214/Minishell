@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 09:02:19 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/30 09:32:41 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		do_comm(t_data *data, int i)
 			parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
 					&data->gc)[1]);
 		if (data->line[i].is_cmd)
-			exec(data->line[i].str, data);
+			parsing_cmd(data->line[i].str, data);
 		ft_error_gc("", &data->gc, 0);
 	}
 	waitpid(child, &status, 0);
@@ -105,7 +105,7 @@ int		last_pipe(char *cmd, t_data *data, int outfile)
 	if (!child)
 	{
 		dup2(outfile, 1);
-		exec(cmd, data);
+		parsing_cmd(cmd, data);
 	}
 	else
 	{
@@ -143,7 +143,7 @@ int		do_pipe(t_data *data, int i)
 	{
 		dup2(end_pipe[1], 1);
 		close(end_pipe[0]);
-		exec(data->line[i].str, data);
+		parsing_cmd(data->line[i].str, data);
 	}
 	else
 	{
