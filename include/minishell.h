@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/30 09:30:29 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:28:08 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "include_h/pipe.h"
 # include "include_h/redirection.h"
 # include "include_h/hardcoded.h"
+# include "include_h/misc.h"
 
 # include <readline/history.h>
 # include <readline/readline.h>

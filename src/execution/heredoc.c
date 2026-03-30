@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 16:16:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/30 15:29:54 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 	if (!gnl)
 	{
 		ft_printf_fd(2, "\n");
-		ft_error_gc("", &data->gc, 2);
+		ft_shellerror_gc("", data, 2);
 	}
-	ft_error_gc("", &data->gc, 0);
+	ft_shellerror_gc("", data, 0);
 }
 
 void	here_doc(char *lim, int pipenb, t_data *data)

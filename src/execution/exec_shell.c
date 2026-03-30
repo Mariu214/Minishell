@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 09:04:10 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:29:54 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	exec(char *cmd, t_data *data)
 		free_tab(command.s_cmd);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: \n");
-		ft_error_gc("", &data->gc, 127);
+		ft_shellerror_gc("", data, 127);
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
@@ -100,7 +100,7 @@ void	exec(char *cmd, t_data *data)
 		if (command.free == 0)
 			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
 		free_tab(command.s_cmd);
-		ft_error_gc("", &data->gc, 127);
+		ft_shellerror_gc("", data, 127);
 	}
 }
 

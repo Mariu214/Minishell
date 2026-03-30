@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 09:32:41 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:29:54 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		do_comm(t_data *data, int i)
 					&data->gc)[1]);
 		if (data->line[i].is_cmd)
 			parsing_cmd(data->line[i].str, data);
-		ft_error_gc("", &data->gc, 0);
+		ft_shellerror_gc("", data, 0);
 	}
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))

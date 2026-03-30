@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_heredoc.c                                  :+:      :+:    :+:   */
+/*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 10:41:11 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/30 15:29:54 by malaimo          ###   ########.fr       */
+/*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/30 13:45:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void    parsing_heredoc(t_data *data, char *lim)
+void	ft_shellerror_gc(char *str, t_data *data, int out)
 {
-    if (!data->str[1])
-    {
-        ft_shellerror_gc("minishell: syntax error near unexpected token `newline'\n", data, 1);
-    }
-    here_doc(lim, data->pipenb, data);
-    return ;
+	ft_printf_fd(2, "%s", str);
+	free(data->env);
+	ft_free_all_gc(&data->gc);
+	exit(out);
 }
