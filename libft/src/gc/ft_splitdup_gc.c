@@ -6,13 +6,13 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:31:57 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 12:29:20 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 10:48:02 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-char	**ft_splitcpy_gc(char **str, t_gc **gc)
+char	**ft_splitdup_gc(char **str, t_gc **gc)
 {
 	int		i;
 	char	**cpy;

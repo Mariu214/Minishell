@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/26 10:31:12 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/30 09:04:10 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	exec(char *cmd, t_data *data)
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
-	envcpy = ft_splitcpy(data->env);
+	envcpy = ft_splitdup(data->env);
 	ft_free_all_gc(&data->gc);
 	if (execve(path, command.s_cmd, envcpy) == -1)
 	{

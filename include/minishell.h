@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/26 14:54:08 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/30 09:04:47 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,16 @@
 
 extern volatile int process_running;
 
-
+typedef struct s_lexer
+{
+	int i;
+	int j;
+	int k;
+	int	len;
+	int	done;
+	char *temp;
+	char *temp2;
+}		t_lexer;
 
 typedef struct s_cmd
 {

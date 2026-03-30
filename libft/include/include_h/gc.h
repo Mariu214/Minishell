@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 11:36:26 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/26 10:48:11 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char			**ft_split_sentence_gc(char *str, const char separateur,
 void			ft_error_gc(char *str, t_gc **gc, int out);
 int				ft_delone_gc(void *target, t_gc **gc);
 void			ft_free_tab_gc(char **tab, t_gc **gc);
-char			**ft_splitcpy_gc(char **str, t_gc **gc);
+char			**ft_splitdup_gc(char **str, t_gc **gc);
 char			*ft_gnl_gc(int fd, t_gc **gc);
 
 #endif

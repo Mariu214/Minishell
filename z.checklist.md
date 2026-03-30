@@ -8,7 +8,7 @@
 - Handle ’ (single quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence.
 - Handle " (double quote) which should prevent the shell from interpreting the meta-
-characters in the quoted sequence except for $ (dollar sign)
+characters in the quoted sequence except for $ (dollar sign) return 127
 
 <!-- - < should redirect input.
 - > should redirect output. -->
