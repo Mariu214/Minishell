@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/27 15:05:14 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/30 09:56:50 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,17 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_free_all_gc(&data.gc);
 	return (0);
 }
+
+// int	main(int argc, char *argv[], char *envp[])
+// {
+// 	char	**env;
+	
+// 	(void)argc;
+// 	(void)argv;
+// 	env = ft_splitcpy(envp);
+// 	env = export(env, NULL);
+// 	env = export(env, "HOlA=3");
+// 	env = export(env, NULL);
+// 	free_tab(env);
+// 	return (0);
+// }
