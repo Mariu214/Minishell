@@ -6,7 +6,11 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/03/30 11:39:51 by malaimo          ###   ########.fr       */
+=======
+/*   Updated: 2026/03/30 15:29:29 by malaimo          ###   ########.fr       */
+>>>>>>> marius
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +29,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	data.gc = NULL;
 	data.dollar = 0;
-	data.env = ft_splitdup_gc(envp, &data.gc);
+	data.env = ft_splitdup(envp);
 	line = NULL;
 	while (ft_strcmp(line, "exit") != 0)
 	{
@@ -35,14 +39,14 @@ int	main(int argc, char *argv[], char *envp[])
 		sigaction(SIGQUIT, &data.sig_quit, NULL);
 		line = readline(">minishell ");
 		if (!line)
-			ft_error_gc("exit\n", &data.gc, 0);
+			ft_shellerror_gc("exit\n", &data, 0);
 		if (line[0])
 			add_history(line);
 		process_running = 1;
 		data.str = ft_split_gc(line, ' ', &data.gc);
 		data.dollar = parsing(&data);
 		process_running = 0;
+		ft_free_all_gc(&data.gc);
 	}
-	ft_free_all_gc(&data.gc);
 	return (0);
 }
