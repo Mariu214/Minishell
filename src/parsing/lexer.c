@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 10:59:41 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/26 16:55:55 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/30 08:53:40 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,8 @@ void	define_line(t_data *data)
 			&& !is_redirection(data->str[lex.i][0]))
 			define_command(data, &lex);
 	}
-	for (int a = 0; data->line[a].str; a++)
-		ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n",
-			data->line[a].is_pipe, data->line[a].is_redirection,
-			data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
+	// for (int a = 0; data->line[a].str; a++)
+	// 	ft_printf("pipe = %i, redir = %i, file = %i, cmd = %i, %s\n",
+	// 		data->line[a].is_pipe, data->line[a].is_redirection,
+	// 		data->line[a].is_file, data->line[a].is_cmd, data->line[a].str);
 }

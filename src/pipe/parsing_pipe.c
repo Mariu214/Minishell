@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/26 16:54:24 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/03/30 08:58:14 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,8 @@ void	count_pipe(t_data *data)
 			data->pipenb++;
 		i++;
 	}
+	if (data->pipenb == 0)
+		data->pipedone = -1;
+	else
+		data->pipedone = 0;
 }
