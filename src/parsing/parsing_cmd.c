@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_splitcpy_gc.c                                   :+:      :+:    :+:   */
+/*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 16:31:57 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 12:29:20 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/30 09:32:59 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-char	**ft_splitcpy_gc(char **str, t_gc **gc)
+void	parsing_cmd(char *cmd, t_data *data)
 {
-	int		i;
-	char	**cpy;
+    int     j;
 
-	i = 0;
-	if (!str)
-		return (NULL);
-	cpy = ft_calloc_gc(sizeof(char *), (ft_splitlen(str) + 1), gc);
-	while (str[i])
+	if (ft_strcmp(cmd, "pwd") == 0)
 	{
-		cpy[i] = ft_strdup_gc(str[i], gc);
-		i++;
+		if (!getcwd(data->current_dir, 4096))
+			perror("error");
+		else
+			printf("%s\n", data->current_dir);
 	}
-	return (cpy);
+	else if (ft_strcmp(cmd, "env") == 0)
+	{
+		j = 0;
+		while (data->env[j])
+			printf("%s\n", data->env[j++]);
+		// return_value = 0;
+	}
+    else
+        exec(cmd, data);
 }

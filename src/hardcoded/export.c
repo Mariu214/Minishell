@@ -13,9 +13,16 @@ char    **export(char *envp[], char *str)
     if (!str)
     {
         while (envp[i])
-        	printf("%s\n", envp[i++]);
+        	printf("declare -x %s\n", envp[i++]);
         return (envp);
     }
+    while (str[i])
+    {
+        if (str[i++] == '=')
+            j = 1;
+    }
+    if (j == 0)
+        return (envp);
     while (envp[i])
     {
         j = 0;

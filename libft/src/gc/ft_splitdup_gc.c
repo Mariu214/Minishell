@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.h                                      :+:      :+:    :+:   */
+/*   ft_splitcpy_gc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/17 14:27:35 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/23 14:42:04 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/18 16:31:57 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/26 10:48:02 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REDIRECTION_H
-# define REDIRECTION_H
+#include "../../include/libft.h"
 
-int		open_file(char *fd_arg, int mode);
-void	input_redirection(char *file1);
-void	output_redirection_trunc(char *file);
-void	do_redirection(t_data *data, int i);
-void	output_redirection_append(char *file);
-void	schr_redirection(t_data *data, int i);
+char	**ft_splitdup_gc(char **str, t_gc **gc)
+{
+	int		i;
+	char	**cpy;
 
-#endif
+	i = 0;
+	if (!str)
+		return (NULL);
+	cpy = ft_calloc_gc(sizeof(char *), (ft_splitlen(str) + 1), gc);
+	while (str[i])
+	{
+		cpy[i] = ft_strdup_gc(str[i], gc);
+		i++;
+	}
+	return (cpy);
+}

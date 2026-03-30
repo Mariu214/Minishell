@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 10:41:11 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/26 11:17:15 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/30 09:02:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void    parsing_heredoc(t_data *data, char *lim)
         ft_error_gc("minishell: syntax error near unexpected token `newline'\n", &data->gc, 1);
     }
     here_doc(lim, data->pipenb, data);
-    return;
+    return ;
 }

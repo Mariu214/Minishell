@@ -6,13 +6,14 @@
 #    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/27 14:05:58 by malaimo          ###   ########.fr        #
+#    Updated: 2026/03/30 11:28:43 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing open_files redirection cd unset export \
+FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing cd unset export \
+		open_files redirection lexer lexer_utils parsing_cmd dollar \
 
 SRC_DIR = src/
 OBJ_DIR = obj/

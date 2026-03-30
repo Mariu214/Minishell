@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/30 09:56:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/30 11:38:10 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,38 +25,24 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	data.gc = NULL;
 	data.dollar = 0;
-	data.env = ft_splitcpy_gc(envp, &data.gc);
+	data.env = ft_splitdup_gc(envp, &data.gc);
 	line = NULL;
 	while (ft_strcmp(line, "exit") != 0)
 	{
-		init_signal(&data.sig_int, &data.sig_quit, &data.sig_child,
-			&data.sig_child_slash);
-		sigaction(SIGINT, &data.sig_int, NULL);
-		sigaction(SIGQUIT, &data.sig_quit, NULL);
-		line = readline(">minishell ");
-		if (!line)
-			ft_error_gc("exit\n", &data.gc, 0);
-		if (line[0])
-			add_history(line);
-		process_running = 1;
-		data.str = ft_split_gc(line, ' ', &data.gc);
-		data.dollar = parsing(&data);
-		process_running = 0;
+		// init_signal(&data.sig_int, &data.sig_quit, &data.sig_child,
+		// 	&data.sig_child_slash);
+		// sigaction(SIGINT, &data.sig_int, NULL);
+		// sigaction(SIGQUIT, &data.sig_quit, NULL);
+		// line = readline(">minishell ");
+		// if (!line)
+		// 	ft_error_gc("exit\n", &data.gc, 0);
+		// if (line[0])
+		// 	add_history(line);
+		// process_running = 1;
+		// data.str = ft_split_gc(line, ' ', &data.gc);
+		// data.dollar = parsing(&data);
+		// process_running = 0;
 	}
 	ft_free_all_gc(&data.gc);
 	return (0);
 }
-
-// int	main(int argc, char *argv[], char *envp[])
-// {
-// 	char	**env;
-	
-// 	(void)argc;
-// 	(void)argv;
-// 	env = ft_splitcpy(envp);
-// 	env = export(env, NULL);
-// 	env = export(env, "HOlA=3");
-// 	env = export(env, NULL);
-// 	free_tab(env);
-// 	return (0);
-// }
