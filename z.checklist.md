@@ -35,10 +35,10 @@ should expand to their values
 <!-- - Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline. -->
 
-- echo with option -n
+<!-- - echo with option -n
 - cd with only a relative or absolute path
 <!-- - pwd with no options -->
-- export with no options
-- unset with no options attention au readonly
+<!-- - export with no options -->
+unset with no options attention au readonly
 <!-- - env with no options or arguments -->
 <!-- - exit with no options -->
