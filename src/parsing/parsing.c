@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/31 14:56:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/31 15:06:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	parsing(t_data *data)
 		return_value = init_unset(data, i);
 		i++;
 	}
-	if (data->line[i].str && ft_strnstr(data->line[i].str, "echo", 6))
+	if (data->line[i].str && ft_strnstr(data->line[i].str, "echo", 4))
 	{
 		return_value = echo(data->line[i].str);
 		i++;

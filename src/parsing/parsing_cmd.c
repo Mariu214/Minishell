@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 15:36:38 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/31 15:33:26 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 void	parsing_cmd(char *cmd, t_data *data)
 {
     int     j;
+	char	*temp;
 
 	if (ft_strcmp(cmd, "pwd") == 0)
 	{
-		if (!getcwd(data->current_dir, 4096))
-			perror("error");
-		else
-			printf("%s\n", data->current_dir);
+		temp = ft_getenv("PWD", data->env);
+		printf("%s\n", temp);
 	}
 	else if (ft_strcmp(cmd, "env") == 0)
 	{
