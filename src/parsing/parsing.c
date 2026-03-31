@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 15:29:54 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/03/31 09:32:10 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,22 @@ int	parsing(t_data *data)
 	pid_t	child;
 	int		signal;
 	int		return_value;
-	// int		j;
 	
 	i = 0;
 	define_line(data);
 	return_value = 0;
 	if (ft_strcmp(data->str[i], "cd") == 0)
 		return_value = cd_make(data, ++i);
+	if (data->line[i].str && ft_strnstr(data->line[i].str, "export", 7))
+	{
+		init_export(data, i);
+		i++;
+	}
+	if (data->line[i].str && ft_strnstr(data->line[i].str, "unset", 6))
+	{
+		init_unset(data, i);
+		i++;
+	}
 	count_pipe(data);
 	child = fork();
 	if (!child)
