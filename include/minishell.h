@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/30 15:28:08 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/01 14:09:55 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@
 
 extern volatile int process_running;
 
+typedef enum e_token
+{
+	CMD = 1,
+	WORD,
+	D_QUOTE,
+	S_QUOTE,
+	INPUT,
+	OU_APPEND,
+	OU_TRUNC,
+	HEREDOC,
+	PIPE,
+}	t_token;
+
 typedef struct s_lexer
 {
 	int i;
@@ -46,6 +59,14 @@ typedef struct s_lexer
 	char *temp;
 	char *temp2;
 }		t_lexer;
+
+typedef struct s_lexst
+{
+	char	*content;
+	int		type;
+	t_lexst	next;
+	t_lexst previous;
+}		t_lexst;
 
 typedef struct s_cmd
 {
@@ -60,7 +81,7 @@ typedef struct s_data
 {
 	t_gc	*gc;
 	t_cmd	*line;
-	char	**str;
+	char	*str;
 	char	**env;
 	struct sigaction	sig_int;
 	struct sigaction	sig_quit;
@@ -70,6 +91,7 @@ typedef struct s_data
 	int		dollar;
 	int		pipedone;
 	char	current_dir[4096];
+	t_lexst	*liste;
 }			t_data;
 
 typedef struct s_command
