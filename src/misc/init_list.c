@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_lexer.c                                        :+:      :+:    :+:   */
+/*   init_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/01 15:00:28 by malaimo          ###   ########.fr       */
+/*   Created: 2026/04/01 14:57:28 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/01 14:57:29 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int    new_lexer(t_data *data)
+int	lst_add_node(t_lexst **list, char *content, int type)
 {
-    int i;
-    data->list = NULL;
+	t_lexst *new;
 
-    i = 0;
-    while (data->str[i])
-    {
-        if (ft_strcmp(ft_substr(data->str, i, 2), "<<") == 0)
-        {
-            lst_add_node(data->list, ft_substr(data->str, i, 2));
-        }
-        i++;
-    }
-    return (0);
-}
-
-int test_lexer(t_data *data)
-{
-    int result;
-
-    result = new_lexer(data);
-    return (result);
+	new = malloc(sizeof(t_lexst));
+	if (!new)
+		return (1);
+	new->content = content;
+    new->type = type;
+	new->previous = NULL;
+	new->next = *list;
+	if (*list)
+		(*list)->previous = new;
+	*list = new;
+	return (0);
 }

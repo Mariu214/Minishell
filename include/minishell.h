@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/01 14:09:55 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/01 14:58:40 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_lexst
 {
 	char	*content;
 	int		type;
-	t_lexst	next;
-	t_lexst previous;
+	struct s_lexst	*next;
+	struct s_lexst 	*previous;
 }		t_lexst;
 
 typedef struct s_cmd
@@ -91,7 +91,7 @@ typedef struct s_data
 	int		dollar;
 	int		pipedone;
 	char	current_dir[4096];
-	t_lexst	*liste;
+	t_lexst	*list;
 }			t_data;
 
 typedef struct s_command
