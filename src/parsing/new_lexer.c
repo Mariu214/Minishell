@@ -6,19 +6,56 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 10:55:05 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 11:25:16 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void    lexing_pipe(t_data *data, int i)
+int		lexing_d_quote(t_data *data, int *i)
 {
-    int j;
+    int     j;
+    char    *temp;
     
-    j = i;
+    j = *i;
+    temp = ft_substr_gc(data->str, j, 1, &data->gc);
+    if (!temp)
+        return (1);
+    j++;
+    ft_add_node(&data->list, temp, REDIRECTION);
+    return (0);
+}
+
+int		lexing_redirection(t_data *data, int *i)
+{
+    int     j;
+    char    *temp;
+    
+    j = *i;
+    while (data->str[j] && (data->str[j] == '<' || data->str[j] == '>'))
+        j++;
+    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
+    if (!temp)
+        return (1);
+    *i = j;
+    ft_add_node(&data->list, temp, REDIRECTION);
+    return (0);
+}
+
+int		lexing_pipe(t_data *data, int *i)
+{
+    int     j;
+    char    *temp;
+    
+    j = *i;
     while (data->str[j] && data->str[j] == '|')
         j++;
+    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
+    if (!temp)
+        return (1);
+    *i = j;
+    ft_add_node(&data->list, temp, PIPE);
+    return (0);
 }
 
 int    new_lexer(t_data *data)
@@ -26,7 +63,6 @@ int    new_lexer(t_data *data)
     int i;
     data->list = NULL;
     char    *temp;
-    int j;
 
     i = 0;
     while (data->str[i])
@@ -34,27 +70,20 @@ int    new_lexer(t_data *data)
         temp = ft_substr_gc(data->str, i, 2, &data->gc);
         if (data->str[i] == '|')
         {
-            while (data->str[j] && (data->str[j] != '<' || data->str[j] != '>' 
-                    || data->str[j] != '|'))
-                j++;
-            ft_delone(temp, data->gc);
-            ft_substr()
-            ft_add_node(&data->list, temp, OU_TRUNC);
+            if (lexing_pipe(data, &i))
+                return (1);
         }
-        if (ft_strcmp(temp, ">>") == 0)
+        else if (data->str[i] == '<' || data->str[i] == '>')
         {
-            ft_add_node(&data->list, temp, HEREDOC);
+            if (lexing_redirections(data, &i))
+                return (1);
+            i++;
         }
-        temp = ft_substr_gc(data->str, i, 1, &data->gc);
-        if (ft_strcmp(temp, ">") == 0)
+		else if (data->str[i] == '"')
         {
-            ft_add_node(&data->list, temp, INPUT);
+            if (lexing_d_quote(data, &i))
+                return (1);
         }
-        if (ft_strcmp(temp, "<") == 0)
-        {
-            ft_add_node(&data->list, temp, OU_APPEND);
-        }
-        i++;
     }
     return (0);
 }
