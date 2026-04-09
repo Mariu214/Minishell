@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:28:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 09:33:41 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:16:54 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	parsing(t_data *data)
 	pid_t	child;
 	int		signal;
 	int		return_value;
-	// int		j;
-	
+
 	i = 0;
 	define_line(data);
 	return_value = 0;
@@ -34,20 +33,6 @@ int	parsing(t_data *data)
 			printf("%d: command not found\n", data->dollar);
 			return_value = 127;
 		}
-		// else if (ft_strcmp(data->str[i], "pwd") == 0)
-		// {
-		// 	if (!getcwd(data->current_dir, 4096))
-		// 		perror("error");
-		// 	else 
-		// 		printf("%s\n", data->current_dir);
-		// }
-		// else if (ft_strcmp(data->str[i], "env") == 0)
-		// {
-		// 	j = 0;
-		// 	while (data->env[j])
-        // 		printf("%s\n", data->env[j++]);
-		// 	return_value = 0;
-		// }
 		else
 		{
 			while (data->line[i].str)
