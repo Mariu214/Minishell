@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 13:15:08 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 13:42:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,28 @@ int		lexing_word(t_data *data, int *i)
     return (0);
 }
 
-int		lexing_d_quote(t_data *data, int *i)
+int     lexing_sort(t_data *data, int *i, int jsp)
 {
-    int     j;
-    char    *temp;
-    
-	j = *i;
-    if (!temp)
-        return (1);
-	while (data->str[j] && (data->str[j] != '>' || data->str[j] != '<'
-			|| data->str[j] != '|' || data->str[j] != '"'))
-		j++;
-	if (data->str[j] && data->str[j] == '"')
-		j++;
-	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-	if (!temp)
-		return (1);
-	ft_add_node(&data->list, temp, D_QUOTE);
+    if (data->str[*i] == '"')
+    {
+        if (lexing_d_quote(data, i, WORD))
+            return (1);
+    }
+    else if (data->str[*i] == '\'')
+    {
+        if (lexing_s_quote(data, i, WORD))
+            return (1);
+    }
+    else if (jsp == 0)
+    {
+        if (lexing_word(data, i))
+            return (1);
+    }
+    else if (jsp == 1)
+    {
+        if (lexing_cmd(data, i))
+            return (1);
+    }
     return (0);
 }
 
@@ -87,8 +92,18 @@ int		lexing_redirection(t_data *data, int *i)
     temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
         return (1);
-    *i = j;
     ft_add_node(&data->list, temp, REDIRECTION);
+    if (data->str[j] && data->str[j] == ' ')
+		j++;
+    *i = j;
+    j = 0;
+    while (data->str[*i] && (data->str[*i] != '>' || data->str[*i] != '<'
+			|| data->str[*i] != '|'))
+	{
+        if (lexing_sort(data, i, j))
+            return (1);
+        j++;
+	}
     return (0);
 }
 
@@ -112,12 +127,10 @@ int    lexer(t_data *data)
 {
     int i;
     data->list = NULL;
-    char    *temp;
 
     i = 0;
     while (data->str[i])
     {
-        temp = ft_substr_gc(data->str, i, 2, &data->gc);
         if (data->str[i] == '|')
         {
             if (lexing_pipe(data, &i))
@@ -130,7 +143,12 @@ int    lexer(t_data *data)
         }
 		else if (data->str[i] == '"')
         {
-            if (lexing_d_quote(data, &i))
+            if (lexing_d_quote(data, &i, CMD))
+                return (1);
+        }
+        else if (data->str[i] == '\'')
+        {
+            if (lexing_s_quote(data, &i, CMD))
                 return (1);
         }
 		else if (data->str[i])
