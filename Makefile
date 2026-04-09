@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
+#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/09 11:23:39 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/04/09 12:38:16 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing cd unset export \
-		open_files redirection lexer lexer_utils parsing_cmd dollar ft_shellerror_gc echo new_lexer \
-		init_list ft_add_node ft_print_lex \
+		open_files redirection parsing_cmd dollar ft_shellerror_gc echo lexer \
+		init_list ft_add_node ft_print_lex lexer_quotes \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -39,7 +39,7 @@ RESET = \033[0;39m
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
-vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe $(SRC_DIR)redirection $(SRC_DIR)hardcoded $(SRC_DIR)misc $(SRC_DIR)list
+vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe $(SRC_DIR)redirection $(SRC_DIR)hardcoded $(SRC_DIR)misc $(SRC_DIR)list $(SRC_DIR)lexer
 
 all: $(NAME)
 

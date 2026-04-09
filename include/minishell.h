@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 11:19:28 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 12:37:26 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "include_h/redirection.h"
 # include "include_h/hardcoded.h"
 # include "include_h/misc.h"
+# include "include_h/lexer.h"
 
 # include <readline/history.h>
 # include <readline/readline.h>
