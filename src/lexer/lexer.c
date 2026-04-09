@@ -6,7 +6,11 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/04/09 12:40:16 by malaimo          ###   ########.fr       */
+=======
+/*   Updated: 2026/04/09 12:41:41 by malaimo          ###   ########.fr       */
+>>>>>>> marius
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +37,9 @@ int		lexing_cmd(t_data *data, int *i)
 	{
 		if (lexing_word(data, i))
 			return (1);
+        if (data->str[*i] && data->str[*i] == ' ')
+		    *i++;
 	}
-    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-    if (!temp)
-        return (1);
-    *i = j;
-    ft_add_node(&data->list, temp, CMD);
     return (0);
 }
 
