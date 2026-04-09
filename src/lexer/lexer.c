@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 14:05:41 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 15:41:48 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		lexing_word(t_data *data, int *i)
     if (!temp)
         return (1);
     *i = j;
-    ft_add_node(&data->list, temp, WORD);
+    ft_add_node(&data->list, temp, WORD, &data->gc);
     return (0);
 }
 
@@ -41,7 +41,7 @@ int		lexing_cmd(t_data *data, int *i)
 	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
         return (1);
-    ft_add_node(&data->list, temp, CMD);
+    ft_add_node(&data->list, temp, CMD, &data->gc);
 	if (data->str[j] && data->str[j] == ' ')
 		j++;
 	*i = j;
@@ -73,7 +73,7 @@ int     lexing_sort(t_data *data, int *i, int jsp)
         if (lexing_word(data, i))
             return (1);
     }
-    else if (jsp == 1)
+    else if (jsp >= 1)
     {
         if (lexing_cmd(data, i))
             return (1);
@@ -90,25 +90,25 @@ int     lexing_precise_redirection(t_data *data, char *str)
     {
         if (str[i] && str[i + 1] && str[i] == '<' && str[i + 1] == '<')
         {
-            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), HEREDOC))
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), HEREDOC, &data->gc))
                 return (1);
             i += 2;
         }
         else if ((str[i] && str[i + 1] && str[i] == '>' && str[i + 1] == '>'))
         {
-            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), OU_APPEND))
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), OU_APPEND, &data->gc))
                 return (1);
             i += 2;
         }
         else if (str[i] && str[i] == '<')
         {
-            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), INPUT))
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), INPUT, &data->gc))
                 return (1);
             i++;
         }
         else if (str[i] && str[i] == '>')
         {
-            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), OU_TRUNC))
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), OU_TRUNC, &data->gc))
                 return (1);
             i++;
         }
@@ -155,7 +155,7 @@ int		lexing_pipe(t_data *data, int *i)
     if (!temp)
         return (1);
     *i = j;
-    ft_add_node(&data->list, temp, PIPE);
+    ft_add_node(&data->list, temp, PIPE, &data->gc);
     return (0);
 }
 

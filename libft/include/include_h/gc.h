@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/08 15:33:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 14:45:52 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_split_sentence
 }				t_split_sentence;
 
 void			*ft_calloc_gc(size_t nmemb, size_t size, t_gc **gc);
+void			*ft_malloc_gc(size_t nmemb, size_t size, t_gc **gc);
 void			ft_free_all_gc(t_gc **gc);
 int				ft_lstadd_gc(t_gc **gc, void *content);
 char			*ft_strdup_gc(const char *s, t_gc **gc);
