@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   misc.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 14:43:58 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:38:14 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/30 15:26:25 by malaimo           #+#    #+#             */
+/*   Updated: 2026/03/30 15:27:13 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#ifndef MISC_H
+# define MISC_H
 
-int	ft_lstsize(t_list *lst)
-{
-	int	i;
+void	ft_shellerror_gc(char *str, t_data *data, int out);
 
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
+#endif

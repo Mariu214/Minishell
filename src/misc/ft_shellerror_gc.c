@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 15:06:05 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:51 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/03/30 13:45:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_shellerror_gc(char *str, t_data *data, int out)
 {
-	while (lst)
-	{
-		if (!lst->next)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
+	ft_printf_fd(2, "%s", str);
+	free(data->env);
+	ft_free_all_gc(&data->gc);
+	exit(out);
 }

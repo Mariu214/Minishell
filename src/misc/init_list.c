@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_cmd.c                                      :+:      :+:    :+:   */
+/*   init_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/31 15:33:26 by malaimo          ###   ########.fr       */
+/*   Created: 2026/04/01 14:57:28 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/01 14:57:29 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	parsing_cmd(char *cmd, t_data *data)
+int	lst_add_node(t_lexst **list, char *content, int type)
 {
-    int     j;
-	char	*temp;
+	t_lexst *new;
 
-	if (ft_strcmp(cmd, "pwd") == 0)
-	{
-		temp = ft_getenv("PWD", data->env);
-		printf("%s\n", temp);
-	}
-	else if (ft_strcmp(cmd, "env") == 0)
-	{
-		j = 0;
-		while (data->env[j])
-			printf("%s\n", data->env[j++]);
-		// return_value = 0;
-	}
-    else
-        exec(cmd, data);
+	new = malloc(sizeof(t_lexst));
+	if (!new)
+		return (1);
+	new->content = content;
+    new->type = type;
+	new->previous = NULL;
+	new->next = *list;
+	if (*list)
+		(*list)->previous = new;
+	*list = new;
+	return (0);
 }

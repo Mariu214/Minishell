@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 14:18:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:40 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/08 16:53:22 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#ifndef LIST_H
+# define LIST_H
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+typedef struct s_lexst
 {
-	if (!lst || !del)
-		return ;
-	del(lst->content);
-	free(lst);
-}
+	char	*content;
+	t_token		type;
+	struct s_lexst	*next;
+	struct s_lexst 	*previous;
+}		t_lexst;
+
+int	ft_add_node(t_lexst **list, void *content, t_token type);
+
+#endif

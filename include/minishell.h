@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/30 09:30:29 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:54:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "include_h/pipe.h"
 # include "include_h/redirection.h"
 # include "include_h/hardcoded.h"
+# include "include_h/misc.h"
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -34,6 +35,21 @@
 #include <termios.h>
 
 extern volatile int process_running;
+
+typedef enum e_token
+{
+	CMD = 1,
+	WORD,
+	D_QUOTE,
+	S_QUOTE,
+	INPUT,
+	OU_APPEND,
+	OU_TRUNC,
+	HEREDOC,
+	PIPE,
+}	t_token;
+
+# include "include_h/list.h"
 
 typedef struct s_lexer
 {
@@ -59,7 +75,7 @@ typedef struct s_data
 {
 	t_gc	*gc;
 	t_cmd	*line;
-	char	**str;
+	char	*str;
 	char	**env;
 	struct sigaction	sig_int;
 	struct sigaction	sig_quit;
@@ -69,6 +85,7 @@ typedef struct s_data
 	int		dollar;
 	int		pipedone;
 	char	current_dir[4096];
+	t_lexst	*list;
 }			t_data;
 
 typedef struct s_command

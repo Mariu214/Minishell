@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/08 15:03:50 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/09 11:06:58 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	exec(char *cmd, t_data *data)
 		free_tab(command.s_cmd);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: \n");
-		ft_error_gc("", &data->gc, 127);
+		ft_shellerror_gc("", data, 127);
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
@@ -100,7 +100,7 @@ void	exec(char *cmd, t_data *data)
 		if (command.free == 0)
 			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
 		free_tab(command.s_cmd);
-		ft_error_gc("", &data->gc, 127);
+		ft_shellerror_gc("", data, 127);
 	}
 }
 
