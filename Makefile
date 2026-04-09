@@ -6,14 +6,15 @@
 #    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/31 14:57:05 by malaimo          ###   ########.fr        #
+#    Updated: 2026/04/08 16:47:54 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing cd unset export \
-		open_files redirection lexer lexer_utils parsing_cmd dollar ft_shellerror_gc echo \
+		open_files redirection lexer lexer_utils parsing_cmd dollar ft_shellerror_gc echo new_lexer \
+		init_list ft_add_node\
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -38,7 +39,7 @@ RESET = \033[0;39m
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
-vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe $(SRC_DIR)redirection $(SRC_DIR)hardcoded $(SRC_DIR)misc
+vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe $(SRC_DIR)redirection $(SRC_DIR)hardcoded $(SRC_DIR)misc $(SRC_DIR)list
 
 all: $(NAME)
 

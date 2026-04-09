@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:19:31 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 16:03:51 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:46:08 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include "include_h/env.h"
 # include "include_h/get_next_line.h"
 # include "include_h/is.h"
-# include "include_h/list.h"
 # include "include_h/memory.h"
 # include "include_h/printf.h"
 # include "include_h/printf_fd.h"

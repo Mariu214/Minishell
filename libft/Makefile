@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
+#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/26 10:50:31 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/04/08 16:55:30 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME = libft.a
 FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint ft_strlen ft_memset ft_bzero ft_memcpy ft_memmove ft_strlcat ft_strlcpy \
       ft_toupper ft_tolower ft_strchr ft_strrchr ft_strncmp ft_memchr ft_memcmp ft_strnstr ft_atoi ft_calloc ft_strdup ft_substr ft_strjoin \
       ft_strtrim ft_split ft_itoa ft_strmapi ft_striteri ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd get_next_line ft_putnbr_base \
-      ft_putnbr_p ft_putnbr_u ft_printf ft_putchar ft_putstr ft_putnbr ft_lstnew ft_lsadd_front ft_lstsize ft_lstlast ft_lstadd_back \
-      ft_lstdelone ft_lstclear ft_lstiter ft_lstmap ft_strnstr_back ft_strcmp ft_getenv ft_printf_fd ft_putnbr_base_fd ft_putnbr_p_fd \
+      ft_putnbr_p ft_putnbr_u ft_printf ft_putchar ft_putstr ft_putnbr \
+      ft_strnstr_back ft_strcmp ft_getenv ft_printf_fd ft_putnbr_base_fd ft_putnbr_p_fd \
       ft_putnbr_u_fd free_tab gnl_lim is_there ft_split_sentence ft_calloc_gc ft_free_all_gc ft_lstadd_gc ft_strdup_gc ft_strjoin_gc \
 	  ft_split_gc ft_split_sentence_gc ft_error_gc ft_delone_gc ft_renew_gc ft_free_tab_gc ft_splitlen ft_split_gc ft_splitlen ft_splitdup_gc \
-	  ft_gnl_gc ft_splitdup \
+	  ft_gnl_gc ft_splitdup ft_substr_gc \
       
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -42,7 +42,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
 vpath %.c $(SRC_DIR) $(SRC_DIR)printf $(SRC_DIR)printf_fd $(SRC_DIR)string $(SRC_DIR)memory \
-	$(SRC_DIR)list $(SRC_DIR)is $(SRC_DIR)env $(SRC_DIR)get_next_line $(SRC_DIR)conv_type $(SRC_DIR)gc \
+	$(SRC_DIR)list $(SRC_DIR)is $(SRC_DIR)env $(SRC_DIR)get_next_line $(SRC_DIR)conv_type $(SRC_DIR)gc $(SRC_DIR)archive_to_delete \
 
 all: $(NAME)
 
