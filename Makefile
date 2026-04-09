@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
+#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/08 16:47:54 by malaimo          ###   ########.fr        #
+#    Updated: 2026/04/09 11:23:39 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing cd unset export \
 		open_files redirection lexer lexer_utils parsing_cmd dollar ft_shellerror_gc echo new_lexer \
-		init_list ft_add_node\
+		init_list ft_add_node ft_print_lex \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
