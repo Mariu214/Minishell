@@ -6,11 +6,28 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 13:42:25 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 14:05:41 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int		lexing_word(t_data *data, int *i)
+{
+	int     j;
+    char    *temp;
+    
+    j = *i;
+	while (data->str[j] && (data->str[j] != '>' || data->str[j] != '<'
+			|| data->str[j] != '|' || data->str[j] != ' '))
+        j++;
+    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
+    if (!temp)
+        return (1);
+    *i = j;
+    ft_add_node(&data->list, temp, WORD);
+    return (0);
+}
 
 int		lexing_cmd(t_data *data, int *i)
 {
@@ -34,25 +51,8 @@ int		lexing_cmd(t_data *data, int *i)
 		if (lexing_word(data, i))
 			return (1);
         if (data->str[*i] && data->str[*i] == ' ')
-		    *i++;
+		    *i += 1;
 	}
-    return (0);
-}
-
-int		lexing_word(t_data *data, int *i)
-{
-	int     j;
-    char    *temp;
-    
-    j = *i;
-	while (data->str[j] && (data->str[j] != '>' || data->str[j] != '<'
-			|| data->str[j] != '|' || data->str[j] != ' '))
-        j++;
-    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-    if (!temp)
-        return (1);
-    *i = j;
-    ft_add_node(&data->list, temp, WORD);
     return (0);
 }
 
@@ -81,6 +81,41 @@ int     lexing_sort(t_data *data, int *i, int jsp)
     return (0);
 }
 
+int     lexing_precise_redirection(t_data *data, char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] && str[i + 1] && str[i] == '<' && str[i + 1] == '<')
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), HEREDOC))
+                return (1);
+            i += 2;
+        }
+        else if ((str[i] && str[i + 1] && str[i] == '>' && str[i + 1] == '>'))
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), OU_APPEND))
+                return (1);
+            i += 2;
+        }
+        else if (str[i] && str[i] == '<')
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), INPUT))
+                return (1);
+            i++;
+        }
+        else if (str[i] && str[i] == '>')
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), OU_TRUNC))
+                return (1);
+            i++;
+        }
+    }
+    return (0);
+}
+
 int		lexing_redirection(t_data *data, int *i)
 {
     int     j;
@@ -92,7 +127,8 @@ int		lexing_redirection(t_data *data, int *i)
     temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
         return (1);
-    ft_add_node(&data->list, temp, REDIRECTION);
+    if (lexing_precise_redirection(data, temp))
+        return (1);
     if (data->str[j] && data->str[j] == ' ')
 		j++;
     *i = j;
@@ -138,7 +174,7 @@ int    lexer(t_data *data)
         }
         else if (data->str[i] == '<' || data->str[i] == '>')
         {
-            if (lexing_redirections(data, &i))
+            if (lexing_redirection(data, &i))
                 return (1);
         }
 		else if (data->str[i] == '"')
