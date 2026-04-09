@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/01 14:58:40 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/08 16:54:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef enum e_token
 	PIPE,
 }	t_token;
 
+# include "include_h/list.h"
+
 typedef struct s_lexer
 {
 	int i;
@@ -59,14 +61,6 @@ typedef struct s_lexer
 	char *temp;
 	char *temp2;
 }		t_lexer;
-
-typedef struct s_lexst
-{
-	char	*content;
-	int		type;
-	struct s_lexst	*next;
-	struct s_lexst 	*previous;
-}		t_lexst;
 
 typedef struct s_cmd
 {
