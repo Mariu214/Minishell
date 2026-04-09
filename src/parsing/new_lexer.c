@@ -6,23 +6,48 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 11:25:16 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 11:45:48 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int		lexing_file(t_data *data, int *i)
+{
+	int     j;
+    char    *temp;
+    
+    j = *i;
+	while (data->str[j] && (data->str[j] != '>' || data->str[j] != '<'
+			|| data->str[j] != '|' || data->str[j] != ' '))
+        j++;
+    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
+    if (!temp)
+        return (1);
+    *i = j;
+    ft_add_node(&data->list, temp, REDIRECTION);
+	if (data->str[*i])
+		lexing_fichier;
+    return (0);
+}
 
 int		lexing_d_quote(t_data *data, int *i)
 {
     int     j;
     char    *temp;
     
-    j = *i;
-    temp = ft_substr_gc(data->str, j, 1, &data->gc);
+	j = *i;
     if (!temp)
         return (1);
-    j++;
-    ft_add_node(&data->list, temp, REDIRECTION);
+	while (data->str[j] && (data->str[j] != '>' || data->str[j] != '<'
+			|| data->str[j] != '|' || data->str[j] != '"'))
+		j++;
+	if (data->str[j] && data->str[j] == '"')
+		j++;
+	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
+	if (!temp)
+		return (1);
+	ft_add_node(&data->list, temp, D_QUOTE);
     return (0);
 }
 
@@ -39,6 +64,8 @@ int		lexing_redirection(t_data *data, int *i)
         return (1);
     *i = j;
     ft_add_node(&data->list, temp, REDIRECTION);
+	if (data->str[*i])
+		lexing_file;
     return (0);
 }
 
@@ -77,7 +104,6 @@ int    new_lexer(t_data *data)
         {
             if (lexing_redirections(data, &i))
                 return (1);
-            i++;
         }
 		else if (data->str[i] == '"')
         {
