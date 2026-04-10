@@ -6,7 +6,7 @@
 #    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/09 15:47:05 by malaimo          ###   ########.fr        #
+#    Updated: 2026/04/10 11:09:01 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
 vpath %.c $(SRC_DIR) $(SRC_DIR)printf $(SRC_DIR)printf_fd $(SRC_DIR)string $(SRC_DIR)memory \
-	$(SRC_DIR)list $(SRC_DIR)is $(SRC_DIR)env $(SRC_DIR)get_next_line $(SRC_DIR)conv_type $(SRC_DIR)gc $(SRC_DIR)archive_to_delete \
+	$(SRC_DIR)list $(SRC_DIR)is $(SRC_DIR)env $(SRC_DIR)get_next_line $(SRC_DIR)conv_type $(SRC_DIR)gc \
 
 all: $(NAME)
 
