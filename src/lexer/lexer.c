@@ -1,19 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/04/09 16:26:30 by jdelmott         ###   ########.fr       */
-=======
-/*   Updated: 2026/04/10 11:34:47 by malaimo          ###   ########.fr       */
->>>>>>> prototype
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 int		lexing_word(t_data *data, int *i)
@@ -22,8 +6,8 @@ int		lexing_word(t_data *data, int *i)
     char    *temp;
     
     j = *i;
-	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
-			&& data->str[j] != '|' && data->str[j] != ' ')
+	while (data->str[j] && (data->str[j] != '>' || data->str[j] != '<'
+			|| data->str[j] != '|' || data->str[j] != ' '))
         j++;
     temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
@@ -39,8 +23,8 @@ int		lexing_cmd(t_data *data, int *i)
     char    *temp;
     
     j = *i;
-	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
-			&& data->str[j] != '|')
+	while (data->str[j] && (data->str[j] != '>' || data->str[j] != '<'
+			|| data->str[j] != '|'))
         j++;
 	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
@@ -49,14 +33,74 @@ int		lexing_cmd(t_data *data, int *i)
 	if (data->str[j] && data->str[j] == ' ')
 		j++;
 	*i = j;
-	while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
-			&& data->str[*i] != '|')
+	while (data->str[*i] && (data->str[*i] != '>' || data->str[*i] != '<'
+			|| data->str[*i] != '|'))
 	{
 		if (lexing_word(data, i))
 			return (1);
         if (data->str[*i] && data->str[*i] == ' ')
 		    *i += 1;
 	}
+    return (0);
+}
+
+int     lexing_sort(t_data *data, int *i, int jsp)
+{
+    if (data->str[*i] == '"')
+    {
+        if (lexing_d_quote(data, i, WORD))
+            return (1);
+    }
+    else if (data->str[*i] == '\'')
+    {
+        if (lexing_s_quote(data, i, WORD))
+            return (1);
+    }
+    else if (jsp == 0)
+    {
+        if (lexing_word(data, i))
+            return (1);
+    }
+    else if (jsp >= 1)
+    {
+        if (lexing_cmd(data, i))
+            return (1);
+    }
+    return (0);
+}
+
+int     lexing_precise_redirection(t_data *data, char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] && str[i + 1] && str[i] == '<' && str[i + 1] == '<')
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), HEREDOC, &data->gc))
+                return (1);
+            i += 2;
+        }
+        else if ((str[i] && str[i + 1] && str[i] == '>' && str[i + 1] == '>'))
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 2, &data->gc), OU_APPEND, &data->gc))
+                return (1);
+            i += 2;
+        }
+        else if (str[i] && str[i] == '<')
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), INPUT, &data->gc))
+                return (1);
+            i++;
+        }
+        else if (str[i] && str[i] == '>')
+        {
+            if (ft_add_node(&data->list, ft_substr_gc(data->str, i, 1, &data->gc), OU_TRUNC, &data->gc))
+                return (1);
+            i++;
+        }
+    }
     return (0);
 }
 
@@ -77,8 +121,8 @@ int		lexing_redirection(t_data *data, int *i)
 		j++;
     *i = j;
     j = 0;
-    while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
-			&& data->str[*i] != '|')
+    while (data->str[*i] && (data->str[*i] != '>' || data->str[*i] != '<'
+			|| data->str[*i] != '|'))
 	{
         if (lexing_sort(data, i, j))
             return (1);
@@ -111,6 +155,7 @@ int    lexer(t_data *data)
     i = 0;
     while (data->str[i])
     {
+        ft_printf_fd(2, "ici je te jure\n");
         if (data->str[i] == '|')
         {
             if (lexing_pipe(data, &i))
@@ -131,8 +176,6 @@ int    lexer(t_data *data)
             if (lexing_s_quote(data, &i, CMD))
                 return (1);
         }
-        else if (data->str[i] == ' ')
-            i++;
 		else if (data->str[i])
 		{
 			if (lexing_cmd(data, &i))
