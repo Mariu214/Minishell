@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 12:20:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/11 12:47:01 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/11 12:48:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,10 @@ void    ft_print_list(t_lexst *lexer)
 
     temp = lexer;
     while (temp)
-        temp = temp->previous;
-    while (temp)
     {
         ft_printf_fd(2, "%s, ", temp->content);
         print_type(temp->type);
         print_type_word(temp->word_type);
-        temp = temp->next;
+        temp = temp->previous;
     }
 }

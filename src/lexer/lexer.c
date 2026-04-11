@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/11 12:27:28 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/11 12:57:05 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		lexing_cmd(t_data *data, int *i)
     
     j = *i;
 	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
-			&& data->str[j] != '|')
+			&& data->str[j] != '|' && data->str[j] != '\'' && data->str[j] != '"')
         j++;
 	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
@@ -45,14 +45,14 @@ int		lexing_cmd(t_data *data, int *i)
 	if (data->str[j] && data->str[j] == ' ')
 		j++;
 	*i = j;
-	while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
-			&& data->str[*i] != '|')
-	{
-		if (lexing_word(data, i))
-			return (1);
-        if (data->str[*i] && data->str[*i] == ' ')
-		    *i += 1;
-	}
+	// while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
+	// 		&& data->str[*i] != '|')
+	// {
+	// 	if (lexing_word(data, i))
+	// 		return (1);
+    //     if (data->str[*i] && data->str[*i] == ' ')
+	// 	    *i += 1;
+	// }
     return (0);
 }
 
@@ -146,18 +146,3 @@ int test_lexer(t_data *data)
     ft_print_list(data->list);
     return (result);
 }
-
-
-//error :
-
-// input = cat -e "MAKEFILE 
-// output = cat -e "Makefile, CMD
-// expected = cat, CMD  \n   -e, WORD  \n  ", D_QUOTE  \n  Makefile, word
-
-// input = "| 
-// output = ,CMD  \n  |, CMD   \n  ", D_QUOTE
-// expected = |, WORD(ou CMD)  ", D_QUOTE
-
-// input = cat -e "<< lim | cat -e out ||||"
-// output = ", D_QUOTE  \n  ||||, PIPE  \n  cat -e out, CMD  \n  |, PIPE  \n   , CMD  \n  lim, WORD  \n  <<, HEREDOC  \n  cat -e", CMD
-// expected = ", D_QUOTE  \n  << lim | cat -e out ||||, WORD(ou CMD)  \n  ", D_QUOTE  \n  -e, WORD(ou CMD)  \n  cat, CMD
