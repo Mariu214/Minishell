@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/10 11:39:06 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/11 11:38:17 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int parser(t_data *data, t_lexst *list)
     else if (list->type == D_QUOTE)
         return (0);
     else if (list->type == S_QUOTE)
-        return (0);
-    else if (list->type == REDIRECTION)
         return (0);
     else if (list->type == INPUT)
         return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/10 11:49:14 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/11 12:09:17 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 extern volatile int process_running;
 
-typedef enum e_token
+typedef enum e_type
 {
 	CMD = 1,
 	WORD,
@@ -47,7 +47,16 @@ typedef enum e_token
 	OU_TRUNC,
 	HEREDOC,
 	PIPE,
-}	t_token;
+}	t_type;
+
+typedef enum e_quote
+{
+	WRD = 1,
+	OPEN_D_QUOTE,
+	CLOSED_D_QUOTE,
+	OPEN_S_QUOTE,
+	CLOSED_S_QUOTE,
+}	t_quote;
 
 # include "include_h/lexer.h"
 # include "include_h/list.h"

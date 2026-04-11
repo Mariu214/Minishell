@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_node.c                                      :+:      :+:    :+:   */
+/*   define_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/01 14:53:05 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/11 12:34:25 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/04/11 11:49:37 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/04/11 11:54:50 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_add_node(t_lexst **list, void *content, t_token token, t_gc **gc)
+t_token define_type(t_type type, t_quote quote)
 {
-	t_lexst	*new;
+    t_token temp;
 
-	new = ft_malloc_gc(sizeof(t_lexst), 1, gc);
-	if (!new)
-		return (1);
-	new->content = content;
-	new->type = token.type;
-	new->word_type = token.quote;
-	new->previous = *list;
-	new->next = NULL;
-	if (*list)
-		(*list)->next = new;
-	*list = new;
-	return (0);
+    temp.type = type;
+    temp.quote = quote;
+    return (temp);
 }

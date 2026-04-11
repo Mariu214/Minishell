@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/10 11:34:47 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/11 12:27:28 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		lexing_word(t_data *data, int *i)
     if (!temp)
         return (1);
     *i = j;
-    ft_add_node(&data->list, temp, WORD, &data->gc);
+    ft_add_node(&data->list, temp, define_type(WORD, WRD), &data->gc);
     return (0);
 }
 
@@ -41,7 +41,7 @@ int		lexing_cmd(t_data *data, int *i)
 	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
         return (1);
-    ft_add_node(&data->list, temp, CMD, &data->gc);
+    ft_add_node(&data->list, temp, define_type(CMD, WRD), &data->gc);
 	if (data->str[j] && data->str[j] == ' ')
 		j++;
 	*i = j;
@@ -95,7 +95,7 @@ int		lexing_pipe(t_data *data, int *i)
     if (!temp)
         return (1);
     *i = j;
-    ft_add_node(&data->list, temp, PIPE, &data->gc);
+    ft_add_node(&data->list, temp, define_type(PIPE, WRD), &data->gc);
     return (0);
 }
 
@@ -146,3 +146,18 @@ int test_lexer(t_data *data)
     ft_print_list(data->list);
     return (result);
 }
+
+
+//error :
+
+// input = cat -e "MAKEFILE 
+// output = cat -e "Makefile, CMD
+// expected = cat, CMD  \n   -e, WORD  \n  ", D_QUOTE  \n  Makefile, word
+
+// input = "| 
+// output = ,CMD  \n  |, CMD   \n  ", D_QUOTE
+// expected = |, WORD(ou CMD)  ", D_QUOTE
+
+// input = cat -e "<< lim | cat -e out ||||"
+// output = ", D_QUOTE  \n  ||||, PIPE  \n  cat -e out, CMD  \n  |, PIPE  \n   , CMD  \n  lim, WORD  \n  <<, HEREDOC  \n  cat -e", CMD
+// expected = ", D_QUOTE  \n  << lim | cat -e out ||||, WORD(ou CMD)  \n  ", D_QUOTE  \n  -e, WORD(ou CMD)  \n  cat, CMD
