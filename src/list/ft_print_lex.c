@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:09:29 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/09 11:21:55 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/09 17:29:19 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void print_type(t_token type)
         ft_printf_fd(2, "D_QUOTE\n");
     else if (type == S_QUOTE)
         ft_printf_fd(2, "S_QUOTE\n");
-    else if (type == REDIRECTION)
-        ft_printf_fd(2, "REDIRECTION\n");
+    else if (type == OU_TRUNC)
+        ft_printf_fd(2, "OU_TRUNC\n");
     else if (type == INPUT)
         ft_printf_fd(2, "INPUT\n");
     else if (type == OU_APPEND)
@@ -33,7 +33,7 @@ static void print_type(t_token type)
     else if (type == PIPE)
         ft_printf_fd(2, "PIPE\n");
     else
-        ft_printf_fd(2, "ERROR\n");
+        ft_printf_fd(2, "ERROR = %i, %i\n", type, OU_APPEND);
 }
 
 void    ft_print_list(t_lexst *lexer)
