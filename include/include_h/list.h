@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/11 12:19:39 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/11 13:45:06 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ int					ft_add_node(t_lexst **list, void *content, t_token token,
 						t_gc **gc);
 void				ft_print_list(t_lexst *lexer);
 t_token				define_type(t_type type, t_quote quote);
+
+int    parser(t_data *data, t_lexst *list);
 
 #endif

@@ -3,13 +3,16 @@
 
 typedef struct s_data	t_data;
 
-void					parsing_heredoc(t_data *data, char *lim);
-void					define_line(t_data *data);
-int						parsing(t_data *data);
-int						do_comm(t_data *data, int i);
-int						is_pipe(char c);
-int						is_redirection(char c);
-void					init_null(t_data *data, int size);
 
+void					parsing_heredoc(t_data *data, char *lim);
+// void					define_line(t_data *data);
+// int						parsing(t_data *data);
+// int						do_comm(t_data *data, int i);
+// int						is_pipe(char c);
+// int						is_redirection(char c);
+// void					init_null(t_data *data, int size);
+
+int    parsing_cmd(t_data *data);
+int    parsing_cmd_next(char *cmd, t_data *data);
 
 #endif

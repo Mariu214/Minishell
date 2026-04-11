@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/11 11:38:17 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/11 13:46:51 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int parser(t_data *data, t_lexst *list)
     if (list->type == WORD)
         return (0);
     else if (list->type == CMD)
-        return (0);
+        return (parsing_cmd(data));
     else if (list->type == D_QUOTE)
         return (0);
     else if (list->type == S_QUOTE)
@@ -32,7 +32,7 @@ int parser(t_data *data, t_lexst *list)
         return (0);
     else if (list->type == PIPE)
         return (0);
-    
+    return (0);
 }
 
 // int init_parser(t_lexst *list)
