@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 14:03:00 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/10 11:49:14 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef enum e_token
 	WORD,
 	D_QUOTE,
 	S_QUOTE,
-	REDIRECTION,
 	INPUT,
 	OU_APPEND,
 	OU_TRUNC,

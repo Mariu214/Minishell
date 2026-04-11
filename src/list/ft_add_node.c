@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:53:05 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/09 14:47:24 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/09 15:45:00 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_add_node(t_lexst **list, void *content, t_token type, t_gc **gc)
 	if (!new)
 		return (1);
 	new->content = content;
-	new->type = type;
+	new->type = type; 
 	new->previous = *list;
 	new->next = NULL;
 	if (*list)
