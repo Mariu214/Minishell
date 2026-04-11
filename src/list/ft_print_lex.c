@@ -6,11 +6,8 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:09:29 by jdelmott          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/04/09 17:29:19 by jdelmott         ###   ########.fr       */
-=======
+/*   Updated: 2026/04/11 10:13:33 by jdelmott         ###   ########.fr       */
 /*   Updated: 2026/04/10 11:58:47 by malaimo          ###   ########.fr       */
->>>>>>> prototype
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +23,8 @@ static void print_type(t_token type)
         ft_printf_fd(2, "D_QUOTE\n");
     else if (type == S_QUOTE)
         ft_printf_fd(2, "S_QUOTE\n");
-<<<<<<< HEAD
     else if (type == OU_TRUNC)
         ft_printf_fd(2, "OU_TRUNC\n");
-=======
->>>>>>> prototype
     else if (type == INPUT)
         ft_printf_fd(2, "INPUT\n");
     else if (type == OU_APPEND)
