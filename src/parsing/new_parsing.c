@@ -6,45 +6,46 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 14:24:43 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/13 15:42:02 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int parser(t_data *data, t_lexst *list)
+int parser(t_data *data, t_lexst **list)
 {
-    if (list->type == WORD)
+    if ((*list)->type == WORD)
         return (0);
-    else if (list->type == CMD)
-        return (parsing_cmd(data));
-    else if (list->type == D_QUOTE)
+    else if ((*list)->type == CMD)
+        return (parsing_cmd(data, list));
+    else if ((*list)->type == D_QUOTE)
         return (0);
-    else if (list->type == S_QUOTE)
+    else if ((*list)->type == S_QUOTE)
         return (0);
-    else if (list->type == INPUT)
+    else if ((*list)->type == INPUT)
         return (0);
-    else if (list->type == OU_APPEND)
+    else if ((*list)->type == OU_APPEND)
         return (0);
-    else if (list->type == OU_TRUNC)
+    else if ((*list)->type == OU_TRUNC)
         return (0);
-    else if (list->type == HEREDOC)
+    else if ((*list)->type == HEREDOC)
         return (0);
-    else if (list->type == PIPE)
+    else if ((*list)->type == PIPE)
+        return (0);
+    else if ((*list)->type == BUILT_IN)
         return (0);
     return (0);
 }
 
-int init_parser(t_data *data, t_lexst *list)
+int init_parser(t_data *data)
 {
     int     return_value;
+    t_lexst *temp;
 
-    while (list->previous)
-        list = list->previous;
-    while (list->content)
+    temp = data->list;
+    while (temp)
     {
-        return_value = parser(data, list);
-        list = list->next;
+        return_value = parser(data, &temp);
     }
     return (return_value);
 }

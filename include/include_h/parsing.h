@@ -1,6 +1,8 @@
 #ifndef PARSING_H
 # define PARSING_H
 
+# include "list.h"
+
 typedef struct s_data	t_data;
 
 
@@ -12,7 +14,8 @@ void					parsing_heredoc(t_data *data, char *lim);
 // int						is_redirection(char c);
 // void					init_null(t_data *data, int size);
 
-int    parsing_cmd(t_data *data);
+int	    parsing_cmd(t_data *data, t_lexst **list);
 int    parsing_cmd_next(char *cmd, t_data *data);
+void    parser_built_in(t_lexst **list);
 
 #endif
