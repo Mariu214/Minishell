@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:09:29 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 11:34:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/13 14:11:41 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void print_type(t_type type)
         ft_printf_fd(2, "HEREDOC, ");
     else if (type == PIPE)
         ft_printf_fd(2, "PIPE, ");
+    else if (type == BUILT_IN)
+        ft_printf_fd(2, "BUILT_IN, ");
     else
         ft_printf_fd(2, "ERROR = %i\n", type);
 }
@@ -62,6 +64,6 @@ void    ft_print_list(t_lexst *lexer)
         ft_printf_fd(2, "%s, ", temp->content);
         print_type(temp->type);
         print_type_word(temp->word_type);
-        temp = temp->previous;
+        temp = temp->next;
     }
 }

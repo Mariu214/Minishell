@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 13:31:22 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/13 14:23:41 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,6 @@ int		lexing_word(t_data *data, int *i)
         return (1);
     *i = j;
     ft_add_node(&data->list, temp, define_type(WORD, WRD), &data->gc);
-    return (0);
-}
-
-int		lexing_cmd(t_data *data, int *i)
-{
-	int     j;
-    char    *temp;
-    
-    j = *i;
-	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
-			&& data->str[j] != '|' && data->str[j] != '\'' && data->str[j] != '"' && data->str[j] != ' ')// pas encor sur et certain du ' '
-        j++;
-	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-    if (!temp)
-        return (1);
-    ft_add_node(&data->list, temp, define_type(CMD, WRD), &data->gc);
-	if (data->str[j] && data->str[j] == ' ')
-		j++;
-	*i = j;
-	// while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
-	// 		&& data->str[*i] != '|')
-	// {
-	// 	if (lexing_word(data, i))
-	// 		return (1);
-    //     if (data->str[*i] && data->str[*i] == ' ')
-	// 	    *i += 1;
-	// }
     return (0);
 }
 
@@ -135,6 +108,9 @@ int    lexer(t_data *data)
 				return (1);
 		}
     }
+    while (data->list->previous)
+        data->list = data->list->previous;
+    lexing_built_in(data);
     return (0);
 }
 
