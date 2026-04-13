@@ -1,0 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_redirections.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/10 12:41:01 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/10 13:07:08 by malaimo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
+
+//pourquoi pas mettre la valeur derreur dans la structure ?
+
+int parsing_input(t_lexst *list)
+{
+    if (!list->next)
+    {
+        printf("minishell: syntax error near unexpected token `newline'\n");
+        return (2);
+    }
+    list = list->next;
+    if (list->type == OU_APPEND || list->type == PIPE || list->type == INPUT
+        || list->type == OU_TRUNC)
+    {
+        printf("minishell: syntax error near unexpected token `%s\n'", list->content);
+        return (2);
+    }
+    return (0);
+}
+
+int parsing_heredoc(t_lexst *list)
+{
+    if (!list->next)
+    {
+        printf("minishell: syntax error near unexpected token `newline'\n");
+        return (2);
+    }
+    list = list->next;
+    if (list->type == OU_APPEND || list->type == PIPE || list->type == OU_TRUNC
+        || list->type == HEREDOC)
+    {
+        printf("minishell: syntax error near unexpected token `%s\n'", list->content[0]);
+        return (2);
+    }
+}
+
+int parsing_ou_trunc(t_lexst *list)
+{
+    if (!list->next)
+    {
+        printf("minishell: syntax error near unexpected token `newline'\n");
+        return (2);
+    }
+    list = list->next;
+    if (list->type == OU_APPEND || list->type == PIPE || list->type == OU_TRUNC
+        || list->type == HEREDOC)
+    {
+        printf("minishell: syntax error near unexpected token `%s\n'", list->content[0]);
+        return (2);
+    }
+}
+
+int parsing_ou_append(t_lexst *list)
+{
+    if (!list->next)
+    {
+        printf("minishell: syntax error near unexpected token `newline'\n");
+        return (2);
+    }
+    list = list->next;
+    if (list->type == OU_APPEND || list->type == PIPE || list->type == OU_TRUNC
+        || list->type == HEREDOC)
+    {
+        printf("minishell: syntax error near unexpected token `%s\n'", list->content[0]);
+        return (2);
+    }
+}
