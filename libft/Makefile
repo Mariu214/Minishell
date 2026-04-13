@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/11 11:38:17 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/04/13 14:12:38 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ENV = ft_getenv \
 
 GC = ft_calloc_gc ft_delone_gc ft_error_gc ft_free_all_gc ft_free_tab_gc ft_gnl_gc ft_lstadd_gc \
 	ft_malloc_gc ft_renew_gc ft_split_gc ft_split_sentence_gc ft_splitdup_gc ft_strdup_gc \
-	ft_strjoin_gc ft_substr_gc \
+	ft_strjoin_gc ft_substr_gc ft_scan_gc \
 
 GET_NEXT_LINE = get_next_line gnl_lim \
 
@@ -35,7 +35,7 @@ PRINTF_FD = ft_printf_fd ft_putchar_fd ft_putendl_fd ft_putnbr_base_fd ft_putnbr
 
 STRING = ft_strlen ft_strlcat ft_strlcpy ft_strchr ft_strrchr ft_strncmp ft_strnstr ft_strdup ft_substr \
 	ft_strjoin ft_strtrim ft_split ft_strmapi ft_striteri ft_strnstr_back ft_strcmp free_tab \
-	ft_split_sentence ft_splitlen ft_splitdup \
+	ft_split_sentence ft_splitlen ft_splitdup ft_scan \
 
 SRC_DIR = src/
 OBJ_DIR = obj/

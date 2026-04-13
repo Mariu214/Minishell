@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/11 13:40:21 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:09:58 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	parsing_cmd_next(char *cmd, t_data *data)
     int     j;
 	char	*temp;
 
+	if (ft_strnstr(cmd, "exit", 5))
+		return (255);
 	if (ft_strcmp(cmd, "pwd") == 0)
 	{
 		temp = ft_getenv("PWD", data->env);

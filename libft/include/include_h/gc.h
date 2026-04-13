@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/09 14:45:52 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/13 14:12:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int				ft_delone_gc(void *target, t_gc **gc);
 void			ft_free_tab_gc(char **tab, t_gc **gc);
 char			**ft_splitdup_gc(char **str, t_gc **gc);
 char			*ft_gnl_gc(int fd, t_gc **gc);
-char			*ft_substr_gc(char const *s, unsigned int start, size_t len, t_gc	**gc);
+char			*ft_substr_gc(char const *s, unsigned int start, size_t len,
+					t_gc **gc);
+char			*ft_scan_gc(char *prompt, int mode, t_gc **gc);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:59:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/26 10:48:23 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/13 14:08:53 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 void	free_tab(char **tab);
 char	**ft_split_sentence(char *str, const char sep, char *start);
+char    *ft_scan(char *prompt, int mode);
 
 #endif
