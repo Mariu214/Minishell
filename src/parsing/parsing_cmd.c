@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 11:09:58 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/13 15:44:32 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,19 @@ static int		parsing_exec(char *cmd, t_data *data)
 	return (0);
 }
 
-int	parsing_cmd(t_data *data)
+int	parsing_cmd(t_data *data, t_lexst **list)
 {
 	char	*cmd;
-	t_lexst	*temp;
 
-	temp = data->list;
-	while (temp->previous && temp->previous->type == CMD)
-		temp = temp->previous;
-	cmd = ft_strdup_gc(temp->content, &data->gc);
-	temp = temp->next;
-	while (temp && temp->type == CMD)
+	while ((*list)->next && (*list)->next->type == CMD)
+		(*list) = (*list)->next;
+	cmd = ft_strdup_gc((*list)->content, &data->gc);
+	(*list) = (*list)->next;
+	while ((*list) && (*list)->type == CMD)
 	{
 		cmd = ft_renew_gc(cmd, " ", &data->gc);
-		cmd = ft_renew_gc(cmd, temp->content, &data->gc);
-		temp = temp->next;
+		cmd = ft_renew_gc(cmd, (*list)->content, &data->gc);
+		(*list) = (*list)->next;
 	}
 	return (parsing_cmd_next(cmd, data));
 }

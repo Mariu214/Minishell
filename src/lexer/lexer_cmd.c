@@ -6,11 +6,22 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:44:56 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 14:12:27 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/13 15:01:08 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int		is_built_in(const char *str)
+{
+	if ((ft_strcmp(str, "export") == 0 || ft_strcmp(str, "unset") == 0 
+            || ft_strcmp(str, "exit") == 0 || ft_strcmp(str, "echo") == 0
+            || ft_strcmp(str, "cd") == 0 || ft_strcmp(str, "env") == 0
+            || ft_strcmp(str, "pwd") == 0 ))
+		return (1);
+	else 
+		return (0);
+}
 
 void	lexing_built_in(t_data *data)
 {
@@ -19,10 +30,7 @@ void	lexing_built_in(t_data *data)
     temp = data->list;
     while (temp)
     {
-        if (temp->type == CMD && (ft_strcmp(temp->content, "export") == 0 || ft_strcmp(temp->content, "unset") == 0 
-            || ft_strcmp(temp->content, "exit") == 0 || ft_strcmp(temp->content, "echo") == 0
-            || ft_strcmp(temp->content, "cd") == 0 || ft_strcmp(temp->content, "env") == 0
-            || ft_strcmp(temp->content, "pwd") == 0 ))
+        if (temp->type == CMD && is_built_in(temp->content))
         {
             while (temp && temp->type == CMD)
             {

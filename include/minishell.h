@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 13:55:28 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/13 15:57:31 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #define _POSIX_C_SOURCE 200809L
 
 # include "../libft/include/libft.h"
-# include "include_h/parsing.h"
-# include "include_h/exec.h"
 # include "include_h/pipe.h"
 # include "include_h/redirection.h"
 # include "include_h/hardcoded.h"
@@ -47,7 +45,7 @@ typedef enum e_type
 	OU_TRUNC,
 	HEREDOC,
 	PIPE,
-	BUILT_IN
+	BUILT_IN,
 }	t_type;
 
 typedef enum e_quote
@@ -59,6 +57,7 @@ typedef enum e_quote
 	CLOSED_S_QUOTE,
 }	t_quote;
 
+# include "include_h/parsing.h"
 # include "include_h/lexer.h"
 # include "include_h/list.h"
 
@@ -98,6 +97,8 @@ typedef struct s_data
 	char	current_dir[4096];
 	t_lexst	*list;
 }			t_data;
+
+# include "include_h/exec.h"
 
 typedef struct s_command
 {
