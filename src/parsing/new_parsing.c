@@ -6,13 +6,13 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/10 11:39:06 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/10 12:43:44 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int parser(t_data *data, t_lexst *list)
+int parser(t_lexst *list)
 {
     if (list->type == WORD)
         return (0);
@@ -21,8 +21,6 @@ int parser(t_data *data, t_lexst *list)
     else if (list->type == D_QUOTE)
         return (0);
     else if (list->type == S_QUOTE)
-        return (0);
-    else if (list->type == REDIRECTION)
         return (0);
     else if (list->type == INPUT)
         return (0);
@@ -37,15 +35,15 @@ int parser(t_data *data, t_lexst *list)
     
 }
 
-// int init_parser(t_lexst *list)
-// {
-//     int     return_value;
+int init_parser(t_lexst *list)
+{
+    int     return_value;
 
-//     while (list->previous)
-//         list = list->previous;
-//     while (list->content)
-//     {
-//         return_value = parser(list);
-//         list = list->next;
-//     }
-// }
+    while (list->previous)
+        list = list->previous;
+    while (list->content)
+    {
+        return_value = parser(list);
+        list = list->next;
+    }
+}
