@@ -12,7 +12,10 @@ int     lexer(t_data *data);
 int		lexing_pipe(t_data *data, int *i);
 int		lexing_redirection(t_data *data, int *i);
 int		lexing_cmd(t_data *data, int *i);
+void	lexing_built_in(t_data *data);
 int		lexing_word(t_data *data, int *i);
+int		lexing_cmd(t_data *data, int *i);
+
 
 
 
