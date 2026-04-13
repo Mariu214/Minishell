@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/11 13:46:51 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/13 14:20:53 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ int parser(t_data *data, t_lexst *list)
     return (0);
 }
 
-// int init_parser(t_lexst *list)
-// {
-//     int     return_value;
+int init_parser(t_data *data, t_lexst *list)
+{
+    int     return_value;
 
-//     while (list->previous)
-//         list = list->previous;
-//     while (list->content)
-//     {
-//         return_value = parser(list);
-//         list = list->next;
-//     }
-// }
+    while (list->previous)
+        list = list->previous;
+    while (list->content)
+    {
+        return_value = parser(data, list);
+        list = list->next;
+    }
+    return (0);
+}
