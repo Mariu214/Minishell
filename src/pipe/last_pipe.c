@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 15:41:06 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 15:56:28 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/13 17:23:22 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int is_last_pipe(char *line)
     return (0);
 }
 
-char    *add_last_pipe(char *line, t_data *data)
-{
-    char    *added;
-    char    *scan;
+// char    *add_last_pipe(char *line, t_data *data)
+// {
+//     char    *added;
+//     char    *scan;
 
-    if (is_last_pipe(line))
-    {
-        print_pipe(countpipe()) 
-    }
-}
+//     if (is_last_pipe(line))
+//     {
+//         print_pipe(countpipe()) 
+//     }
+// }
