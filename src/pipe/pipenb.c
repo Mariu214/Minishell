@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 15:04:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 15:21:48 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/13 15:26:36 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,16 @@ int countpipe(t_data *data)
         temp = temp->next;
     }
     return (pipe_nb);
+}
+
+void print_pipe(int pipenb)
+{
+    int i;
+    
+    i = 0;
+    while (i < pipenb)
+    {
+        ft_printf_fd(2, "pipe ");
+        i++;
+    }
 }

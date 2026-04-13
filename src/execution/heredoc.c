@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 15:29:54 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/13 15:28:21 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	print_pipe(int pipenb)
-{
-	int	i;
-
-	i = 0;
-	while (i < pipenb)
-	{
-		ft_printf_fd(2, "pipe ");
-		i++;
-	}
-}
 
 static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 {
