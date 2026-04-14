@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/14 11:10:59 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:39:12 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ int    lexer(t_data *data, t_lexst **list)
     return (0);
 }
 
-int test_lexer(t_data *data)
+int test_lexer(t_data *data)// rajoute un node vide apres les redirextions
 {
     int result;
 
     data->list = NULL;
     
     result = lexer(data, &data->list);
-    ft_print_list(data->list);
+    // ft_print_list(data->list);
     return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 15:44:32 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/14 14:06:38 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	parsing_cmd(t_data *data, t_lexst **list)
 {
 	char	*cmd;
 
-	while ((*list)->next && (*list)->next->type == CMD)
-		(*list) = (*list)->next;
 	cmd = ft_strdup_gc((*list)->content, &data->gc);
 	(*list) = (*list)->next;
 	while ((*list) && (*list)->type == CMD)

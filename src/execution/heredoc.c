@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 15:28:21 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/14 11:36:30 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
 	if (!gnl)
 	{
 		ft_printf_fd(2, "\n");
-		ft_shellerror_gc("", data, 2);
+		ft_shellerror_gc("", data, 2, 0);
 	}
-	ft_shellerror_gc("", data, 0);
+	ft_shellerror_gc("", data, 0, 0);
 }
 
 void	here_doc(char *lim, int pipenb, t_data *data)
