@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 15:50:18 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:39:38 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(data.str);
 		process_running = 1;
 		data.dollar = test_lexer(&data);
-		parser(&data, data.list);
+		parser(&data, &data.list);
 		process_running = 0;
 		ft_free_all_gc(&data.gc);
 	}
