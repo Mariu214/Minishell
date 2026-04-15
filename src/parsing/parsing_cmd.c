@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/14 14:06:38 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:46:28 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	parsing_cmd(t_data *data, t_lexst **list)
 	(*list) = (*list)->next;
 	while ((*list) && (*list)->type == CMD)
 	{
-		cmd = ft_renew_gc(cmd, " ", &data->gc);
-		cmd = ft_renew_gc(cmd, (*list)->content, &data->gc);
+		cmd = ft_renew_gc(cmd, " ", 0, &data->gc);
+		cmd = ft_renew_gc(cmd, (*list)->content, 0, &data->gc);
 		(*list) = (*list)->next;
 	}
 	return (parsing_cmd_next(cmd, data));

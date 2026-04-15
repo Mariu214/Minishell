@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/14 14:28:53 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 14:50:49 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,75 +74,100 @@ int     apply_pipe(t_data *data, t_lexst **list)
     return (0);
 }
 
+// int     find_pipe(t_data *data)
+// {
+//     pid_t child;
+//     t_lexst *temp;
+//     int     status;
+
+//     child = fork();
+//     if (!child)
+//     {
+//         while (data->list->previous)
+//             data->list = data->list->previous;
+//         temp = data->list;
+//         while (data->pipedone < data->pipenb)
+//         {
+//             apply_pipe(data, &temp);
+//             data->pipedone++;
+//         }
+//         exit(last_pipe(data, &temp));
+//     }
+//     else
+//     {
+//         waitpid(child, &status, 0);
+// 		if (WIFEXITED(status))
+// 			return (WEXITSTATUS(status));
+//     }
+//     return (0);
+// }
+
 int     find_pipe(t_data *data)
 {
-    pid_t child;
     t_lexst *temp;
-    int     status;
+    int old_stdin;
+    int old_stdout;
+    int return_value;
 
-    child = fork();
-    if (!child)
+    old_stdin = dup(STDIN_FILENO);
+    old_stdout = dup(STDOUT_FILENO);
+    while (data->list->previous)
+        data->list = data->list->previous;
+    temp = data->list;
+    while (data->pipedone < data->pipenb)
     {
-        while (data->list->previous)
-            data->list = data->list->previous;
-        temp = data->list;
-        while (data->pipedone < data->pipenb)
-        {
-            apply_pipe(data, &temp);
-            data->pipedone++;
-        }
-        exit(last_pipe(data, &temp));
+        return_value = apply_pipe(data, &temp);
+        data->pipedone++;
     }
-    else
-    {
-        waitpid(child, &status, 0);
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));
-    }
-    return (0);
+    return_value = last_pipe(data, &temp);
+    dup2(old_stdin, STDIN_FILENO);
+    dup2(old_stdout, STDOUT_FILENO);
+    return (return_value);
 }
 
 static int     parsing_last_pipe(t_data *data)
 {
     t_lexst *temp;
-    
+    char    *tmp;
+
     temp = NULL;
+    tmp = ft_strdup_gc(data->str, &data->gc);
+    tmp = ft_renew_gc(tmp, " ", 0, &data->gc);
     free(data->str);
     print_pipe(countpipe(data) - 1);
-    data->str = ft_scan("pipe> ", 0);
+    data->str = ft_scan_gc("pipe> ", 0, &data->gc);
     if (!data->str)
         return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0, 1));
     lexer(data, &temp);
-    while (temp->previous)
-        temp = temp->previous;
     while (data->list->next)
         data->list = data->list->next;
     temp->previous = data->list;
     data->list->next = temp;
     while (data->list->previous)
         data->list = data->list->previous;
-    free(data->str);
-    data->str = NULL;
+    if (parsing_pipe(data, temp))
+        return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
+    data->str = ft_renew_gc(tmp, data->str, 2, &data->gc);
     return (0);
 }
 
-int     parsing_pipe(t_data *data)
+int     parsing_pipe(t_data *data, t_lexst *list)
 {
     t_lexst *temp;
     
     if (data->str[0] == '|')
         return (ft_shellerror_gc("Minishell: parse error near `|'\n", data, 1, 1));
-    temp = data->list;
+    temp = list;
     while (temp->next)
     {
         temp = temp->next;
-        if (is_there('|', temp->content))
+        if (temp->type == PIPE)
         {
             if (ft_strlen(temp->content) > 1)
                 return (ft_shellerror_gc("Minishell: parse error near `|'\n", data, 1, 1));
         }
     }
-    if (is_there('|', temp->content))
+    if (temp->type == PIPE)
         parsing_last_pipe(data);
     data->pipenb = countpipe(data);
     if (data->pipenb)

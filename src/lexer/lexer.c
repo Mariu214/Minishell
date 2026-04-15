@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/14 13:39:12 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:21:56 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ int		lexing_redirection(t_data *data, int *i, t_lexst **list)
 		j++;
     *i = j;
     j = 0;
-    while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
-			&& data->str[*i] != '|')
-	{
-        if (lexing_sort(data, i, j, list))
-            return (1);
-        j++;
-	}
     return (0);
 }
 
@@ -107,8 +100,8 @@ int    lexer(t_data *data, t_lexst **list)
 				return (1);
 		}
     }
-    while (data->list->previous)
-        data->list = data->list->previous;
+    while ((*list)->previous)
+        *list = (*list)->previous;
     lexing_built_in(list);
     return (0);
 }

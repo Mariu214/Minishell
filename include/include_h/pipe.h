@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 10:47:57 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/14 12:47:28 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:32:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ typedef struct s_data	t_data;
 int						countpipe(t_data *data);
 void					print_pipe(int pipenb);
 int						is_last_pipe(char *line);
-int     parsing_pipe(t_data *data);
 
 #endif
