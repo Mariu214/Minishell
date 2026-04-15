@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/15 14:50:49 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 15:36:35 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 int     last_pipe(t_data *data, t_lexst **list)
 {
-    pid_t child;
-    int status;
-    int return_value;
+    // pid_t child;
+    // int status;
+    // int return_value;
 
-    return_value = 0;
-    child = fork();
-    if (!child)
-    {
-        // while ((*list))
-        // {
-            return_value = parsing_cmd(data, list);
-        //     (*list) = (*list)->next;
-        // }
-        exit(return_value);
-    }
-    else
-    {
-        while ((*list) && (*list)->type != PIPE)
-            (*list) = (*list)->next;
-        waitpid(child, &status, 0);
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));
-    }
-    return (0);
+    // return_value = 0;
+    // child = fork();
+    // if (!child)
+    // {
+    //     // while ((*list))
+    //     // {
+    //         return_value = parsing_cmd(data, list);
+    //     //     (*list) = (*list)->next;
+    //     // }
+    //     exit(return_value);
+    // }
+    // else
+    // {
+    //     while ((*list) && (*list)->type != PIPE)
+    //         (*list) = (*list)->next;
+    //     waitpid(child, &status, 0);
+	// 	if (WIFEXITED(status))
+	// 		return (WEXITSTATUS(status));
+    // }
+    return (parsing_cmd(data, list));
 }
 
 int     apply_pipe(t_data *data, t_lexst **list)
