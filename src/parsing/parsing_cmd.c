@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/15 10:46:28 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 15:41:16 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	parsing_built_in(t_data *data, t_lexst **list)
+{
+	if (ft_strcmp((*list)->content, "export") == 0)
+		init_export(data, list);
+	if (ft_strcmp((*list)->content, "unset") == 0)
+		init_unset(data, list);
+	if (ft_strcmp((*list)->content, "echo") == 0)
+		init_echo(data, list);
+}
 
 static int		parsing_exec(char *cmd, t_data *data)
 {
@@ -32,6 +42,8 @@ int	parsing_cmd(t_data *data, t_lexst **list)
 {
 	char	*cmd;
 
+	if ((*list)->type == BUILT_IN)
+		return (parsing_built_in(data, list))
 	cmd = ft_strdup_gc((*list)->content, &data->gc);
 	(*list) = (*list)->next;
 	while ((*list) && (*list)->type == CMD)
