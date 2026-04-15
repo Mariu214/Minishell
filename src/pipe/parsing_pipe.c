@@ -6,170 +6,173 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/09 11:07:20 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 14:50:49 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// int		do_comm(t_data *data, int i)
+int     last_pipe(t_data *data, t_lexst **list)
+{
+    pid_t child;
+    int status;
+    int return_value;
+
+    return_value = 0;
+    child = fork();
+    if (!child)
+    {
+        // while ((*list))
+        // {
+            return_value = parsing_cmd(data, list);
+        //     (*list) = (*list)->next;
+        // }
+        exit(return_value);
+    }
+    else
+    {
+        while ((*list) && (*list)->type != PIPE)
+            (*list) = (*list)->next;
+        waitpid(child, &status, 0);
+		if (WIFEXITED(status))
+			return (WEXITSTATUS(status));
+    }
+    return (0);
+}
+
+int     apply_pipe(t_data *data, t_lexst **list)
+{
+    pid_t child;
+    int end_pipe[2];
+    int return_value;
+    
+    return_value = 0;
+    pipe(end_pipe);
+    child = fork();
+    if (!child)
+    {
+        dup2(end_pipe[1], 1);
+        close(end_pipe[0]);
+        // while ((*list) && (*list)->type != PIPE)
+        // {
+            return_value = parsing_cmd(data, list);
+            (*list) = (*list)->next;
+        // }
+        if ((*list)->type == PIPE)
+            (*list) = (*list)->next;
+        exit(return_value);
+    }
+    else
+    {
+        dup2(end_pipe[0], 0);
+        close(end_pipe[1]);
+        while ((*list) && (*list)->type != PIPE)
+            (*list) = (*list)->next;
+        if ((*list)->type == PIPE)
+            (*list) = (*list)->next;
+    }
+    return (0);
+}
+
+// int     find_pipe(t_data *data)
 // {
-// 	pid_t	child;
-// 	int		status;
+//     pid_t child;
+//     t_lexst *temp;
+//     int     status;
 
-// 	child = fork();
-// 	if (!child)
-// 	{
-// 		if (ft_strcmp(data->str[i], "exit") == 0)
-// 			ft_free_all_gc(&data->gc);
-// 		if (data->line[i].is_redirection
-// 			&& ft_strcmp(ft_split_gc(data->line[i].str, ' ', &data->gc)[0],
-// 				"<<") == 0)
-// 			parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
-// 					&data->gc)[1]);
-// 		if (data->line[i].is_cmd)
-// 			parsing_cmd(data->line[i].str, data);
-// 		ft_shellerror_gc("", data, 0);
-// 	}
-// 	waitpid(child, &status, 0);
-// 	if (WIFEXITED(status))
-// 		return (WEXITSTATUS(status));
-// 	if (WIFSIGNALED(status))
-// 	{
-// 		if (WTERMSIG(status) == 3)
-// 		{
-// 			printf("Quit (core dumped)\n");
-// 			return (131);
-// 		}
-// 		return (130);
-// 	}
-// 	return (0);
-// }
-
-// char	*rm_nl_gc(char *old, t_data *data)
-// {
-// 	char	*new;
-// 	int		i;
-
-// 	i = 0;
-// 	new = ft_calloc_gc(sizeof(char), ft_strlen(old), &data->gc);
-// 	while (old[i] && old[i] != '\n')
-// 	{
-// 		new[i] = old[i];
-// 		i++;	
-// 	}
-// 	new[i] = '\0';
-// 	ft_delone_gc(old, &data->gc);
-// 	return (new);
-// }
-
-// int		last_last_pipe(t_data *data)// gerer |> ou |>>
-// {
-// 	pid_t child;
-// 	char	*gnl;
-// 	int		status;
-	
-// 	gnl = ft_strdup_gc("", &data->gc);
-// 	child = fork();
-// 	dup2(1, 1);
-// 	if (!child)
-// 	{
-// 		while (!gnl[0] || gnl[0] == '\n')
-// 		{
-// 			ft_delone_gc(gnl, &data->gc);
-// 			print_pipe(data->pipenb - 1);
-// 			ft_printf_fd(2, "pipe> ");
-// 			gnl = ft_gnl_gc(1, &data->gc);
-// 		}
-// 		gnl = rm_nl_gc(gnl, data);
-// 		last_pipe(gnl, data, 1);
-// 		exit (0);
-// 	}
-// 	waitpid(child, &status, 0);
-// 	if (WIFEXITED(status))
-// 		return (WEXITSTATUS(status));
-// 	return (0);
-// }
-
-// int		last_pipe(char *cmd, t_data *data, int outfile)
-// {
-// 	pid_t	child;
-// 	int		status;
-
-// 	// if (!cmd[0])
-// 	// {
-// 	// 	ft_printf_fd(2, "pipex: permission denied: \n");
-// 	// 	exit(127);
-// 	// }
-// 	child = fork();
-// 	if (!child)
-// 	{
-// 		dup2(outfile, 1);
-// 		parsing_cmd(cmd, data);
-// 	}
-// 	else
-// 	{
-// 		waitpid(child, &status, 0);
-// 		if (WIFSIGNALED(status))
-// 		{
-// 			if (WTERMSIG(status) == 3)
-// 			{
-// 				printf("Quit (core dumped)\n");
-// 				return (131);
-// 			}
-// 			return (130);
-// 		}
+//     child = fork();
+//     if (!child)
+//     {
+//         while (data->list->previous)
+//             data->list = data->list->previous;
+//         temp = data->list;
+//         while (data->pipedone < data->pipenb)
+//         {
+//             apply_pipe(data, &temp);
+//             data->pipedone++;
+//         }
+//         exit(last_pipe(data, &temp));
+//     }
+//     else
+//     {
+//         waitpid(child, &status, 0);
 // 		if (WIFEXITED(status))
-// 			return(WEXITSTATUS(status));
-// 		return (0);
-// 	}
-// 	return (0);
+// 			return (WEXITSTATUS(status));
+//     }
+//     return (0);
 // }
 
-// int		do_pipe(t_data *data, int i)
-// {
-// 	pid_t	child;
-// 	int		status;
-// 	int		end_pipe[2];
+int     find_pipe(t_data *data)
+{
+    t_lexst *temp;
+    int old_stdin;
+    int old_stdout;
+    int return_value;
 
-// 	// if (!cmd[0])
-// 	// {
-// 	// 	ft_printf_fd(2, "pipex: permission denied: \n");
-// 	// 	exit(127);
-// 	// }
-// 	pipe(end_pipe);
-// 	child = fork();
-// 	if (!child)
-// 	{
-// 		dup2(end_pipe[1], 1);
-// 		close(end_pipe[0]);
-// 		parsing_cmd(data->line[i].str, data);
-// 	}
-// 	else
-// 	{
-// 		dup2(end_pipe[0], 0);
-// 		close(end_pipe[1]);
-// 	}
-// 	waitpid(child, &status, 0);
-// 	if (WIFEXITED(status))
-// 		return (WEXITSTATUS(status));
-// 	return (0);
-// }
+    old_stdin = dup(STDIN_FILENO);
+    old_stdout = dup(STDOUT_FILENO);
+    while (data->list->previous)
+        data->list = data->list->previous;
+    temp = data->list;
+    while (data->pipedone < data->pipenb)
+    {
+        return_value = apply_pipe(data, &temp);
+        data->pipedone++;
+    }
+    return_value = last_pipe(data, &temp);
+    dup2(old_stdin, STDIN_FILENO);
+    dup2(old_stdout, STDOUT_FILENO);
+    return (return_value);
+}
 
-// void	count_pipe(t_data *data)
-// {
-// 	int		i;
+static int     parsing_last_pipe(t_data *data)
+{
+    t_lexst *temp;
+    char    *tmp;
 
-// 	i = 0;
-// 	data->pipenb = 0;
-// 	while (data->line[i].str)
-// 	{
-// 		if (data->line[i].is_pipe)
-// 			data->pipenb++;
-// 		i++;
-// 	}
-// 	if (data->pipenb == 0)
-// 		data->pipedone = -1;
-// 	else
-// 		data->pipedone = 0;
-// }
+    temp = NULL;
+    tmp = ft_strdup_gc(data->str, &data->gc);
+    tmp = ft_renew_gc(tmp, " ", 0, &data->gc);
+    free(data->str);
+    print_pipe(countpipe(data) - 1);
+    data->str = ft_scan_gc("pipe> ", 0, &data->gc);
+    if (!data->str)
+        return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0, 1));
+    lexer(data, &temp);
+    while (data->list->next)
+        data->list = data->list->next;
+    temp->previous = data->list;
+    data->list->next = temp;
+    while (data->list->previous)
+        data->list = data->list->previous;
+    if (parsing_pipe(data, temp))
+        return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
+    data->str = ft_renew_gc(tmp, data->str, 2, &data->gc);
+    return (0);
+}
+
+int     parsing_pipe(t_data *data, t_lexst *list)
+{
+    t_lexst *temp;
+    
+    if (data->str[0] == '|')
+        return (ft_shellerror_gc("Minishell: parse error near `|'\n", data, 1, 1));
+    temp = list;
+    while (temp->next)
+    {
+        temp = temp->next;
+        if (temp->type == PIPE)
+        {
+            if (ft_strlen(temp->content) > 1)
+                return (ft_shellerror_gc("Minishell: parse error near `|'\n", data, 1, 1));
+        }
+    }
+    if (temp->type == PIPE)
+        parsing_last_pipe(data);
+    data->pipenb = countpipe(data);
+    if (data->pipenb)
+        data->pipedone = 0;
+    else
+        data->pipedone = 1;
+    return (0);
+}

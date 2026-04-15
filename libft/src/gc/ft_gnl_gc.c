@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 10:37:19 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/19 12:22:40 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:45:23 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*read_file(char *retu, int fd, t_gc **gc)
 		if (nb_read == -1)
 			return (ft_delone_gc(buffer, gc), ft_delone_gc(retu, gc), NULL);
 		buffer[nb_read] = '\0';
-		retu = ft_renew_gc(retu, buffer, gc);
+		retu = ft_renew_gc(retu, buffer, 0, gc);
 		if (!retu)
 			return (NULL);
 		if (ft_strchr(buffer, '\n'))

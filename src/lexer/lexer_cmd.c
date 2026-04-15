@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:44:56 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 15:01:08 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/14 11:11:11 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int		is_built_in(const char *str)
 		return (0);
 }
 
-void	lexing_built_in(t_data *data)
+void	lexing_built_in(t_lexst **list)
 {
     t_lexst *temp;
 
-    temp = data->list;
+    temp = *list;
     while (temp)
     {
         if (temp->type == CMD && is_built_in(temp->content))
@@ -44,7 +44,7 @@ void	lexing_built_in(t_data *data)
 }
 
 
-int		lexing_cmd(t_data *data, int *i)
+int		lexing_cmd(t_data *data, int *i, t_lexst **list)
 {
 	int     j;
     char    *temp;
@@ -56,7 +56,7 @@ int		lexing_cmd(t_data *data, int *i)
 	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
     if (!temp)
         return (1);
-    ft_add_node(&data->list, temp, define_type(CMD, WRD), &data->gc);
+    ft_add_node(list, temp, define_type(CMD, WRD), &data->gc);
 	if (data->str[j] && data->str[j] == ' ')
 		j++;
 	*i = j;

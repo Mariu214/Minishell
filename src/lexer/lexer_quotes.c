@@ -6,13 +6,13 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/11 12:55:33 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/14 11:10:17 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int      lexing_d_quote(t_data *data, int *i, t_type type)
+int      lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
 {
     int j;
     char *temp;
@@ -27,19 +27,19 @@ int      lexing_d_quote(t_data *data, int *i, t_type type)
             return (1);
         if (data->str[j] && data->str[j] == '"')
         {
-            ft_add_node(&data->list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
+            ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
             *i = j + 1;
         }
         else
         {
-            ft_add_node(&data->list, temp, define_type(type, OPEN_D_QUOTE), &data->gc);
+            ft_add_node(list, temp, define_type(type, OPEN_D_QUOTE), &data->gc);
             *i = j;
         }
     }
     return (0);
 }
 
-int      lexing_s_quote(t_data *data, int *i, t_type type)
+int      lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list)
 {
     int j;
     char *temp;
@@ -54,12 +54,12 @@ int      lexing_s_quote(t_data *data, int *i, t_type type)
             return (1);
         if (data->str[j] && data->str[j] == '\'')
         {
-            ft_add_node(&data->list, temp, define_type(type, CLOSED_S_QUOTE), &data->gc);
+            ft_add_node(list, temp, define_type(type, CLOSED_S_QUOTE), &data->gc);
             *i = j + 1;
         }
         else
         {
-            ft_add_node(&data->list, temp, define_type(type, OPEN_S_QUOTE), &data->gc);
+            ft_add_node(list, temp, define_type(type, OPEN_S_QUOTE), &data->gc);
             *i = j;
         }
     }

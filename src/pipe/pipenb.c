@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_heredoc.c                                  :+:      :+:    :+:   */
+/*   pipenb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 10:41:11 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/14 11:39:30 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/04/13 15:04:04 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/04/14 13:29:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void    parsing_heredoc(t_data *data, char *lim)
+int countpipe(t_data *data)
 {
-    if (!data->str[1])
+    t_lexst *temp;
+    int     pipe_nb;
+
+    temp = data->list;
+    pipe_nb = 0;
+    while (temp)
     {
-        ft_shellerror_gc("minishell: syntax error near unexpected token `newline'\n", data, 1, 0);
+        if (temp->type == PIPE)
+            pipe_nb++;
+        temp = temp->next;
     }
-    here_doc(lim, data->pipenb, data);
-    return ;
+    return (pipe_nb);
+}
+
+void print_pipe(int pipenb)
+{
+    int i;
+    
+    i = 0;
+    while (i < pipenb)
+    {
+        ft_printf_fd(2, "pipe ");
+        i++;
+    }
 }
