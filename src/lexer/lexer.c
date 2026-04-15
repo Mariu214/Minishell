@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 14:23:41 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/15 10:19:01 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,6 @@ int		lexing_word(t_data *data, int *i)
     return (0);
 }
 
-int		lexing_redirection(t_data *data, int *i)
-{
-    int     j;
-    char    *temp;
-    
-    j = *i;
-    while (data->str[j] && (data->str[j] == '<' || data->str[j] == '>'))
-        j++;
-    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-    if (!temp)
-        return (1);
-    if (lexing_precise_redirection(data, temp))
-        return (1);
-    if (data->str[j] && data->str[j] == ' ')
-		j++;
-    *i = j;
-    j = 0;
-    while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
-			&& data->str[*i] != '|')
-	{
-        if (lexing_sort(data, i, j))
-            return (1);
-        j++;
-	}
-    return (0);
-}
 
 int		lexing_pipe(t_data *data, int *i)
 {

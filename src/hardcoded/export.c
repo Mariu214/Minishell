@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:10:04 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/13 17:10:05 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/15 14:46:43 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,43 @@ char    **export(char *envp[], char *str)
     return (cpy);
 }
 
-int init_export(t_data *data, int i)
+static int is_usable(char *str)
 {
-    char    **temp;
-    int     j;
-
-    temp = ft_split(data->line[i].str, ' ');
-    j = 1;
-    if (!temp[j])
-    {
-        export(data->env, NULL);
-        free(temp);
+    int i;
+    
+    i = 0;
+    if (!str)
         return (0);
-    }
-    while(temp[j])
+    if (!ft_isdigit(str[0] && str[0] != '_')
+        || ft_strchr(str, '-'))
+        return (printf("minishell: export: `%s': not a valid identifier", str), 0);
+    while (str[i])
     {
-        data->env = export(data->env, temp[j++]);
-        if (!data->env)
-        {
-            free(temp);
-            return (-1);
-        }
+        if (!ft_isalnum(str[i]) && str[i] != '_')
+            return (printf("minishell: export: `%s': not a valid identifier", str), 0);
+        i++;
     }
-    free(temp);
-    return (0);
+    return (1);
 }
 
+int init_export(t_data *data, t_lexst **list)
+{   
+    *list = (*list)->next;
+    if (!(*list) || !((*list)->type == BUILT_IN))
+    {
+        data->env = export(data->env, NULL);
+        if (!data->env)
+                return (-1);
+    }
+    while (*list && (*list)->type == BUILT_IN)
+    {
+        if (is_usable((*list)->content))
+        {
+            data->env = export(data->env, (*list)->content);
+            if (!data->env)
+                return (-1);
+        }
+        *list = (*list)->next;
+    }
+    return (0);
+}

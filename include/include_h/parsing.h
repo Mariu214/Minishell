@@ -17,5 +17,7 @@ void					parsing_heredoc(t_data *data, char *lim);
 int	    parsing_cmd(t_data *data, t_lexst **list);
 int    parsing_cmd_next(char *cmd, t_data *data);
 void    parser_built_in(t_lexst **list);
+int     parser_export(t_lexst **list);
+
 
 #endif
