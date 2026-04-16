@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:34:00 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 15:55:44 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:54:23 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_sic
 }				t_sic;
 
 
-void	    here_doc(char *lim, int pipenb, t_data *data);
+int	    here_doc(char *lim, t_data *data);
 void		exec(char *cmd, t_data *data);
 void        signal_handler(int signum);
 void    	init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash);

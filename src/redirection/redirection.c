@@ -6,13 +6,13 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/16 14:34:40 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:55:26 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	schr_redirection(t_lexst **list)
+int	schr_redirection(t_lexst **list, t_data *data)
 {
 	t_lexst	*temp;
 
@@ -21,7 +21,7 @@ int	schr_redirection(t_lexst **list)
 	{
 		if (temp->type >= INPUT && temp->type <= HEREDOC)
 		{
-			if (do_redirection(temp->type, temp->next) != 0)
+			if (do_redirection(temp->type, temp->next, data) != 0)
 				return (1);
 		}
 		temp = temp->next;
@@ -29,12 +29,12 @@ int	schr_redirection(t_lexst **list)
 	return (0);			
 }
 
-int	do_redirection(t_type redir, t_lexst *file)
+int	do_redirection(t_type redir, t_lexst *file, t_data *data)
 {
 	if (file->type != WORD)
 		return (0);
 	else if (redir == HEREDOC)
-		return (0);
+		return (here_doc(file->content, data));
 	else if (redir == OU_APPEND)
 		return (output_redirection_append(file->content));
 	else if (redir == OU_TRUNC)

@@ -6,63 +6,76 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/14 11:36:30 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:04:57 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	here_doc_next(char *lim, int end_pipe[2], int pipenb, t_data *data)
+static char	*here_doc_next(char *lim, t_data *data)
 {
-	char	*gnl;
-	char	*join;
+	char	*scan;
+	char	*doc;
+	char	*nl;
 
-	print_pipe(pipenb);
-	(void)data;
-	ft_printf_fd(2, "heredoc> ");
-	join = ft_strjoin_gc(lim, "\n", &data->gc);
-	gnl = ft_gnl_gc(0, &data->gc);
-	close(end_pipe[0]);
-	while (ft_strcmp(gnl, join) != 0 && gnl)
+	print_pipe(data->pipenb);
+	scan = ft_calloc_gc(1, 1, &data->gc);
+	doc = NULL;
+	nl = ft_strjoin_gc(lim, "\n", &data->gc);
+	while (ft_strcmp(scan, nl))
 	{
-		print_pipe(pipenb);
-		ft_printf_fd(2, "heredoc> ");
-		ft_printf_fd(end_pipe[1], "%s", gnl);
-		ft_delone_gc(gnl, &data->gc);
-		gnl = ft_gnl_gc(0, &data->gc);
+		ft_delone_gc(scan, &data->gc);
+		scan = ft_scan_gc("heredoc> ", 1, &data->gc);
+		doc = ft_renew_gc(doc, scan, 0, &data->gc);
 	}
-	if (!gnl)
-	{
-		ft_printf_fd(2, "\n");
-		ft_shellerror_gc("", data, 2, 0);
-	}
-	ft_shellerror_gc("", data, 0, 0);
+	// ft_printf_fd(end_pipe[1], "%s", doc);
+	return (doc);
+	// (void)data;
+	// ft_printf_fd(2, "heredoc> ");
+	// join = ft_strjoin_gc(lim, "\n", &data->gc);
+	// gnl = ft_gnl_gc(0, &data->gc);
+	// close(end_pipe[0]);
+	// while (ft_strcmp(gnl, join) != 0 && gnl)
+	// {
+	// 	print_pipe(pipenb);
+	// 	ft_printf_fd(2, "heredoc> ");
+	// 	ft_printf_fd(end_pipe[1], "%s", gnl);
+	// 	ft_delone_gc(gnl, &data->gc);
+	// 	gnl = ft_gnl_gc(0, &data->gc);
+	// }
+	// if (!gnl)
+	// {
+	// 	ft_printf_fd(2, "\n");
+	// 	ft_shellerror_gc("", data, 2, 0);
+	// }
+	// ft_shellerror_gc("", data, 0, 0);
 }
 
-void	here_doc(char *lim, int pipenb, t_data *data)
+int	here_doc(char *lim, t_data *data)
 {
 	int		end_pipe[2];
-	pid_t	parent;
-	int		signal;
+	// pid_t	parent;
+	// int		signal;
+	char	*doc;
 
 	pipe(end_pipe);
-	sigaction(SIGINT, &data->sig_child, NULL);
-	sigaction(SIGQUIT, &data->sig_quit, NULL);
-	parent = fork();
-	if (!parent)
-		here_doc_next(lim, end_pipe, pipenb, data);
-	else
-	{
-        waitpid(parent, &signal, 0);
-		close(end_pipe[1]);
+	// sigaction(SIGINT, &data->sig_child, NULL);
+	// sigaction(SIGQUIT, &data->sig_quit, NULL);
+	doc = here_doc_next(lim, data);
+	// parent = fork();
+	// if (!parent)
+	// {
+		ft_printf_fd(end_pipe[1], "%s", doc);
+		// exit (0);
+	// }
+	// else
+	// {
+    //     waitpid(parent, &signal, 0);
+		data->str = ft_renew_gc(data->str, doc, 2, &data->gc);
+		// close(end_pipe[1]);
 		dup2(end_pipe[0], 0);
-		if (WIFEXITED(signal))
-		{
-			if (WEXITSTATUS(signal) != 2)
-			{
-				if (!data->str[2])
-        			exec("cat", data);
-			}
-		}
-	}
+		// if (WIFEXITED(signal))
+		// 	return (WEXITSTATUS(signal));
+	// }
+	return (0);
 }

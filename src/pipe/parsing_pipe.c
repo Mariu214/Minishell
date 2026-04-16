@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/16 14:36:44 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:55:02 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
     {
         dup2(end_pipe[1], 1);
         close(end_pipe[0]);
-        schr_redirection(list);
+        schr_redirection(list, data);
         while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
 				|| (*list)->type == WORD))
 		    (*list) = (*list)->next;
@@ -69,7 +69,7 @@ int     find_pipe(t_data *data)
         return_value = apply_pipe(data, &temp);
         data->pipedone++;
     }    
-    schr_redirection(&temp);
+    schr_redirection(&temp, data);
     while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC)
 		    || temp->type == WORD))
 		temp = temp->next;
