@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/15 10:45:06 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 09:51:19 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ char			*ft_gnl_gc(int fd, t_gc **gc);
 char			*ft_substr_gc(char const *s, unsigned int start, size_t len,
 					t_gc **gc);
 char			*ft_scan_gc(char *prompt, int mode, t_gc **gc);
+int 			ft_delsplit_gc(char **tab, t_gc **gc);
 
 #endif
