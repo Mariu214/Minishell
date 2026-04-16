@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/15 10:32:39 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:26:14 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ t_token				define_type(t_type type, t_quote quote);
 
 int		parser(t_data *data, t_lexst **list);
 int     parsing_pipe(t_data *data, t_lexst *list);
+
+int	do_redirection(t_type redir, t_lexst *file);
+int	schr_redirection(t_lexst **list);
 
 #endif

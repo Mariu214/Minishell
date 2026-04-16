@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_lex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:09:29 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 14:11:41 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/16 12:46:26 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ static void print_type(t_type type)
         ft_printf_fd(2, "CMD, ");
     else if (type == WORD)
         ft_printf_fd(2, "WORD, ");
-    else if (type == D_QUOTE)
-        ft_printf_fd(2, "D_QUOTE, ");
-    else if (type == S_QUOTE)
-        ft_printf_fd(2, "S_QUOTE, ");
     else if (type == OU_TRUNC)
         ft_printf_fd(2, "OU_TRUNC, ");
     else if (type == INPUT)

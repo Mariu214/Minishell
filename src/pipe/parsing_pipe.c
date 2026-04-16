@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/15 15:36:35 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:36:44 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,6 @@
 
 int     last_pipe(t_data *data, t_lexst **list)
 {
-    // pid_t child;
-    // int status;
-    // int return_value;
-
-    // return_value = 0;
-    // child = fork();
-    // if (!child)
-    // {
-    //     // while ((*list))
-    //     // {
-    //         return_value = parsing_cmd(data, list);
-    //     //     (*list) = (*list)->next;
-    //     // }
-    //     exit(return_value);
-    // }
-    // else
-    // {
-    //     while ((*list) && (*list)->type != PIPE)
-    //         (*list) = (*list)->next;
-    //     waitpid(child, &status, 0);
-	// 	if (WIFEXITED(status))
-	// 		return (WEXITSTATUS(status));
-    // }
     return (parsing_cmd(data, list));
 }
 
@@ -53,11 +30,12 @@ int     apply_pipe(t_data *data, t_lexst **list)
     {
         dup2(end_pipe[1], 1);
         close(end_pipe[0]);
-        // while ((*list) && (*list)->type != PIPE)
-        // {
-            return_value = parsing_cmd(data, list);
-            (*list) = (*list)->next;
-        // }
+        schr_redirection(list);
+        while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
+				|| (*list)->type == WORD))
+		    (*list) = (*list)->next;
+        return_value = parsing_cmd(data, list);
+        (*list) = (*list)->next;
         if ((*list)->type == PIPE)
             (*list) = (*list)->next;
         exit(return_value);
@@ -73,34 +51,6 @@ int     apply_pipe(t_data *data, t_lexst **list)
     }
     return (0);
 }
-
-// int     find_pipe(t_data *data)
-// {
-//     pid_t child;
-//     t_lexst *temp;
-//     int     status;
-
-//     child = fork();
-//     if (!child)
-//     {
-//         while (data->list->previous)
-//             data->list = data->list->previous;
-//         temp = data->list;
-//         while (data->pipedone < data->pipenb)
-//         {
-//             apply_pipe(data, &temp);
-//             data->pipedone++;
-//         }
-//         exit(last_pipe(data, &temp));
-//     }
-//     else
-//     {
-//         waitpid(child, &status, 0);
-// 		if (WIFEXITED(status))
-// 			return (WEXITSTATUS(status));
-//     }
-//     return (0);
-// }
 
 int     find_pipe(t_data *data)
 {
@@ -118,8 +68,13 @@ int     find_pipe(t_data *data)
     {
         return_value = apply_pipe(data, &temp);
         data->pipedone++;
-    }
-    return_value = last_pipe(data, &temp);
+    }    
+    schr_redirection(&temp);
+    while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC)
+		    || temp->type == WORD))
+		temp = temp->next;
+    if (temp)
+        return_value = last_pipe(data, &temp);
     dup2(old_stdin, STDIN_FILENO);
     dup2(old_stdout, STDOUT_FILENO);
     return (return_value);
@@ -133,7 +88,7 @@ static int     parsing_last_pipe(t_data *data)
     temp = NULL;
     tmp = ft_strdup_gc(data->str, &data->gc);
     tmp = ft_renew_gc(tmp, " ", 0, &data->gc);
-    free(data->str);
+    ft_delone_gc(data->str, &data->gc);
     print_pipe(countpipe(data) - 1);
     data->str = ft_scan_gc("pipe> ", 0, &data->gc);
     if (!data->str)

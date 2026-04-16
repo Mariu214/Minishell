@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/15 10:31:07 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 12:46:35 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ int parser(t_data *data, t_lexst **list)
         return (0);
     else if ((*list)->type == CMD)
         return (parsing_cmd(data, list));
-    else if ((*list)->type == D_QUOTE)
-        return (0);
-    else if ((*list)->type == S_QUOTE)
-        return (0);
     else if ((*list)->type == INPUT)
         return (0);
     else if ((*list)->type == OU_APPEND)

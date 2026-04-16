@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/15 10:51:05 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:16:16 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ volatile int	process_running = 0;
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_data	data;
+	char	*line;
 
 	(void)argc;
 	(void)argv;
@@ -58,16 +59,19 @@ int	main(int argc, char *argv[], char *envp[])
 	data.gc = NULL;
 	data.dollar = 0;
 	data.env = ft_splitdup(envp);
-	data.str = NULL;
-	while (ft_strcmp(data.str, "exit") != 0)
-	{
+	while (ft_strcmp(line, "exit") != 0)
+	{		
+		free(line);
+		line = NULL;
+		data.str = NULL;
 		init_signal(&data.sig_int, &data.sig_quit, &data.sig_child,
 			&data.sig_child_slash);
 		sigaction(SIGINT, &data.sig_int, NULL);
 		sigaction(SIGQUIT, &data.sig_quit, NULL);
-		data.str = readline(">minishell ");
-		if (!data.str)
+		line = readline(">minishell ");		
+		if (!line)
 			ft_shellerror_gc("exit\n", &data, 0, 0);
+		data.str = ft_strdup_gc(line, &data.gc);
 		process_running = 1;
 		if (data.str[0])
 		{

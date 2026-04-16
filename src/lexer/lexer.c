@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/15 10:21:56 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:21:42 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int    lexer(t_data *data, t_lexst **list)
         else if (data->str[i] == '<' || data->str[i] == '>')
         {
             if (lexing_redirection(data, &i, list))
+                return (1);
+            if (lexing_word(data, &i, list))
                 return (1);
         }
 		else if (data->str[i] == '"')

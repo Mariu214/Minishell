@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/14 12:47:03 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/16 12:24:03 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ typedef enum e_type
 {
 	CMD = 1,
 	WORD,
-	D_QUOTE,
-	S_QUOTE,
 	INPUT,
 	OU_APPEND,
 	OU_TRUNC,
