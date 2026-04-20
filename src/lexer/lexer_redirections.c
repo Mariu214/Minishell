@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 11:24:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/14 11:29:31 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/15 14:56:06 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,3 +73,29 @@ int     lexing_precise_redirection(t_data *data, char *str, t_lexst **list)
     return (0);
 }
 
+int		lexing_redirection(t_data *data, int *i, t_lexst **list)
+{
+    int     j;
+    char    *temp;
+    
+    j = *i;
+    while (data->str[j] && (data->str[j] == '<' || data->str[j] == '>'))
+        j++;
+    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
+    if (!temp)
+        return (1);
+    if (lexing_precise_redirection(data, temp, list))
+        return (1);
+    if (data->str[j] && data->str[j] == ' ')
+		j++;
+    *i = j;
+    j = 0;
+    // while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
+	// 		&& data->str[*i] != '|')
+	// {
+    //     if (lexing_sort(data, i, j))
+    //         return (1);
+    //     j++;
+	// }
+    return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/16 12:24:03 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:46:04 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "../libft/include/libft.h"
 # include "include_h/pipe.h"
 # include "include_h/redirection.h"
-# include "include_h/hardcoded.h"
 # include "include_h/misc.h"
 
 # include <readline/history.h>
@@ -58,6 +57,8 @@ typedef enum e_quote
 # include "include_h/parsing.h"
 # include "include_h/lexer.h"
 # include "include_h/list.h"
+# include "include_h/hardcoded.h"
+
 
 typedef struct s_lexer
 {
@@ -94,6 +95,7 @@ typedef struct s_data
 	int		pipedone;
 	char	current_dir[4096];
 	t_lexst	*list;
+	int		export_valid;
 }			t_data;
 
 # include "include_h/exec.h"
