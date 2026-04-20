@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:21:12 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/27 14:14:18 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/17 14:40:00 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_tab(char **tab)
 	size_t	i;
 
 	i = 0;
+	if (!tab)
+		return;
 	while (tab[i])
 	{
 		free(tab[i]);

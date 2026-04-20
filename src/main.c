@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/16 09:54:23 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/20 12:03:36 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	data.gc = NULL;
 	data.dollar = 0;
-	data.env = ft_splitdup_gc(envp, &data.gc);
-	data.export = ft_splitdup_gc(data.env, &data.gc);
+	data.env = ft_splitdup(envp);
 	data.str = NULL;
 	while (ft_strcmp(data.str, "exit") != 0)
 	{

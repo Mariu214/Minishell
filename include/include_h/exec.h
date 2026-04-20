@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:34:00 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 15:55:44 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:34:22 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ void		exec(char *cmd, t_data *data);
 void        signal_handler(int signum);
 void    	init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash);
 void		print_pipe(int pipenb);
-int 		cd_make(t_data *data, int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/16 09:42:43 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/17 12:55:44 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_data
 	int		pipedone;
 	char	current_dir[4096];
 	t_lexst	*list;
-	char	**export;
+	int		export_valid;
 }			t_data;
 
 # include "include_h/exec.h"

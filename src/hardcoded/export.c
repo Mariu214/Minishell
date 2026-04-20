@@ -6,73 +6,71 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:10:04 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/16 10:05:48 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/20 12:05:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int replace_env(t_data *data, char *str, int i)
+
+int     search_export(t_data *data, char *str, int *i, int *end)
 {
-    int     j;
     char    *temp;
     char    *temp2;
+    int     j;
     
     j = 0;
-    while (data->env[i][j] && data->env[i][j] != '=')
+    while (str[j] && data->env[*i][j] && data->env[*i][j] != '=')
         j++;
-    temp = ft_substr(data->env[i], 0, j);
-    j = 0;
-    while (str[j] && str[j] != '=')
-        j++;
-    temp2 = ft_substr(str, 0, j);
-    if (temp && temp2)
-    {
-        if (strcmp(temp, temp2) == 0)
-        {
-            free(data->env[i]);
-            free(temp);
-            free(temp2);
-            data->env[i] = ft_strdup(str);
-            return (0);
-        }
-        free(temp);
-        free(temp2);
-        i++;
-    }
-    return (0);
-}
-
-int fill_env(t_data *data, char *str, int i)
-{
-    int i;
-    int return_value;
-    
-    i = 0;
-    while (data->env[i])
-    {
-        return_value = replace_env(data, str, i);
-        if (return_value)
-            return (return_value);
-        i++;
-    }
-    i = 0;
-    if (ft_delsplit_gc(data->export, &data->gc))
+    temp = ft_substr(data->env[*i], 0, j);
+    if (!temp)
         return (1);
-    data->export = ft_calloc_gc(sizeof(char *), (ft_splitlen(data->env) + 2), &data->gc);
+    temp2 = ft_substr(str, 0, j);
+    if (!temp2)
+        return (free(temp), 1);
+    if (strcmp(temp, temp2) == 0)
+    {
+        free(data->env[*i]);
+        data->env[*i] = ft_strdup(str);
+        *i += 1;
+        return (free(temp2), free(temp), *end = 1, 1);
+    }
+    return (free(temp), free(temp2), *i += 1, 0);
+}
+
+int     fill_export(t_data *data, char *str, int end, int i)
+{
+    char    **cpy;
+    
     while (data->env[i])
-        data->export[i] = ft_strdup_gc(data->env[i++], &data->gc);
-    data->export[i] = ft_strdup_gc(str, &data->gc);
+    {
+        if (search_export(data, str, &i, &end))
+            return (1);
+        if (end == 1)
+            return (0);
+    }
+    i = 0;
+    cpy = ft_calloc(sizeof(char *), (ft_splitlen(data->env) + 2));
+    if (!cpy)
+        return (1);
+    while (data->env[i])
+    {
+        cpy[i] = ft_strdup(data->env[i]);
+        if (!cpy[i++])
+            return (free_tab(cpy), 1);
+	}
+    cpy[i] = ft_strdup(str);
+    if (!cpy[i])
+        return (free_tab(cpy), 1);
     free_tab(data->env);
-    data->env = ft_splitdup_gc(data->export, &data->gc);
+    data->env = cpy;
     return (0);
 }
 
-int export(t_data *data, char *str)
+int    export(t_data *data, char *str)
 {
     int     i;
     int     j;
-    int     return_value;
 
     i = 0;
     j = 0;
@@ -80,33 +78,25 @@ int export(t_data *data, char *str)
         return (printf("env is cleared"), 1);
     if (!str)
     {
+        printf("i = %d\n", i);
         while (data->env[i])
-        	printf("declare -x %s\n", data->export[i++]);
+        	printf("declare -x %s\n", data->env[i++]);
         return (0);
     }
     while (str[i])
     {
         if (str[i++] == '=')
-        {
-            fill_env(data)
-        }
+            j = 1;
     }
     if (j == 0)
-    {
-        data->export = ft_calloc_gc(sizeof(char *), (ft_splitlen(data->env) + 2), &data->gc);
-        while (data->env[i])
-            data->export[i] = ft_strdup_gc(data->env[i++], &data->gc);
-        data->export[i] = ft_strdup_gc(str, &data->gc);
         return (0);
-    }
+    return (fill_export(data, str, 0, 0));
 }
-
 static int is_usable(char *str)
 {
     int i;
     
     i = 0;
-    printf("str = %s\n", str);
     if (!str)
         return (0);
     if ((!ft_isalpha(str[0]) && str[0] != '_')
@@ -128,22 +118,17 @@ int init_export(t_data *data, t_lexst **list)
     return_value = 0;
     *list = (*list)->next;
     if (!(*list) || (*list)->type != BUILT_IN)
-    {
-        data->env = export(data->env, NULL);
-        if (!data->env)
-                return (1);
-    }
+        return (export(data, NULL));
     while (*list && (*list)->type == BUILT_IN)
     {
         if (is_usable((*list)->content))
-        {
-            data->env = export(data->env, (*list)->content);
-            if (!data->env)
-                return (-1);
-        }
+            return_value = return_value | export(data, (*list)->content);
         else
             return_value = 1;
         *list = (*list)->next;
     }
     return (return_value);
 }
+
+
+//export jsp=10 1yemp=54 prise prout@a=150 car=12

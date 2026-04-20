@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/16 09:51:19 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/16 10:44:16 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ char			**ft_split_sentence_gc(char *str, const char separateur,
 					char *start, t_gc **gc);
 void			ft_error_gc(char *str, t_gc **gc, int out);
 int				ft_delone_gc(void *target, t_gc **gc);
-void			ft_free_tab_gc(char **tab, t_gc **gc);
+int				ft_free_tab_gc(char **tab, t_gc **gc);
 char			**ft_splitdup_gc(char **str, t_gc **gc);
 char			*ft_gnl_gc(int fd, t_gc **gc);
 char			*ft_substr_gc(char const *s, unsigned int start, size_t len,
 					t_gc **gc);
 char			*ft_scan_gc(char *prompt, int mode, t_gc **gc);
-int 			ft_delsplit_gc(char **tab, t_gc **gc);
 
 #endif

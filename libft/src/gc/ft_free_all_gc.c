@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:53:27 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 09:56:32 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/20 11:59:31 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	ft_free_all_gc(t_gc **gc)
 		tp = temp->next;
 		if (temp->content)
 			free(temp->content);
-		free(temp);
+		if (temp)
+			free(temp);
 		temp = tp;
 	}
 	*gc = NULL;
