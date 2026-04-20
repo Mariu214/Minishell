@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/16 14:55:02 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:58:24 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ int     find_pipe(t_data *data)
         return_value = apply_pipe(data, &temp);
         data->pipedone++;
     }    
-    schr_redirection(&temp, data);
+    return_value = schr_redirection(&temp, data);
+    if (return_value != 0)
+        return (return_value);
     while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC)
 		    || temp->type == WORD))
 		temp = temp->next;
@@ -89,8 +91,13 @@ static int     parsing_last_pipe(t_data *data)
     tmp = ft_strdup_gc(data->str, &data->gc);
     tmp = ft_renew_gc(tmp, " ", 0, &data->gc);
     ft_delone_gc(data->str, &data->gc);
-    print_pipe(countpipe(data) - 1);
-    data->str = ft_scan_gc("pipe> ", 0, &data->gc);
+    data->str = ft_strdup_gc(NULL, &data->gc);
+    while (!data->str[0])
+    {
+        ft_delone_gc(data->str, &data->gc);
+        print_pipe(countpipe(data) - 1);
+        data->str = ft_scan_gc("pipe> ", 0, &data->gc);
+    }
     if (!data->str)
         return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0, 1));
     lexer(data, &temp);

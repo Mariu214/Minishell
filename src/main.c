@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/20 09:32:35 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/20 09:35:14 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char *argv[], char *envp[])
 	data.gc = NULL;
 	data.dollar = 0;
 	data.env = ft_splitdup(envp);
+	line = ft_calloc(1, 1);
 	while (ft_strcmp(line, "exit") != 0)
 	{		
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/16 14:55:26 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:57:11 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	input_redirection(char *file)
 
 	fd = open_file(file, 0);
 	if (fd < 0)
-		return (1);
+		return (fd);
 	if (dup2(fd, STDIN_FILENO) < 0)
 		return (1);
 	if (close(fd) < 0)
@@ -64,7 +64,7 @@ int	output_redirection_trunc(char *file)
 
 	fd = open_file(file, 2);
 	if (fd < 0)
-		return (1);
+		return (fd);
 	if (dup2(fd, STDOUT_FILENO) < 0)
 		return (1);
 	if (close(fd) < 0)
@@ -78,7 +78,7 @@ int	output_redirection_append(char *file)
 
 	fd = open_file(file, 1);
 	if (fd < 0)
-		return (1);
+		return (fd);
 	if (dup2(fd, STDOUT_FILENO) < 0)
 		return (1);
 	if (close(fd) < 0)

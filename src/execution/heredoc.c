@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/16 15:04:57 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:53:43 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static char	*here_doc_next(char *lim, t_data *data)
 
 	print_pipe(data->pipenb);
 	scan = ft_calloc_gc(1, 1, &data->gc);
-	doc = NULL;
+	doc = ft_calloc_gc(1, 1, &data->gc);
 	nl = ft_strjoin_gc(lim, "\n", &data->gc);
-	while (ft_strcmp(scan, nl))
+	while (ft_strcmp(scan, nl) != 0)
 	{
 		ft_delone_gc(scan, &data->gc);
 		scan = ft_scan_gc("heredoc> ", 1, &data->gc);
@@ -66,14 +66,16 @@ int	here_doc(char *lim, t_data *data)
 	// if (!parent)
 	// {
 		ft_printf_fd(end_pipe[1], "%s", doc);
+		ft_printf_fd(end_pipe[1], "\0");
 		// exit (0);
 	// }
 	// else
 	// {
     //     waitpid(parent, &signal, 0);
 		data->str = ft_renew_gc(data->str, doc, 2, &data->gc);
-		// close(end_pipe[1]);
+		close(end_pipe[1]);
 		dup2(end_pipe[0], 0);
+		close(end_pipe[0]);
 		// if (WIFEXITED(signal))
 		// 	return (WEXITSTATUS(signal));
 	// }

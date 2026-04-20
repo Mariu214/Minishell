@@ -6,11 +6,14 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:35:43 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/14 12:01:44 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/20 10:32:26 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
+
+#define RM_NL 0
+#define NL 
 
 static char *read_line(char *line)
 {
@@ -44,6 +47,8 @@ char    *ft_scan_gc(char *prompt, int mode, t_gc **gc)
     ft_printf_fd(2, "%s", prompt);
     scaned = ft_calloc(1, 1);
     scaned = read_line(scaned);
+    if (!scaned)
+        return (NULL);
     if (mode == 0)// remove the '\n'
         line = ft_substr_gc(scaned, 0, ft_strlen(scaned) - 1, gc);
     else// leave the '\n'
