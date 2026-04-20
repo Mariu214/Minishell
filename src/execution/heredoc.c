@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/20 11:53:43 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/20 15:00:33 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static char	*here_doc_next(char *lim, t_data *data)
 	{
 		ft_delone_gc(scan, &data->gc);
 		scan = ft_scan_gc("heredoc> ", 1, &data->gc);
-		doc = ft_renew_gc(doc, scan, 0, &data->gc);
+		if (ft_strcmp(scan, nl) != 0)
+			doc = ft_renew_gc(doc, scan, 0, &data->gc);
 	}
 	// ft_printf_fd(end_pipe[1], "%s", doc);
 	return (doc);
@@ -72,7 +73,7 @@ int	here_doc(char *lim, t_data *data)
 	// else
 	// {
     //     waitpid(parent, &signal, 0);
-		data->str = ft_renew_gc(data->str, doc, 2, &data->gc);
+		// data->str = ft_renew_gc(data->str, doc, 2, &data->gc);
 		close(end_pipe[1]);
 		dup2(end_pipe[0], 0);
 		close(end_pipe[0]);
