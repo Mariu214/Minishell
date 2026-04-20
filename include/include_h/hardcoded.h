@@ -14,7 +14,8 @@ int         check_env(t_data *data, char *str, int *i);
 int         fill_env(t_data *data, char *str, int i);
 int         fill_export(t_data *data, char *str, int end, int i);
 
-char        **unset(char *envp[], char *str);
+int         del_variable(t_data *data, char *str, char *temp, int i);
+int         unset(t_data *data, char *str);
 int 		init_unset(t_data *data, t_lexst **list);
 
 int         echo(char *str);

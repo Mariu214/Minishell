@@ -6,44 +6,51 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:06:32 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/15 15:30:52 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/20 12:30:06 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char    **unset(char *envp[], char *str)
+int del_variable(t_data *data, char *str, char *temp, int i)
 {
-    int i;
+    if (strcmp(temp, str) == 0)
+    {
+        free(data->env[i]);
+        while (data->env[i + 1])
+        {
+            data->env[i]= data->env[i + 1];
+            if (!data->env)
+                return (1);
+            i++;
+        }
+        data->env[i] = NULL;
+        return (0);
+    }
+    return (0);
+}
+
+int unset(t_data *data, char *str)
+{
     char    *temp;
+    int     i;
 
     i = 0;
-    if (!envp)
-        return (printf("env is cleared"), NULL);
+    if (!data->env)
+        return (printf("env is cleared"), 1);
     if (!str)
-        return (printf("wrong argument"), NULL);
-    while (envp[i])
+        return (printf("wrong argument"), 1);
+    while(data->env[i])
     {
-        temp = ft_substr(envp[i], 0, ft_strlen(str));
-        if (temp)
-        {
-            if (strcmp(temp, str) == 0)
-            {
-                free(temp);
-                free(envp[i]);
-                while (envp[i + 1])
-                {
-                    envp[i]= envp[i + 1];
-                    i++;
-                }
-                envp[i] = NULL;
-                return (envp);
-            }
-            free(temp);
-        }
+        temp = ft_substr(data->env[i], 0, ft_strlen(str));
+        if (!temp)
+            return (1);
+        if (del_variable(data, str, temp, i))
+            return (1);
+        free(temp);
         i++;
     }
-    return (envp);
+    return (0);
 }
 
 static int is_usable(char *str)
@@ -53,13 +60,13 @@ static int is_usable(char *str)
     i = 0;
     if (!str)
         return (0);
-    if (!ft_isdigit(str[0] && str[0] != '_')
+    if ((!ft_isalpha(str[0]) && str[0] != '_')
         || ft_strchr(str, '-'))
-        return (printf("minishell: export: `%s': not a valid identifier", str), 0);
+        return (printf("minishell: unset: `%s': not a valid identifier\n", str), 0);
     while (str[i])
     {
         if (!ft_isalnum(str[i]) && str[i] != '_')
-            return (printf("minishell: export: `%s': not a valid identifier", str), 0);
+            return (printf("minishell: export: `%s': not a valid identifier\n", str), 0);
         i++;
     }
     return (1);
@@ -77,9 +84,8 @@ int init_unset(t_data *data, t_lexst **list)
     {
         if (is_usable((*list)->content))
         {
-            data->env = unset(data->env, (*list)->content);
-            if (!data->env)
-                return (-1);
+            if (unset(data, (*list)->content))
+                return (1);
         }
         else 
             return_value = 1;
