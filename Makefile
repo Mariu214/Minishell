@@ -6,7 +6,7 @@
 #    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/17 15:19:43 by malaimo          ###   ########.fr        #
+#    Updated: 2026/04/21 10:58:14 by malaimo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing cd unset export \
 		open_files redirection parsing_cmd dollar ft_shellerror_gc echo lexer define_type \
 		init_list ft_add_node ft_print_lex lexer_quotes lexer_redirections new_parsing parsing_built_in \
-		lexer_cmd pipenb last_pipe \
+		lexer_cmd pipenb last_pipe expand_variables ft_delone \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
