@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/20 13:45:22 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 16:10:00 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ static int     parsing_last_pipe(t_data *data)
         data->list = data->list->previous;
     if (parsing_pipe(data, temp))
         return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
+    if (parsing_quote(&data->list, data))
+        return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
     data->str = ft_renew_gc(tmp, data->str, 2, &data->gc);
     return (0);
 }
@@ -122,6 +124,7 @@ int     parsing_pipe(t_data *data, t_lexst *list)
     temp = list;
     while (temp->next)
     {
+        
         temp = temp->next;
         if (temp->type == PIPE)
         {

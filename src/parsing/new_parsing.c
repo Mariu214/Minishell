@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/20 13:45:47 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:59:30 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int init_parser(t_data *data)
     int     return_value = 0;
     // t_lexst *temp;
 
+    if (parsing_quote(&data->list, data))
+        return (1);
     if (parsing_pipe(data, data->list))
         return (1);
     // temp = data->list;

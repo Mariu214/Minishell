@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/21 11:05:13 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/21 15:54:31 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ int		ft_delone(t_data *data, t_lexst **target);
 
 int	do_redirection(t_type redir, t_lexst *file, t_data *data);
 int	schr_redirection(t_lexst **list, t_data *data);
+
+void	free_list(t_lexst **gc);
 
 #endif

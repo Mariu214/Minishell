@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 14:46:53 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 16:03:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,12 @@ int     lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list)
     ft_printf_fd(2, "num = %i\n", num);
     if (num % 2 == 0 && num != 0)
     {
-        ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
+        ft_add_node(list, temp, define_type(type, CLOSED_S_QUOTE), &data->gc);
         *i = j + 1;
     }
     else
     {
-        ft_add_node(list, temp, define_type(type, OPEN_D_QUOTE), &data->gc);
+        ft_add_node(list, temp, define_type(type, OPEN_S_QUOTE), &data->gc);
         *i = j;
     }
     return (0);

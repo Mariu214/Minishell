@@ -21,4 +21,10 @@ int init_parser(t_data *data);
 
 int     find_pipe(t_data *data);
 
+
+
+int parsing_quote(t_lexst **lex, t_data *data);
+
+
+
 #endif
