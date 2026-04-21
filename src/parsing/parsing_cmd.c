@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 12:14:58 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/21 14:29:46 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,23 @@
 
 int	parsing_built_in(t_data *data, t_lexst **list)
 {
-	if (ft_strcmp((*list)->content, "export") == 0)
-		return (init_export(data, list));
-	if (ft_strcmp((*list)->content, "unset") == 0)
-		return (init_unset(data, list));
-	if (ft_strcmp((*list)->content, "cd") == 0)
-		init_cd(data, list);
-	if (ft_strcmp((*list)->content, "echo") == 0)
-		echo(list);
+	while (*list && (*list)->type == BUILT_IN)
+	{
+		if (ft_strcmp((*list)->content, "export") == 0)
+			return (init_export(data, list));
+		else if (ft_strcmp((*list)->content, "unset") == 0)
+			return (init_unset(data, list));
+		else if (ft_strcmp((*list)->content, "cd") == 0)
+			return (init_cd(data, list));
+		else if (ft_strcmp((*list)->content, "echo") == 0)
+			return (echo(list));
+		else if (ft_strcmp((*list)->content, "$?") == 0)
+			return (printf("%d: command not found\n", data->dollar), 127);
+		else if (ft_strcmp((*list)->content, "pwd") == 0)
+			return (print_pwd(data, list));
+		else if (ft_strcmp((*list)->content, "env") == 0)
+			return (print_env(data, list));
+	}
 	return (1);
 }
 

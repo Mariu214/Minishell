@@ -20,4 +20,10 @@ int 		init_unset(t_data *data, t_lexst **list);
 
 int         echo(t_lexst **list);
 
+int         print_pwd(t_data *data, t_lexst **list);
+
+int         print_env(t_data *data, t_lexst **list);
+
+
+
 #endif

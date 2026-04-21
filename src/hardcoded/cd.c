@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 14:09:17 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/21 11:53:15 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/21 14:13:42 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ int init_cd(t_data *data, t_lexst **list)
     {
         temp = ft_getenv("HOME", data->env);
         if (!temp)
-            return (perror("error :"), 1);
+            return (1);
         return_value = cd(data, temp);
-        free(temp);
         return (return_value);
     }
 	if ((*list)->next && (*list)->next->type == BUILT_IN)
