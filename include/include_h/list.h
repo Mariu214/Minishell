@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/15 10:32:39 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 10:58:01 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ t_token				define_type(t_type type, t_quote quote);
 
 int		parser(t_data *data, t_lexst **list);
 int     parsing_pipe(t_data *data, t_lexst *list);
+int		ft_delone(t_data *data, t_lexst **target);
+
 
 #endif

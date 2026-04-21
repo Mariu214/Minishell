@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
+/*   ft_delone.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 10:57:35 by malaimo          ###   ########.fr       */
+/*   Created: 2026/03/18 15:07:53 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/04/21 10:59:42 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
+int	ft_delone(t_data *data, t_lexst **target)
 {
-	ft_printf_fd(2, "%s", str);
-	ft_free_all_gc(&data->gc);
-	if (mode == 0)
-	{
-		free(data->env);
-		exit(out);
-	}
+	t_lexst	*temp;
+
+	temp = *target;
+	if (!temp)
+		return (1);
+	if (temp->previous)
+		temp->previous->next = temp->next;
 	else
-		return (out);
+		*target = temp->next;
+	if (temp->next)
+		temp->next->previous = temp->previous;
+	if (temp->content)
+		ft_delone_gc(temp->content, &data->gc);
+	ft_delone_gc(temp, &data->gc);
+	return (0);
 }
