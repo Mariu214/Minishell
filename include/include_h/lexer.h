@@ -18,6 +18,7 @@ int		lexing_word(t_data *data, int *i, t_lexst **list);
 int is_quote(char *src, int *i, char q);
 
 
+int     check_expand(t_data *data, t_lexst **list);
 
 
 #endif

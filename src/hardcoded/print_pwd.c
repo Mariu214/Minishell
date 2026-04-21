@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 11:05:27 by malaimo          ###   ########.fr       */
+/*   Created: 2026/04/21 14:19:24 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/21 14:29:59 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
+int print_pwd(t_data *data, t_lexst **list)
 {
-	ft_printf_fd(2, "%s", str);
-	ft_free_all_gc(&data->gc);
-	if (mode == 0)
-	{
-		free_tab(data->env);
-		exit(out);
-	}
-	else
-		return (out);
+    *list = (*list)->next;
+    if (!getcwd(data->current_dir, 4096))
+		return (perror("error"), 1);
+	else 
+		printf("%s\n", data->current_dir);
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/16 10:44:16 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/21 10:26:19 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ char			*ft_gnl_gc(int fd, t_gc **gc);
 char			*ft_substr_gc(char const *s, unsigned int start, size_t len,
 					t_gc **gc);
 char			*ft_scan_gc(char *prompt, int mode, t_gc **gc);
+char			*ft_getenv_gc(const char *name, char **env, t_gc **gc);
 
 #endif

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
+/*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 11:05:27 by malaimo          ###   ########.fr       */
+/*   Created: 2026/04/21 14:25:42 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/21 14:33:39 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
+int print_env(t_data *data, t_lexst **list)
 {
-	ft_printf_fd(2, "%s", str);
-	ft_free_all_gc(&data->gc);
-	if (mode == 0)
-	{
-		free_tab(data->env);
-		exit(out);
-	}
-	else
-		return (out);
+    int j;
+    
+	j = 0;
+	while (data->env[j])
+        printf("%s\n", data->env[j++]);
+    *list = (*list)->next;
+    return (0);
 }

@@ -1,7 +1,7 @@
 #ifndef HARDCODED_H
 # define HARDCODED_H
 
-int         cd_make(t_data *data, t_lexst **list);
+int         init_cd(t_data *data, t_lexst **list);
 
 char        *dollar(char *envp[], char *str);
 
@@ -18,7 +18,12 @@ int         del_variable(t_data *data, char *str, char *temp, int i);
 int         unset(t_data *data, char *str);
 int 		init_unset(t_data *data, t_lexst **list);
 
-int         echo(char *str);
+int         echo(t_lexst **list);
+
+int         print_pwd(t_data *data, t_lexst **list);
+
+int         print_env(t_data *data, t_lexst **list);
+
 
 
 #endif

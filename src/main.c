@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/20 13:45:09 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:36:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int	main(int argc, char *argv[], char *envp[])
 		process_running = 1;
 		if (data.str[0])
 		{
-			data.dollar = test_lexer(&data);
-			init_parser(&data);
+			test_lexer(&data);
+			data.dollar = init_parser(&data);
 		}		
 		if (data.str[0])
 			add_history(data.str);
@@ -86,3 +86,4 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	return (0);
 }
+
