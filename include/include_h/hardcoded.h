@@ -18,7 +18,6 @@ int         del_variable(t_data *data, char *str, char *temp, int i);
 int         unset(t_data *data, char *str);
 int 		init_unset(t_data *data, t_lexst **list);
 
-int         echo(char *str);
-
+int         echo(t_lexst **list);
 
 #endif
