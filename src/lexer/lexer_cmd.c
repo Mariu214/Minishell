@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:44:56 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/14 11:11:11 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:32:09 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		is_built_in(const char *str)
 {
-	if ((ft_strcmp(str, "export") == 0 || ft_strcmp(str, "unset") == 0 
-            || ft_strcmp(str, "exit") == 0 || ft_strcmp(str, "echo") == 0
+	if (ft_strcmp(str, "export") == 0 || ft_strcmp(str, "unset") == 0 
+            || ft_strcmp(str, "$?") == 0 || ft_strcmp(str, "echo") == 0
             || ft_strcmp(str, "cd") == 0 || ft_strcmp(str, "env") == 0
-            || ft_strcmp(str, "pwd") == 0 ))
+            || ft_strcmp(str, "pwd") == 0)
 		return (1);
 	else 
 		return (0);
