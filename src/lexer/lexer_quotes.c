@@ -6,11 +6,27 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/20 16:25:11 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:46:53 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int is_quote(char *src, int *i, char q)
+{
+    int j;
+
+    j = *i;
+    while (src[j] && src[j] == ' ')
+        j++;
+    while (src[j] && src[j] != ' ')
+    {
+        if (src[j] == q)
+            return (1);
+        j++;
+    }
+    return (0);
+}
 
 static char    *rm_quote(char *src, char quote, t_data *data)
 {
@@ -49,23 +65,24 @@ int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
     int     j;
     int     num;
 
-    j = *i + 1;
+    j = *i;
     num = 0;
     while (data->str[j])
     {
-        if (data->str[j] && data->str[j] == '"')
-            num++;
-        if (num / 2 == 0)
+        if (num && num % 2 == 0)
         {
-            while (data->str[j] && data->str[j] != ' ' && data->str[j] != '"')
+            while (data->str[j] && data->str[j] != 0 && data->str[j] != '"')
                 j++;
         }
-        if (num / 2 == 0 && data->str[j] && data->str[j] == ' ')
+        if (data->str[j] && data->str[j] == '"')
+            num++;
+        if (num && num % 2 == 0 && data->str[j] && data->str[j]  == ' ')
             break ;
         j++;
     }
     temp = rm_quote(ft_substr_gc(data->str, *i, j - *i, &data->gc), '"', data);
-    if (num / 2 == 0)
+    ft_printf_fd(2, "num = %i\n", num);
+    if (num % 2 == 0 && num != 0)
     {
         ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
         *i = j + 1;
@@ -78,56 +95,38 @@ int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
     return (0);
 }
 
-// int      lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
-// {
-//     int j;
-//     char *temp;
-
-//     j = *i + 1;
-//     while (data->str[j] && data->str[j] != '"')
-//         j++;
-//     if (j > *i + 1)
-//     {
-//         temp = ft_substr_gc(data->str, *i + 1, j - (*i + 1), &data->gc);
-//         if (!temp)
-//             return (1);
-//         if (data->str[j] && data->str[j] == '"')
-//         {
-//             ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
-//             *i = j + 1;
-//         }
-//         else
-//         {
-//             ft_add_node(list, temp, define_type(type, OPEN_D_QUOTE), &data->gc);
-//             *i = j;
-//         }
-//     }
-//     return (0);
-// }
-
-int      lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list)
+int     lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list)
 {
-    int j;
-    char *temp;
+    char    *temp;
+    int     j;
+    int     num;
 
-    j = *i + 1;
-    while (data->str[j] && data->str[j] != '\'')
-        j++;
-    if (j > *i + 1)
+    j = *i;
+    num = 0;
+    while (data->str[j])
     {
-        temp = ft_substr_gc(data->str, *i + 1, j - (*i + 1), &data->gc);
-        if (!temp)
-            return (1);
+        if (num && num % 2 == 0)
+        {
+            while (data->str[j] && data->str[j] != 0 && data->str[j] != '\'')
+                j++;
+        }
         if (data->str[j] && data->str[j] == '\'')
-        {
-            ft_add_node(list, temp, define_type(type, CLOSED_S_QUOTE), &data->gc);
-            *i = j + 1;
-        }
-        else
-        {
-            ft_add_node(list, temp, define_type(type, OPEN_S_QUOTE), &data->gc);
-            *i = j;
-        }
+            num++;
+        if (num && num % 2 == 0 && data->str[j] && data->str[j]  == ' ')
+            break ;
+        j++;
+    }
+    temp = rm_quote(ft_substr_gc(data->str, *i, j - *i, &data->gc), '\'', data);
+    ft_printf_fd(2, "num = %i\n", num);
+    if (num % 2 == 0 && num != 0)
+    {
+        ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
+        *i = j + 1;
+    }
+    else
+    {
+        ft_add_node(list, temp, define_type(type, OPEN_D_QUOTE), &data->gc);
+        *i = j;
     }
     return (0);
 }

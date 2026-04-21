@@ -15,6 +15,8 @@ int		lexing_cmd(t_data *data, int *i, t_lexst **list);
 void	lexing_built_in(t_lexst **list);
 int		lexing_word(t_data *data, int *i, t_lexst **list);
 
+int is_quote(char *src, int *i, char q);
+
 
 
 

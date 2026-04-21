@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 11:24:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/15 14:56:06 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/21 14:44:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,5 @@ int		lexing_redirection(t_data *data, int *i, t_lexst **list)
 		j++;
     *i = j;
     j = 0;
-    // while (data->str[*i] && data->str[*i] != '>' && data->str[*i] != '<'
-	// 		&& data->str[*i] != '|')
-	// {
-    //     if (lexing_sort(data, i, j))
-    //         return (1);
-    //     j++;
-	// }
     return (0);
 }

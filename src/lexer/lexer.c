@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/20 13:45:57 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:49:21 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ int    lexer(t_data *data, t_lexst **list)
             if (lexing_word(data, &i, list))
                 return (1);
         }
-		else if (data->str[i] == '"')
+		else if (is_quote(data->str, &i, '"'))
         {
             if (lexing_d_quote(data, &i, CMD, list))
                 return (1);
         }
-        else if (data->str[i] == '\'')
+        else if (is_quote(data->str, &i, '\''))
         {
             if (lexing_s_quote(data, &i, CMD, list))
                 return (1);
