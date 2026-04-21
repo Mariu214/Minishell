@@ -1,7 +1,7 @@
 #ifndef HARDCODED_H
 # define HARDCODED_H
 
-int         cd_make(t_data *data, t_lexst **list);
+int         init_cd(t_data *data, t_lexst **list);
 
 char        *dollar(char *envp[], char *str);
 
