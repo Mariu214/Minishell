@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 11:50:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/21 12:14:58 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	parsing_built_in(t_data *data, t_lexst **list)
 		return (init_unset(data, list));
 	if (ft_strcmp((*list)->content, "cd") == 0)
 		init_cd(data, list);
+	if (ft_strcmp((*list)->content, "echo") == 0)
+		echo(list);
 	return (1);
 }
 
