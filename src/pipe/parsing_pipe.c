@@ -22,7 +22,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
     pid_t child;
     int end_pipe[2];
     int return_value;
-    
+
     return_value = 0;
     pipe(end_pipe);
     child = fork();
@@ -68,7 +68,7 @@ int     find_pipe(t_data *data)
     {
         return_value = apply_pipe(data, &temp);
         data->pipedone++;
-    }    
+    }
     return_value = schr_redirection(&temp, data);
     if (return_value != 0)
         return (return_value);

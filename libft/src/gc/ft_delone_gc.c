@@ -15,15 +15,10 @@
 int	ft_delone_gc(void *target, t_gc **gc)
 {
 	t_gc	*temp;
-	int		i;
 
-	i = 0;
 	temp = *gc;
 	while (temp && temp->content != target)
-	{
-		i++;
 		temp = temp->next;
-	}
 	if (!temp)
 		return (1);
 	if (temp->previous)

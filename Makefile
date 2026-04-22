@@ -21,7 +21,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 CC = cc
-FLAGS = -Wall -Werror -Wextra -O0
+FLAGS = -Wall -Werror -Wextra -MMD -MP -g -O0
 
 INCLUDE =  include/minishell.h
 
@@ -49,7 +49,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@echo -e "$(GREEN)Minishell Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
-	@$(CC) $(FLAGS) -c -g3 $< -o $@
+	@$(CC) $(FLAGS) -I/opt/homebrew/opt/readline/include -c -g3 $< -o $@
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
