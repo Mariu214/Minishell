@@ -26,7 +26,6 @@ static int	no_fil_dir(t_command *command, t_data *data)
 			if (access(path, X_OK | F_OK) != 0)
 			{
 				command->free = 1;
-				ft_printf_fd(2, "%s: %s\n", command->s_cmd[0], strerror(errno));
 				return (127);
 			}
 		}

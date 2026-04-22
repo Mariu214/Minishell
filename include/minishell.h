@@ -31,6 +31,8 @@
 # include <errno.h>
 #include <termios.h>
 
+# include <string.h>
+
 extern volatile int process_running;
 
 typedef enum e_type
