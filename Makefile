@@ -45,7 +45,7 @@ vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe $(SRC_
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iinclude -lreadline -g3 -o $(NAME)
+	@$(CC) $(FLAGS) -L/opt/homebrew/opt/readline/lib $(OBJ) $(LIBFT) -Iinclude -lreadline -g3 -o $(NAME)
 	@echo -e "$(GREEN)Minishell Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)

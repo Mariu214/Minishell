@@ -31,9 +31,8 @@ int last_quote(t_data *data, char *prompt, char q)
     if (!data->str)
         return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0, 1));
     data->str = ft_renew_gc(data->str, tmp, 0, &data->gc);
-    free_list(&data->list);
+    free_list(&data->list, &data->gc);
     lexer(data, &data->list);
-    ft_printf_fd(2, "ici ---->   %s\net la ->  %s\n", data->list->content, data->str);
     if (parsing_pipe(data, data->list))
         return (1);
     if (parsing_quote(&data->list, data))

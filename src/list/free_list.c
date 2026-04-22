@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	free_list(t_lexst **gc)
+void	free_list(t_lexst **gc, t_gc **g)
 {
 	t_lexst	*temp;
 	t_lexst	*tp;
@@ -22,9 +22,9 @@ void	free_list(t_lexst **gc)
 	{
 		tp = temp->next;
 		if (temp->content)
-			free(temp->content);
+			ft_delone_gc(temp->content, g);
 		if (temp)
-			free(temp);
+			ft_delone_gc(temp, g);
 		temp = tp;
 	}
 	*gc = NULL;

@@ -41,6 +41,6 @@ int		ft_delone(t_data *data, t_lexst **target);
 int	do_redirection(t_type redir, t_lexst *file, t_data *data);
 int	schr_redirection(t_lexst **list, t_data *data);
 
-void	free_list(t_lexst **gc);
+void	free_list(t_lexst **gc, t_gc **g);
 
 #endif
