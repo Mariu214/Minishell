@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/14 11:36:20 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/23 10:47:33 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	no_fil_dir(t_command *command, t_data *data)
 			if (access(path, X_OK | F_OK) != 0)
 			{
 				command->free = 1;
+				ft_printf_fd(2, "%s: %s\n", command->s_cmd[0], strerror(errno));
 				return (127);
 			}
 		}

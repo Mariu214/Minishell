@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/21 16:01:37 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/04/23 10:48:33 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 CC = cc
-FLAGS = -Wall -Werror -Wextra -MMD -MP -g -O0
+FLAGS = -Wall -Werror -Wextra -O0
 
 INCLUDE =  include/minishell.h
 
