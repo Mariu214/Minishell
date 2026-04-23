@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 10:34:17 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 11:58:39 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ int test_lexer(t_data *data)// rajoute un node vide apres les redirextions
     data->list = NULL;
     
     result = lexer(data, &data->list);
-    // ft_print_list(data->list);
+    ft_print_list(data->list);
     return (result);
 }
