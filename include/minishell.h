@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 11:31:28 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 12:16:27 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 #define _POSIX_C_SOURCE 200809L
 
+# include "../libft/include/libft.h"
 # include <stdio.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <unistd.h>
 # include <sys/wait.h>
 # include <signal.h>
@@ -25,7 +24,8 @@
 # include <dirent.h>
 # include <errno.h>
 # include <termios.h>
-# include "../libft/include/libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # include <string.h>
 
