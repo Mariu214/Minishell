@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:23:26 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 16:12:12 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/23 13:16:07 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int last_quote(t_data *data, char *prompt, char q)
     while (!ft_strchr(data->str, q))
     {
         print_pipe(countpipe(data));
-        scan = ft_scan_gc(prompt, 1, &data->gc);
+        scan = ft_scan_gc(prompt, 1, &data->gc, 0);
         data->str = ft_renew_gc(data->str, scan, 2, &data->gc);
     }
     if (!data->str)

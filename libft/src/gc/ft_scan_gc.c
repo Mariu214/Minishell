@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_scan_gc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:35:43 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/22 10:46:45 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 13:16:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define RM_NL 0
 #define NL 
 
-static char *read_line(char *line)
+static char *read_line(char *line, int fd)
 {
     char    *buffer;
     int     nb_read;
@@ -26,7 +26,7 @@ static char *read_line(char *line)
         return (NULL);
     while (nb_read > 0 && ft_strcmp(line, "\n") != 0)
     {
-        nb_read = read(0, buffer, 1);
+        nb_read = read(fd, buffer, 1);
         if (nb_read == -1)
             return (free(buffer), free(line), NULL);
         buffer[1] = 0;
@@ -39,14 +39,14 @@ static char *read_line(char *line)
     return (free(buffer), line);
 }
 
-char    *ft_scan_gc(char *prompt, int mode, t_gc **gc)
+char    *ft_scan_gc(char *prompt, int mode, t_gc **gc, int fd)
 {
     char  *scaned;
     char  *line;
   
     ft_printf_fd(2, "%s", prompt);
     scaned = ft_calloc(1, 1);
-    scaned = read_line(scaned);
+    scaned = read_line(scaned, fd);
     if (!scaned)
         return (NULL);
     if (mode == 0)// remove the '\n'
