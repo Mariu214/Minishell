@@ -62,7 +62,9 @@ typedef struct s_data
 	int		dollar;
 	int		pipedone;
 	char	current_dir[4096];
-	t_lexst	*list;	
+	t_lexst	*list;
+	int		old_stdin;
+	int		old_stdout;
 }			t_data;
 
 typedef struct s_command

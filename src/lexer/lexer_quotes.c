@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 13:42:11 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 13:43:20 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,13 @@ int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
     num = 0;
     while (data->str[j])
     {
-        if (num && num % 2 == 0)
-        {
-            while (data->str[j] && data->str[j] != 0 && data->str[j] != '"')
-                j++;
-        }
         if (data->str[j] && data->str[j] == '"')
             num++;
-        if (num && num % 2 == 0 && data->str[j] && data->str[j]  == ' ')
+        if (num && num % 2 == 0 && data->str[j] && (data->str[j]  == ' ' || data->str[j] == '|' || data->str[j] == '<' || data->str[j] == '>'))
             break ;
         j++;
     }
     temp = rm_quote(ft_substr_gc(data->str, *i, j - *i, &data->gc), '"', data);
-    ft_printf_fd(2, "num = %i\n", num);
     if (num % 2 == 0 && num != 0)
     {
         ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);

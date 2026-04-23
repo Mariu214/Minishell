@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 12:02:52 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/23 13:15:45 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,10 @@ int     apply_pipe(t_data *data, t_lexst **list)
 int     find_pipe(t_data *data)
 {
     t_lexst *temp;
-    int old_stdin;
-    int old_stdout;
     int return_value;
 
-    old_stdin = dup(STDIN_FILENO);
-    old_stdout = dup(STDOUT_FILENO);
+    data->old_stdin = dup(STDIN_FILENO);
+    data->old_stdout = dup(STDOUT_FILENO);
     while (data->list->previous)
         data->list = data->list->previous;
     temp = data->list;
@@ -77,8 +75,8 @@ int     find_pipe(t_data *data)
 		temp = temp->next;
     if (temp)
         return_value = last_pipe(data, &temp);
-    dup2(old_stdin, STDIN_FILENO);
-    dup2(old_stdout, STDOUT_FILENO);
+    dup2(data->old_stdin, STDIN_FILENO);
+    dup2(data->old_stdout, STDOUT_FILENO);
     return (return_value);
 }
 
@@ -96,7 +94,7 @@ static int     parsing_last_pipe(t_data *data)
     {
         ft_delone_gc(data->str, &data->gc);
         print_pipe(countpipe(data) - 1);
-        data->str = ft_scan_gc("pipe> ", 0, &data->gc);
+        data->str = ft_scan_gc("pipe> ", 0, &data->gc, 0);
     }
     if (!data->str)
         return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0, 1));

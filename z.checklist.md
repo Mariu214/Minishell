@@ -47,6 +47,6 @@ unset with no options attention au readonly
 
 erreur a gerer
 
-heredoc (ca marche ps aevc pipe) + mettre dans child
 parsing redirection
 builtin aevc  pipe
+quote marche psd
