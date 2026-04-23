@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 14:29:46 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/22 10:00:36 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ static int		parsing_exec(char *cmd, t_data *data)
 		exec(cmd, data);
 	else
 		waitpid(child, &signal, 0);
+	if (WIFSIGNALED(signal))
+	{
+		if (WTERMSIG(signal) == 3)
+		{
+			printf("Quit (core dumped)\n");
+			return (131);
+		}
+		return (130);
+	}
 	if (WIFEXITED(signal))
 		return (WEXITSTATUS(signal));
 	return (0);
@@ -69,24 +78,24 @@ int	parsing_cmd(t_data *data, t_lexst **list)
 
 int	parsing_cmd_next(char *cmd, t_data *data)
 {
-    int     j;
-	char	*temp;
+    // int     j;
+	// char	*temp;
 
 	if (ft_strnstr(cmd, "exit", 5))
 		return (255);
-	if (ft_strcmp(cmd, "pwd") == 0)
-	{
-		temp = ft_getenv("PWD", data->env);
-		printf("%s\n", temp);
-		return (0);
-	}
-	else if (ft_strcmp(cmd, "env") == 0)
-	{
-		j = 0;
-		while (data->env[j])
-			printf("%s\n", data->env[j++]);
-		return (0);
-	}
+	// if (ft_strcmp(cmd, "pwd") == 0)
+	// {
+	// 	temp = ft_getenv("PWD", data->env);
+	// 	printf("%s\n", temp);
+	// 	return (0);
+	// }
+	// else if (ft_strcmp(cmd, "env") == 0)
+	// {
+	// 	j = 0;
+	// 	while (data->env[j])
+	// 		printf("%s\n", data->env[j++]);
+	// 	return (0);
+	// }
     else
         return (parsing_exec(cmd, data));
 }
