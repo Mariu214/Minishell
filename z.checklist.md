@@ -42,3 +42,11 @@ foreground pipeline. -->
 unset with no options attention au readonly
 <!-- - env with no options or arguments -->
 <!-- - exit with no options -->
+
+
+
+erreur a gerer
+
+heredoc (ca marche ps aevc pipe) + mettre dans child
+parsing redirection
+builtin aevc  pipe

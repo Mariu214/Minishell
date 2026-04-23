@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/22 13:37:21 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 12:02:52 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
     pid_t child;
     int end_pipe[2];
     int return_value;
-    
+
     return_value = 0;
     pipe(end_pipe);
     child = fork();
@@ -68,7 +68,7 @@ int     find_pipe(t_data *data)
     {
         return_value = apply_pipe(data, &temp);
         data->pipedone++;
-    }    
+    }
     return_value = schr_redirection(&temp, data);
     if (return_value != 0)
         return (return_value);
@@ -109,6 +109,8 @@ static int     parsing_last_pipe(t_data *data)
         data->list = data->list->previous;
     if (parsing_pipe(data, temp))
         return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
+    if (parsing_quote(&data->list, data))
+        return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
     data->str = ft_renew_gc(tmp, data->str, 2, &data->gc);
     return (0);
 }
@@ -122,6 +124,7 @@ int     parsing_pipe(t_data *data, t_lexst *list)
     temp = list;
     while (temp->next)
     {
+        
         temp = temp->next;
         if (temp->type == PIPE)
         {

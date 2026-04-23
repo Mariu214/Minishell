@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/23 12:03:22 by jdelmott         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIST_H
 # define LIST_H
 
@@ -13,5 +25,7 @@ int					ft_delone(t_data *data, t_lexst **target);
 
 /* PRINT_LIST */
 void				ft_print_list(t_lexst *lexer);
+
+void	free_list(t_lexst **gc, t_gc **g);
 
 #endif

@@ -16,4 +16,10 @@ int						parsing_cmd_next(char *cmd, t_data *data);
 /* PARSING_HEREDOC */
 void					parsing_heredoc(t_data *data, char *lim);
 
+
+
+int parsing_quote(t_lexst **lex, t_data *data);
+
+
+
 #endif

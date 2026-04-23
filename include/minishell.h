@@ -27,6 +27,8 @@
 # include <termios.h>
 # include "../libft/include/libft.h"
 
+# include <string.h>
+
 extern volatile int process_running;
 
 # include "include_h/struct.h"
