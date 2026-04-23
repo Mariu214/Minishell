@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 11:13:22 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 11:30:46 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,30 @@ static char	*here_doc_next(char *lim, t_data *data)
 int	here_doc(char *lim, t_data *data)
 {
 	int		end_pipe[2];
-	pid_t	parent;
-	int		signal;
+	// pid_t	parent;
+	// int		signal;
 	char	*doc;
 
 	pipe(end_pipe);
+	// sigaction(SIGINT, &data->sig_child, NULL);
+	// sigaction(SIGQUIT, &data->sig_quit, NULL);
 	doc = here_doc_next(lim, data);
-	parent = fork();
-	if (!parent)
-	{
+	// parent = fork();
+	// if (!parent)
+	// {
 		ft_printf_fd(end_pipe[1], "%s", doc);
 		ft_printf_fd(end_pipe[1], "\0");
-		exit (0);
-	}
-	else
-	{
-        waitpid(parent, &signal, 0);
-		data->str = ft_renew_gc(data->str, doc, 2, &data->gc);
+		// exit (0);
+	// }
+	// else
+	// {
+    //     waitpid(parent, &signal, 0);
+		// data->str = ft_renew_gc(data->str, doc, 2, &data->gc);
 		close(end_pipe[1]);
 		dup2(end_pipe[0], 0);
 		close(end_pipe[0]);
-		if (WIFEXITED(signal))
-			return (WEXITSTATUS(signal));
-	}
+		// if (WIFEXITED(signal))
+		// 	return (WEXITSTATUS(signal));
+	// }
 	return (0);
 }
