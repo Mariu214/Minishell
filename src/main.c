@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 13:33:17 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/23 14:35:23 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	main(int argc, char *argv[], char *envp[])
 	data.dollar = 0;
 	data.env = ft_splitdup(envp);
 	line = ft_calloc(1, 1);
+	data.old_stdin = dup(STDIN_FILENO);
+    data.old_stdout = dup(STDOUT_FILENO);
 	while (ft_strcmp(line, "exit") != 0)
 	{		
 		free(line);
@@ -78,7 +80,7 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			test_lexer(&data);
 			data.dollar = init_parser(&data);
-		}		
+		}
 		if (data.str[0])
 			add_history(data.str);
 		process_running = 0;

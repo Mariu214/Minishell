@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 12:06:24 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/23 14:34:57 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int init_parser(t_data *data)
     //     return_value = parser(data, &temp);
     // }
     return_value = find_pipe(data);
+    dup2(data->old_stdin, STDIN_FILENO);
+    dup2(data->old_stdout, STDOUT_FILENO);
     process_running = 0;
     return (return_value);
 }

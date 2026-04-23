@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 12:16:27 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 15:27:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <termios.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <termios.h>
 
 # include <string.h>
 

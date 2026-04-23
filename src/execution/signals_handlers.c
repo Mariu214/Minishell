@@ -6,15 +6,11 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 09:21:32 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/22 11:53:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/23 14:18:35 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/minishell.h"
-
-
-// Not interpret unclosed quotes or special characters which are not required by the
-// subject such as \ (backslash) or ; (semicolon).
 
 void    child_quit(int signum)
 {

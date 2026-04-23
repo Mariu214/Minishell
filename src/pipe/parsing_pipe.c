@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 13:15:45 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:05:05 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int     apply_pipe(t_data *data, t_lexst **list)
     {
         dup2(end_pipe[1], 1);
         close(end_pipe[0]);
-        schr_redirection(list, data);
+        return_value = schr_redirection(list, data);
+        if (return_value != 0)
+            return (return_value);
         while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
 				|| (*list)->type == WORD))
 		    (*list) = (*list)->next;
@@ -57,14 +59,14 @@ int     find_pipe(t_data *data)
     t_lexst *temp;
     int return_value;
 
-    data->old_stdin = dup(STDIN_FILENO);
-    data->old_stdout = dup(STDOUT_FILENO);
     while (data->list->previous)
         data->list = data->list->previous;
     temp = data->list;
     while (data->pipedone < data->pipenb)
     {
         return_value = apply_pipe(data, &temp);
+        if (return_value != 0)
+            return (return_value);
         data->pipedone++;
     }
     return_value = schr_redirection(&temp, data);
