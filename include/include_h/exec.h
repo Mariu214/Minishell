@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/16 11:34:00 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/20 13:46:08 by jdelmott         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef EXEC_H
 # define EXEC_H
 
@@ -22,11 +10,16 @@ typedef struct s_sic
 	struct s_sic	*previous;
 }				t_sic;
 
+/* EXEC_SHELL */
+void	exec(char *cmd, t_data *data);
 
-int	    here_doc(char *lim, t_data *data);
-void		exec(char *cmd, t_data *data);
+/* HERE_DOC */
+int		here_doc(char *lim, t_data *data);
+
+/* SIGNALS_HANDLERS */
+void    	child_quit(int signum);
+void    	signal_quit(int signum);
 void        signal_handler(int signum);
 void    	init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash);
-void		print_pipe(int pipenb);
 
 #endif

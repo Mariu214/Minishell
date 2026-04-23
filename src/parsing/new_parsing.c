@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 11:59:54 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:07:07 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ int parser(t_data *data, t_lexst **list)
     return (0);
 }
 
-int init_parser(t_data *data)
-{
-    int     return_value = 0;
-    // t_lexst *temp;
+// int init_parser(t_data *data)
+// {
+//     int     return_value = 0;
+//     // t_lexst *temp;
 
-    // if (parsing_quote(&data->list, data))
-    //     return (1);
-    if (parsing_pipe(data, data->list))
-        return (1);
-    // temp = data->list;
-    // while (temp)
-    // {
-    //     return_value = parser(data, &temp);
-    // }
-    return_value = find_pipe(data);
-    return (return_value);
-}
+//     // if (parsing_quote(&data->list, data))
+//     //     return (1);
+//     if (parsing_pipe(data, data->list))
+//         return (1);
+//     // temp = data->list;
+//     // while (temp)
+//     // {
+//     //     return_value = parser(data, &temp);
+//     // }
+//     return_value = find_pipe(data);
+//     return (return_value);
+// }
