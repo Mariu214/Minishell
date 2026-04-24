@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 11:24:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/24 09:28:23 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/24 10:44:29 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int		lexing_redirection(t_data *data, int *i, t_lexst **list)
     j = *i;
     while (data->str[j] && (data->str[j] == '<' || data->str[j] == '>'))
         j++;
-    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
+    temp = ft_substr(data->str, *i, j - *i);
     if (!temp)
         return (1);
     if (lexing_precise_redirection(data, temp, list))
-        return (1);
+        return (free(temp), 1);
     if (data->str[j] && data->str[j] == ' ')
 		j++;
     *i = j;
     j = 0;
-    return (0);
+    return (free(temp), 0);
 }

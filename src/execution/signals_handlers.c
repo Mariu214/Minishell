@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 09:21:32 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/24 09:58:16 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/24 11:30:08 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void    child_quit(int signum)
 {
     (void)signum;
 
-    exit (130);
+    ft_shellerror_gc("", g_datacpy, 130, 0);
 }
 
 void    signal_quit(int signum)
 {
     (void)signum;
 
-    exit (131);
+    ft_shellerror_gc("", g_datacpy, 131, 0);
 }
 
 void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash)
@@ -45,7 +45,7 @@ void    init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struc
 void    signal_handler(int signum)
 {
     (void)signum;
-    if (!process_running)
+    if (!g_datacpy->process)
     {
         write(1, "\n", 1);
         rl_replace_line("", 0);

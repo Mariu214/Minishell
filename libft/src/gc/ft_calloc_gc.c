@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc_gc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:53:19 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/18 15:11:03 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/24 10:27:00 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	*ft_calloc_gc(size_t nmemb, size_t size, t_gc **gc)
 		return (NULL);
 	tab = (void *)malloc(nmemb * size);
 	if (!tab)
-		ft_error_gc("", gc, 1);
+		ft_error_gc("error: malloc failure", gc, 1);
 	ft_bzero(tab, (nmemb * size));
 	if (ft_lstadd_gc(gc, tab))
-		ft_error_gc("", gc, 1);
+		ft_error_gc("error: gc failure", gc, 1);
 	return (tab);
 }

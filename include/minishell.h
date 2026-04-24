@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 15:27:25 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/24 11:29:49 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <termios.h>
-
 # include <string.h>
-
-extern volatile int process_running;
 
 # include "include_h/struct.h"
 # include "include_h/list.h"
@@ -41,5 +38,7 @@ extern volatile int process_running;
 # include "include_h/pipe.h"
 # include "include_h/redirection.h"
 # include "include_h/misc.h"
+
+extern t_data *g_datacpy;
 
 #endif

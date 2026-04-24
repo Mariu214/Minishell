@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 16:02:52 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/24 11:23:02 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*here_doc_next(char *lim, t_data *data)
 		if (!scan || ft_strlen(scan) == 0)
 		{
 			ft_printf_fd(2, "\n");
-			exit (0);
+			ft_shellerror_gc("", data, 0, 0);
 		}
 		else if (ft_strcmp(scan, nl) != 0)
 			doc = ft_renew_gc(doc, scan, 0, &data->gc);
@@ -79,7 +79,7 @@ int	here_doc(char *lim, t_data *data)
 		doc = here_doc_next(lim, data);
 		ft_printf_fd(end_pipe[1], "%s", doc);
 		ft_printf_fd(end_pipe[1], "\0");
-		exit (0);
+		ft_shellerror_gc("", data, 0, 0);
 	}
 	else
 	{
