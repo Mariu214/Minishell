@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 14:31:23 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/24 09:43:56 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	schr_redirection(t_lexst **list, t_data *data)
 	{
 		if (temp->type >= INPUT && temp->type <= HEREDOC)
 		{
-			return_value = do_redirection(temp->type, temp->next, data);
+			return_value = do_redirection(temp, data);
 			if (return_value != 0)
 				return (return_value);
 		}
@@ -32,18 +32,16 @@ int	schr_redirection(t_lexst **list, t_data *data)
 	return (0);			
 }
 
-int	do_redirection(t_type redir, t_lexst *file, t_data *data)
+int	do_redirection(t_lexst *list, t_data *data)
 {
-	if (file->type != WORD)
-		return (0);
-	else if (redir == HEREDOC)
-		return (here_doc(file->content, data));
-	else if (redir == OU_APPEND)
-		return (output_redirection_append(file->content));
-	else if (redir == OU_TRUNC)
-		return (output_redirection_trunc(file->content));
-	else if (redir == INPUT)
-		return (input_redirection(file->content));
+	if (list->type == HEREDOC)
+		return (parsing_heredoc(data, list));
+	else if (list->type == OU_APPEND)
+		return (parsing_ou_append(list));
+	else if (list->type == OU_TRUNC)
+		return (parsing_ou_trunc(list));
+	else if (list->type == INPUT)
+		return (parsing_input(list));
 	return (0);
 }
 
