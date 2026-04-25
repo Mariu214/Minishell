@@ -34,7 +34,7 @@ int	parsing_built_in(t_data *data, t_lexst **list)
 	return (1);
 }
 
-static int		parsing_exec(char *cmd, t_data *data)
+static int		parsing_exec(t_lexst **list, t_data *data)
 {
 	pid_t	child;
 	int		signal;
@@ -42,7 +42,7 @@ static int		parsing_exec(char *cmd, t_data *data)
 	signal = 0;
 	child = fork();
 	if (!child)
-		exec(cmd, data);
+		exec(list, data);
 	else
 		waitpid(child, &signal, 0);
 	if (WIFSIGNALED(signal))
@@ -61,27 +61,27 @@ static int		parsing_exec(char *cmd, t_data *data)
 
 int	parsing_cmd(t_data *data, t_lexst **list)
 {
-	char	*cmd;
+	// char	*cmd;
 
 	if ((*list)->type == BUILT_IN)
 		return (parsing_built_in(data, list));
-	cmd = ft_strdup_gc((*list)->content, &data->gc);
-	(*list) = (*list)->next;
-	while ((*list) && (*list)->type == CMD)
-	{
-		cmd = ft_renew_gc(cmd, " ", 0, &data->gc);
-		cmd = ft_renew_gc(cmd, (*list)->content, 0, &data->gc);
-		(*list) = (*list)->next;
-	}
-	return (parsing_cmd_next(cmd, data));
+	// cmd = ft_strdup_gc((*list)->content, &data->gc);
+	// (*list) = (*list)->next;
+	// while ((*list) && (*list)->type == CMD)
+	// {
+	// 	cmd = ft_renew_gc(cmd, " ", 0, &data->gc);
+	// 	cmd = ft_renew_gc(cmd, (*list)->content, 0, &data->gc);
+	// 	(*list) = (*list)->next;
+	// }
+	return (parsing_cmd_next(list, data));
 }
 
-int	parsing_cmd_next(char *cmd, t_data *data)
+int	parsing_cmd_next(t_lexst **list, t_data *data)
 {
     // int     j;
 	// char	*temp;
 
-	if (ft_strnstr(cmd, "exit", 5))
+	if (ft_strnstr((*list)->content, "exit", 5))
 		return (255);
 	// if (ft_strcmp(cmd, "pwd") == 0)
 	// {
@@ -97,5 +97,5 @@ int	parsing_cmd_next(char *cmd, t_data *data)
 	// 	return (0);
 	// }
     else
-        return (parsing_exec(cmd, data));
+        return (parsing_exec(list, data));
 }

@@ -23,7 +23,7 @@ static char	*here_doc_next(char *lim, t_data *data)
 	sigaction(SIGINT, &data->sig_child, NULL);
 	sigaction(SIGQUIT, &data->sig_quit, NULL);
 	tcgetattr(0, &termios);
-	termios.c_lflag &= ~ECHOCTL;
+	// termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &termios);
 	scan = ft_calloc_gc(1, 1, &data->gc);
 	doc = ft_calloc_gc(1, 1, &data->gc);

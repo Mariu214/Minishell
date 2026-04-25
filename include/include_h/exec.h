@@ -11,7 +11,7 @@ typedef struct s_sic
 }				t_sic;
 
 /* EXEC_SHELL */
-void	exec(char *cmd, t_data *data);
+void	exec(t_lexst **list, t_data *data);
 
 /* HERE_DOC */
 int		here_doc(char *lim, t_data *data);

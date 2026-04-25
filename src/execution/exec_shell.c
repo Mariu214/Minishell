@@ -56,11 +56,11 @@ static char	*is_accessible(char *cmd, t_data *data)
 
 	temp.i = 0;
 	temp.all_path = ft_split_gc(ft_getenv("PATH", data->env), ':', &data->gc);
-	temp.s_cmd = ft_split_gc(cmd, ' ', &data->gc);
+	temp.s_cmd = ft_strdup_gc(cmd, &data->gc);
 	while (temp.all_path[temp.i])
 	{
 		temp.join = ft_strjoin_gc(temp.all_path[temp.i], "/", &data->gc);
-		temp.path = ft_strjoin(temp.join, temp.s_cmd[0]);
+		temp.path = ft_strjoin(temp.join, temp.s_cmd);
 		if (access(temp.path, X_OK | F_OK) == 0)
 			return (temp.path);
 		ft_delone_gc(temp.join, &data->gc);
@@ -70,19 +70,48 @@ static char	*is_accessible(char *cmd, t_data *data)
 	return (cmd);
 }
 
-void	exec(char *cmd, t_data *data)
+static char **creat_s_cmd(t_lexst **list, t_data *data)
+{
+	t_lexst *temp;
+	int	len;
+	char	**s_cmd;
+
+	temp = (*list);
+	len = 0;
+	while (temp && temp->type == CMD)
+	{
+		temp = temp->next;
+		len++;
+	}
+	s_cmd = ft_calloc_gc(sizeof(char *), len, &data->gc);
+	if (!s_cmd)
+		return (NULL);
+	len = 0;
+	while ((*list) && (*list)->type == CMD)
+	{
+		s_cmd[len] = ft_strdup_gc((*list)->content, &data->gc);
+		if (!s_cmd[len])
+			return (NULL);
+		(*list) = (*list)->next;
+		len++;
+	}
+	return (s_cmd);
+}
+
+void	exec(t_lexst **list, t_data *data)
 {
 	char		*path;
+	char	**cmd;
 	t_command	command;
 	char		**envcpy;
 
-	if (!cmd[0])
+	if (!(*list) || !(*list)->content)
 		exit(1);
-	(void)data;
 	sigaction(SIGINT, &data->sig_child, NULL);
 	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
-	command.free = 0;
-	command.s_cmd = ft_split_sentence(cmd, ' ', "'");
+	command.free = 0;// int
+	///*char ** */command.s_cmd = ft_split_sentence(cmd, ' ', "'");
+	command.s_cmd = creat_s_cmd(list, data);
 	path = is_already_path(&command, data);
 	if (command.s_cmd[0] == NULL)
 	{
@@ -94,12 +123,13 @@ void	exec(char *cmd, t_data *data)
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
 	envcpy = ft_splitdup(data->env);
+	cmd = ft_splitdup(command.s_cmd);
 	ft_free_all_gc(&data->gc);
-	if (execve(path, command.s_cmd, envcpy) == -1)
+	if (execve(path, cmd, envcpy) == -1)
 	{
 		if (command.free == 0)
-			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
-		free_tab(command.s_cmd);
+			ft_printf_fd(2, "%s: command not found: \n", cmd[0]);
+		free_tab(cmd);
 		ft_shellerror_gc("", data, 127, 0);
 	}
 }

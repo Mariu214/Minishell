@@ -77,7 +77,7 @@ typedef struct s_command
 typedef struct s_accessible
 {
 	char	**all_path;
-	char	**s_cmd;
+	char	*s_cmd;
 	char	*join;
 	char	*path;
 	int		i;
