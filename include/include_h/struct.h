@@ -65,6 +65,7 @@ typedef struct s_data
 	t_lexst	*list;
 	int		old_stdin;
 	int		old_stdout;
+	int		process;
 }			t_data;
 
 typedef struct s_command

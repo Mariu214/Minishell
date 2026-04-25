@@ -3,21 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 13:24:56 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/24 11:23:02 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+# include <termios.h>
 
 static char	*here_doc_next(char *lim, t_data *data)
 {
 	char	*scan;
 	char	*doc;
 	char	*nl;
+	struct termios termios;
 
+	sigaction(SIGINT, &data->sig_child, NULL);
+	sigaction(SIGQUIT, &data->sig_quit, NULL);
+	tcgetattr(0, &termios);
+	termios.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &termios);
 	scan = ft_calloc_gc(1, 1, &data->gc);
 	doc = ft_calloc_gc(1, 1, &data->gc);
 	nl = ft_strjoin_gc(lim, "\n", &data->gc);
@@ -26,8 +33,12 @@ static char	*here_doc_next(char *lim, t_data *data)
 		ft_delone_gc(scan, &data->gc);
 		print_pipe(data->pipenb);
 		scan = ft_scan_gc("heredoc> ", 1, &data->gc, data->old_stdin);
-		if (!scan)
+		// printf("scan = %s taille = %ld\n", scan, ft_strlen(scan));
+		if (!scan || ft_strlen(scan) == 0)
+		{
 			ft_printf_fd(2, "\n");
+			ft_shellerror_gc("", data, 0, 0);
+		}
 		else if (ft_strcmp(scan, nl) != 0)
 			doc = ft_renew_gc(doc, scan, 0, &data->gc);
 	}
@@ -62,16 +73,13 @@ int	here_doc(char *lim, t_data *data)
 	char	*doc;
 
 	pipe(end_pipe);
-	// sigaction(SIGINT, &data->sig_child, NULL);
-	// sigaction(SIGQUIT, &data->sig_quit, NULL);
-
 	parent = fork();
 	if (!parent)
 	{	
 		doc = here_doc_next(lim, data);
 		ft_printf_fd(end_pipe[1], "%s", doc);
 		ft_printf_fd(end_pipe[1], "\0");
-		exit (0);
+		ft_shellerror_gc("", data, 0, 0);
 	}
 	else
 	{
