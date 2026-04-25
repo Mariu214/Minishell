@@ -70,6 +70,31 @@ static char	*is_accessible(char *cmd, t_data *data)
 	return (cmd);
 }
 
+static char *add_quote(char *str, t_data *data)
+{
+	char	*quoted;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	quoted = ft_calloc_gc(sizeof(char), ft_strlen(str) + 3, &data->gc);
+	if (!quoted)
+		return (NULL);
+	quoted[i] = '\'';
+	i++;
+	while (str[j])
+	{
+		quoted[i] = str[j];
+		i++;
+		j++;
+	}
+	quoted[i] = '\'';
+	i++;
+	quoted[i] = '\0';
+	return (quoted);
+}
+
 static char **creat_s_cmd(t_lexst **list, t_data *data)
 {
 	t_lexst *temp;
@@ -83,18 +108,22 @@ static char **creat_s_cmd(t_lexst **list, t_data *data)
 		temp = temp->next;
 		len++;
 	}
-	s_cmd = ft_calloc_gc(sizeof(char *), len, &data->gc);
+	s_cmd = ft_calloc_gc(sizeof(char *), len + 1, &data->gc);
 	if (!s_cmd)
 		return (NULL);
 	len = 0;
 	while ((*list) && (*list)->type == CMD)
 	{
-		s_cmd[len] = ft_strdup_gc((*list)->content, &data->gc);
+		if (is_there(' ', (*list)->content))
+			s_cmd[len] = add_quote((*list)->content, data);
+		else
+			s_cmd[len] = ft_strdup_gc((*list)->content, &data->gc);
 		if (!s_cmd[len])
 			return (NULL);
 		(*list) = (*list)->next;
 		len++;
 	}
+	s_cmd[len] = NULL;
 	return (s_cmd);
 }
 
@@ -112,6 +141,8 @@ void	exec(t_lexst **list, t_data *data)
 	command.free = 0;// int
 	///*char ** */command.s_cmd = ft_split_sentence(cmd, ' ', "'");
 	command.s_cmd = creat_s_cmd(list, data);
+	// for (int i = 0; command.s_cmd[i]; i++)
+	// 	ft_printf_fd(2, "%s\n", command.s_cmd[i]);
 	path = is_already_path(&command, data);
 	if (command.s_cmd[0] == NULL)
 	{
