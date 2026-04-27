@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 10:47:33 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/27 10:05:07 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ static char	*is_already_path(t_command *command, t_data *data)
 	if (access(command->s_cmd[0], X_OK | F_OK) == 0)
 		return (command->s_cmd[0]);
 	path = ft_strjoin("/", command->s_cmd[0]);
+	if (!path)
+		return (NULL);
 	if (access(path, X_OK | F_OK) == 0)
 		return (path);
+	free(path);
 	return (NULL);
 }
 
@@ -132,14 +135,12 @@ void	exec(t_lexst **list, t_data *data)
 	char		*path;
 	char	**cmd;
 	t_command	command;
-	char		**envcpy;
 
 	if (!(*list) || !(*list)->content)
 		exit(1);
 	sigaction(SIGINT, &data->sig_child, NULL);
 	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
-	command.free = 0;// int
-	///*char ** */command.s_cmd = ft_split_sentence(cmd, ' ', "'");
+	command.free = 0;
 	command.s_cmd = creat_s_cmd(list, data);
 	// for (int i = 0; command.s_cmd[i]; i++)
 	// 	ft_printf_fd(2, "%s\n", command.s_cmd[i]);
@@ -147,21 +148,23 @@ void	exec(t_lexst **list, t_data *data)
 	if (command.s_cmd[0] == NULL)
 	{
 		free_tab(command.s_cmd);
+		if (path)
+			free(path);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: \n");
 		ft_shellerror_gc("", data, 127, 0);
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
-	envcpy = ft_splitdup(data->env);
 	cmd = ft_splitdup(command.s_cmd);
 	ft_free_all_gc(&data->gc);
-	if (execve(path, cmd, envcpy) == -1)
+	if (execve(path, cmd, data->env) == -1)
 	{
+		if (path)
+			free(path);
 		if (command.free == 0)
 			ft_printf_fd(2, "%s: command not found: \n", cmd[0]);
 		free_tab(cmd);
 		ft_shellerror_gc("", data, 127, 0);
 	}
 }
-
