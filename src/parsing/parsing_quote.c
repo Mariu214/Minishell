@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_quote.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:23:26 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 13:16:07 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/27 09:49:16 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int last_quote(t_data *data, char *prompt, char q)
         return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0, 1));
     data->str = ft_renew_gc(data->str, tmp, 0, &data->gc);
     free_list(&data->list, &data->gc);
-    lexer(data, &data->list);
+    init_lexer(data, &data->list);
     if (parsing_pipe(data, data->list))
         return (1);
     if (parsing_quote(&data->list, data))

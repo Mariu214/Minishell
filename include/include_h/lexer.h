@@ -4,9 +4,9 @@
 typedef struct s_data	t_data;
 
 /* EXPAND_VARIABLE */
-int is_dollar(char *str);
+int     is_dollar(char *str);
 char    *expander(t_data *data, char *str, int i, char *sub);
-int check_expand(t_data *data, t_lexst **list);
+int     check_expand(t_data *data, t_lexst **list);
 
 /* LEXER_BUILT_IN */
 int		is_built_in(const char *str);
@@ -25,7 +25,8 @@ int     lexing_precise_redirection(t_data *data, char *str, t_lexst **list);
 int		lexing_redirection(t_data *data, int *i, t_lexst **list);
 
 /* LEXER */
-int    lexer(t_data *data, t_lexst **list);
+int     lexer(t_data *data, t_lexst **list, int *i);
+int     init_lexer(t_data *data, t_lexst **list);
 int     test_lexer(t_data *data);
 
 /* LEXING_WORD */
