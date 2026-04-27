@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/27 09:52:12 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 10:04:09 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int init_lexer(t_data *data, t_lexst **list)
     return (0);
 }
 
-int test_lexer(t_data *data)// rajoute un node vide apres les redirextions
+int test_lexer(t_data *data)
 {
     int result;
 
