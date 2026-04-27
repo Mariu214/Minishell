@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_scan_gc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:35:43 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 10:18:00 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 14:34:48 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char *read_line(char *line, int fd, t_gc **gc)
         if (nb_read == -1)
             return (ft_delone_gc(buffer, gc), ft_delone_gc(line, gc), NULL);
         buffer[1] = 0;
-        line = ft_renew_gc(buffer, line, 1, gc);
+        line = ft_renew_gc(line, buffer, 0, gc);
         if (!line)
             return (NULL);
         if (ft_strcmp(buffer, "\n") == 0)

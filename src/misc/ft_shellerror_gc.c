@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 11:05:27 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:15:02 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
 {
 	ft_printf_fd(2, "%s", str);
 	ft_free_all_gc(&data->gc);
+	close(data->old_stdin);
+	close(data->old_stdout);
+	close(1);
+	close(0);
 	if (mode == 0)
 	{
 		free_tab(data->env);

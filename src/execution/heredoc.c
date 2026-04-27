@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/24 11:23:02 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:21:01 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ int	here_doc(char *lim, t_data *data)
 	pipe(end_pipe);
 	parent = fork();
 	if (!parent)
-	{	
+	{
 		doc = here_doc_next(lim, data);
 		ft_printf_fd(end_pipe[1], "%s", doc);
 		ft_printf_fd(end_pipe[1], "\0");
+		close(end_pipe[0]);
+		close(end_pipe[1]);
 		ft_shellerror_gc("", data, 0, 0);
 	}
 	else

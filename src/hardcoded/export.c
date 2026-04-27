@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:10:04 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/27 11:35:56 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 15:20:47 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ static int is_usable(char *str)
         return (printf("minishell: export: `%s': not a valid identifier\n", str), 0);
     while (str[i])
     {
-        if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
+        if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=' 
+            && str[i] != ' ')
             return (printf("minishell: export: `%s': not a valid identifier\n", str), 0);
         i++;
     }
