@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:10:04 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/20 12:05:21 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 11:35:56 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int    export(t_data *data, char *str)
         return (printf("env is cleared"), 1);
     if (!str)
     {
-        printf("i = %d\n", i);
         while (data->env[i])
         	printf("declare -x %s\n", data->env[i++]);
         return (0);

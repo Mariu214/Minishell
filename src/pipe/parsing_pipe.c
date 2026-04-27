@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 10:30:19 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:25:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
         close(end_pipe[0]);
         return_value = schr_redirection(list, data);
         if (return_value != 0)
-            exit (return_value);
+            ft_shellerror_gc("", data, return_value, 0);
         while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
 				|| (*list)->type == WORD))
 		    (*list) = (*list)->next;
@@ -40,7 +40,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
         (*list) = (*list)->next;
         if ((*list)->type == PIPE)
             (*list) = (*list)->next;
-        exit(return_value);
+        ft_shellerror_gc("", data, return_value, 0);
     }
     else
     {

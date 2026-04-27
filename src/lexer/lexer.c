@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/27 09:52:12 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 11:08:42 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int    lexer(t_data *data, t_lexst **list, int *i)
 {
     if (data->str[*i] == '|')
-        return (lexing_pipe(data, i, list));
+        lexing_pipe(data, i, list);
     else if (data->str[*i] == '<' || data->str[*i] == '>')
     {
         if (lexing_redirection(data, i, list))
@@ -28,7 +28,10 @@ int    lexer(t_data *data, t_lexst **list, int *i)
     else if (is_quote(data->str, *i, '\''))
         return (lexing_s_quote(data, i, CMD, list));
     else if (data->str[*i] == ' ')
-        i++;
+    {
+        *i += 1;
+        return (0);
+    }
 	else if (data->str[*i])
 		return (lexing_cmd(data, i, list));
     return (0);
@@ -54,7 +57,7 @@ int init_lexer(t_data *data, t_lexst **list)
     return (0);
 }
 
-int test_lexer(t_data *data)// rajoute un node vide apres les redirextions
+int test_lexer(t_data *data)
 {
     int result;
 
