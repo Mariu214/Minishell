@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 11:24:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/24 10:44:29 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/24 14:56:14 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,5 @@ int		lexing_redirection(t_data *data, int *i, t_lexst **list)
     if (data->str[j] && data->str[j] == ' ')
 		j++;
     *i = j;
-    j = 0;
     return (free(temp), 0);
 }

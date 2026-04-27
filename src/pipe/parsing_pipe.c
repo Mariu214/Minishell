@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 16:05:05 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 09:49:25 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int     parsing_last_pipe(t_data *data)
     }
     if (!data->str)
         return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0, 1));
-    lexer(data, &temp);
+    init_lexer(data, &temp);
     while (data->list->next)
         data->list = data->list->next;
     temp->previous = data->list;

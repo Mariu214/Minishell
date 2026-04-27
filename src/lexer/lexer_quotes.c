@@ -6,17 +6,14 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/23 13:43:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/24 14:55:07 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int is_quote(char *src, int *i, char q)
+int is_quote(char *src, int j, char q)
 {
-    int j;
-
-    j = *i;
     while (src[j] && src[j] == ' ')
         j++;
     while (src[j] && src[j] != ' ')
