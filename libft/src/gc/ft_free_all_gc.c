@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_all_gc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:53:27 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/20 11:59:31 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 11:12:20 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_free_all_gc(t_gc **gc)
 	t_gc	*temp;
 	t_gc	*tp;
 
+	if (!*gc)
+		return ;
 	temp = (*gc);
 	while (temp)
 	{

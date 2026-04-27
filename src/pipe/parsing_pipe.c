@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 09:49:25 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 10:30:19 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
         close(end_pipe[0]);
         return_value = schr_redirection(list, data);
         if (return_value != 0)
-            return (return_value);
+            exit (return_value);
         while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
 				|| (*list)->type == WORD))
 		    (*list) = (*list)->next;

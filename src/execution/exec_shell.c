@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 10:05:07 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/27 11:50:39 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,17 @@ static char	*is_already_path(t_command *command, t_data *data)
 {
 	char	*path;
 
-	if (!*command->s_cmd)
+	if (!*command->s_cmd || !*command->s_cmd[0])
 		return (NULL);
 	if (no_fil_dir(command, data) == 127)
 		return (NULL);
 	if (access(command->s_cmd[0], X_OK | F_OK) == 0)
 		return (command->s_cmd[0]);
-	path = ft_strjoin("/", command->s_cmd[0]);
+	path = ft_strjoin_gc("/", command->s_cmd[0], &data->gc);
 	if (!path)
 		return (NULL);
 	if (access(path, X_OK | F_OK) == 0)
 		return (path);
-	free(path);
 	return (NULL);
 }
 
@@ -63,11 +62,11 @@ static char	*is_accessible(char *cmd, t_data *data)
 	while (temp.all_path[temp.i])
 	{
 		temp.join = ft_strjoin_gc(temp.all_path[temp.i], "/", &data->gc);
-		temp.path = ft_strjoin(temp.join, temp.s_cmd);
+		temp.path = ft_strjoin_gc(temp.join, temp.s_cmd, &data->gc);
 		if (access(temp.path, X_OK | F_OK) == 0)
 			return (temp.path);
 		ft_delone_gc(temp.join, &data->gc);
-		free(temp.path);
+		ft_delone_gc(temp.path, &data->gc);
 		temp.i++;
 	}
 	return (cmd);
@@ -111,7 +110,7 @@ static char **creat_s_cmd(t_lexst **list, t_data *data)
 		temp = temp->next;
 		len++;
 	}
-	s_cmd = ft_calloc_gc(sizeof(char *), len + 1, &data->gc);
+	s_cmd = ft_calloc_gc(len + 1, sizeof(*s_cmd), &data->gc);
 	if (!s_cmd)
 		return (NULL);
 	len = 0;
@@ -133,7 +132,6 @@ static char **creat_s_cmd(t_lexst **list, t_data *data)
 void	exec(t_lexst **list, t_data *data)
 {
 	char		*path;
-	char	**cmd;
 	t_command	command;
 
 	if (!(*list) || !(*list)->content)
@@ -142,29 +140,21 @@ void	exec(t_lexst **list, t_data *data)
 	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
 	command.free = 0;
 	command.s_cmd = creat_s_cmd(list, data);
-	// for (int i = 0; command.s_cmd[i]; i++)
-	// 	ft_printf_fd(2, "%s\n", command.s_cmd[i]);
+	if (!command.s_cmd)
+		ft_shellerror_gc("", data, 127, 0);
 	path = is_already_path(&command, data);
 	if (command.s_cmd[0] == NULL)
 	{
-		free_tab(command.s_cmd);
-		if (path)
-			free(path);
 		if (command.free == 0)
 			ft_printf_fd(2, "minishell: command not found: \n");
 		ft_shellerror_gc("", data, 127, 0);
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
-	cmd = ft_splitdup(command.s_cmd);
-	ft_free_all_gc(&data->gc);
-	if (execve(path, cmd, data->env) == -1)
+	if (execve(path, command.s_cmd, data->env) == -1)
 	{
-		if (path)
-			free(path);
 		if (command.free == 0)
-			ft_printf_fd(2, "%s: command not found: \n", cmd[0]);
-		free_tab(cmd);
+			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
 		ft_shellerror_gc("", data, 127, 0);
 	}
 }
