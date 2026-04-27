@@ -6,44 +6,12 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 13:47:30 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/27 09:25:42 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		lexing_word(t_data *data, int *i, t_lexst **list)
-{
-	int     j;
-    char    *temp;
-    
-    j = *i;
-	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
-			&& data->str[j] != '|' && data->str[j] != ' ')
-        j++;
-    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-    if (!temp)
-        return (1);
-    *i = j;
-    ft_add_node(list, temp, define_type(WORD, WRD), &data->gc);
-    return (0);
-}
-
-int		lexing_pipe(t_data *data, int *i, t_lexst **list)
-{
-    int     j;
-    char    *temp;
-    
-    j = *i;
-    while (data->str[j] && data->str[j] == '|')
-        j++;
-    temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-    if (!temp)
-        return (1);
-    *i = j;
-    ft_add_node(list, temp, define_type(PIPE, WRD), &data->gc);
-    return (0);
-}
 
 int    lexer(t_data *data, t_lexst **list)
 {
@@ -61,15 +29,15 @@ int    lexer(t_data *data, t_lexst **list)
         {
             if (lexing_redirection(data, &i, list))
                 return (1);
-            if (lexing_word(data, &i, list))
+            if (data->str[i] && lexing_word(data, &i, list))
                 return (1);
         }
-		else if (is_quote(data->str, &i, '"'))
+		else if (is_quote(data->str, i, '"'))
         {
             if (lexing_d_quote(data, &i, CMD, list))
                 return (1);
         }
-        else if (is_quote(data->str, &i, '\''))
+        else if (is_quote(data->str, i, '\''))
         {
             if (lexing_s_quote(data, &i, CMD, list))
                 return (1);
