@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/27 10:33:09 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/28 10:31:33 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	g_datacpy = NULL;
 	free(line);
+	free_tab(data.env);
 	return (0);
 }
