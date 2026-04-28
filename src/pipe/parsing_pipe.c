@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 17:19:19 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:08:59 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
     }
     else
     {
+        wait(NULL);
         dup2(end_pipe[0], 0);
         close(end_pipe[1]);
         close(end_pipe[0]);
