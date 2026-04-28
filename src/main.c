@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/27 17:14:53 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:05:04 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int	main(int argc, char *argv[], char *envp[])
 	free(line);
 	close(1);
 	close(0);
+	free_tab(data.env);
 	return (0);
 }
