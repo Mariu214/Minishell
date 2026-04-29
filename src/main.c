@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/29 11:13:11 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:44:34 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	main(int argc, char *argv[], char *envp[])
 		if (data.str[0])
 		{
 			test_lexer(&data);
-			data.dollar = init_parser(&data);
+			if (data.list)
+				data.dollar = init_parser(&data);
 		}
 		if (data.str && data.str[0])
 			add_history(data.str);

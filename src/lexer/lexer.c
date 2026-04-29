@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/29 11:14:23 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:43:34 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int init_lexer(t_data *data, t_lexst **list)
         if (return_value)
             return (return_value);
     }
+    if (!(*list))
+        return (0);
     while ((*list)->previous)
         *list = (*list)->previous;
     lexing_built_in(list);
@@ -66,6 +68,6 @@ int test_lexer(t_data *data)
     data->list = NULL;
     
     result = init_lexer(data, &data->list);
-    ft_print_list(data->list);
+    // ft_print_list(data->list);
     return (result);
 }
