@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/29 14:46:15 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 17:26:02 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
         if (data->str[j] && data->str[j] == '"')
             num++;
         if (num && num % 2 == 0 && data->str[j] && (data->str[j]  == ' ' || data->str[j] == '|' 
-            || data->str[j] == '<' || data->str[j] == '>' || data->str[j] == '\''))
+            || data->str[j] == '<' || data->str[j] == '>' || data->str[j] == '\'')z)
             break ;
         j++;
     }
