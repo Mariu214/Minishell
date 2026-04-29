@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/29 12:46:09 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 12:52:33 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
     {
         if (data->str[j] && data->str[j] == '"')
             num++;
-        if (num && num % 2 == 0)
-            // && data->str[j] && (data->str[j]  == ' ' || data->str[j] == '|' 
-            // || data->str[j] == '<' || data->str[j] == '>' || data->str[j]  == '\''))
+        if (num && num % 2 == 0 && data->str[j] && (data->str[j]  == ' ' || data->str[j] == '|' 
+            || data->str[j] == '<' || data->str[j] == '>' || data->str[j]  == '\''))
             break ;
         j++;
     }

@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/21 11:03:17 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 13:46:24 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int is_dollar(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] == '$' && str[i + 1] && str[i + 1] != '?')
+        if (str[i] == '$' && str[i + 1])
             return (1);
         i++;
     }
@@ -30,25 +30,33 @@ char    *expander(t_data *data, char *str, int i, char *sub)
 {
     char    *temp;
     char    *content;
+    char    *temp2;
 
     while (str[i] && str[i] != '$')
             i++;
     if (!str[i])
         return (0);
     if (i != 0)
-    {
         sub = ft_substr_gc(str, 0, i, &data->gc);
-        if (!sub)
-            return (NULL);
-    }
     if (!str[++i])
         return (NULL);
-    temp = ft_getenv_gc(str + i, data->env, &data->gc);
+    if (str[i] == '?')
+    {
+        i++;
+        temp = ft_calloc_gc(1, 1, &data->gc);
+        temp = ft_atoi(data->dollar);
+        if (str[i])
+            temp2 = ft_substr_gc(str, i, ft_strlen(str), &data->gc);
+    }
+    else 
+        temp = ft_getenv_gc(str + i, data->env, &data->gc);
     if (!temp)
         return (NULL);
     if (!sub)
         return (temp);
     content = ft_strjoin_gc(sub, temp, &data->gc);
+    if (temp2)
+        content = ft_strjoin_gc(content, temp, &data->gc);
     if (!content)
         return (ft_delone_gc(temp, &data->gc), NULL);
     return (ft_delone_gc(temp, &data->gc), content);
@@ -62,7 +70,13 @@ int check_expand(t_data *data, t_lexst **list)
     temp = *list;
     while (temp)
     {
-        if (is_dollar(temp->content))
+        if (is_expand(temp->content))
+        {
+            content = expander_bis(data, temp->content, 0, NULL);
+            if (!content)
+                ft_delone(data, &temp);
+        }
+        else if (is_dollar(temp->content))
         {
             content = expander(data, temp->content, 0, NULL);
             if (!content)

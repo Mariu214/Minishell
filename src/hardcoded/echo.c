@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 13:59:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 11:44:50 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/29 13:10:01 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int is_option(t_lexst *list)
+{
+    int i;
+
+    i = 1;
+    if (!list->content)
+        return (0);
+    if (list->content[0] != '-')
+        return (0);
+    while(list->content[i])
+    {
+        if (list->content[i] != 'n')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
 
 int echo(t_lexst **list)
 {
@@ -20,11 +39,11 @@ int echo(t_lexst **list)
     *list = (*list)->next;
     if (!(*list) || (*list)->type != BUILT_IN)
         return (printf("\n"), 0);
-    if (ft_strcmp((*list)->content, "-n") == 0)
+    if (is_option(*list))
     {
         option = 1;
         while (*list && (*list)->type == BUILT_IN 
-                && ft_strcmp((*list)->content, "-n") == 0)
+                && is_option(*list))
             *list=(*list)->next;
     }
     while (*list && (*list)->type == BUILT_IN)
