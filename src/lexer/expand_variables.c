@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/29 14:47:59 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 14:54:53 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char    *expander(t_data *data, char *str, int i, char *sub)
     {
         i++;
         temp = ft_calloc_gc(1, 1, &data->gc);
-        temp = ft_atoi(data->dollar);
+        temp = ft_itoa(data->dollar);
         if (str[i])
             temp2 = ft_substr_gc(str, i, ft_strlen(str), &data->gc);
     }
