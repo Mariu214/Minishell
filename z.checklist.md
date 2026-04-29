@@ -1,5 +1,7 @@
 # PARSING
 
+//""''echo hola""'''' que""'' tal""''
+
 # EXEC
 
 - Handle ’ (single quote) which should prevent the shell from interpreting the meta-
