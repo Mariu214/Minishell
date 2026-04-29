@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/28 15:43:13 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/29 11:52:29 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	exec(t_lexst **list, t_data *data)
 	if (execve(path, command.s_cmd, data->env) == -1)
 	{
 		if (command.free == 0)
-			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
+			ft_printf_fd(2, "minishell: %s: command not found: \n", command.s_cmd[0]);
 		ft_shellerror_gc("", data, 127, 0);
 	}
 }

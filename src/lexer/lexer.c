@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/29 11:43:34 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 12:42:44 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int    lexer(t_data *data, t_lexst **list, int *i)
 	else if (data->str[*i] && is_quote(data->str, *i, '"'))
         return (lexing_d_quote(data, i, CMD, list));
     else if (data->str[*i] && is_quote(data->str, *i, '\''))
+    {
         return (lexing_s_quote(data, i, CMD, list));
+    }
     else if (data->str[*i] && data->str[*i] == ' ')
     {
         *i += 1;
@@ -68,6 +70,6 @@ int test_lexer(t_data *data)
     data->list = NULL;
     
     result = init_lexer(data, &data->list);
-    // ft_print_list(data->list);
+    ft_print_list(data->list);
     return (result);
 }
