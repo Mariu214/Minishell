@@ -1,16 +1,4 @@
-total 344
-drwxr-xr-x   7 jdelmott jdelmott   4096 Apr 20 10:26 .
-drwxr-xr-x   3 jdelmott jdelmott     23 Apr 16 12:11 ..
--rw-r--r--   1 jdelmott jdelmott      0 Apr 16 12:15 a.out
-drwxr-xr-x   8 jdelmott jdelmott   4096 Apr 20 09:33 .git
--rw-r--r--   1 jdelmott jdelmott     43 Apr 16 12:11 .gitignore
-drwxr-xr-x   3 jdelmott jdelmott     42 Apr 20 09:33 include
--rw-r--r--   1 jdelmott jdelmott      0 Apr 20 10:26 infile
-drwxr-xr-x   5 jdelmott jdelmott     92 Apr 20 10:26 libft
--rw-r--r--   1 jdelmott jdelmott   2358 Apr 16 12:15 Makefile
--rwxr-xr-x.  1 jdelmott jdelmott 322528 Apr 20 10:26 minishell
-drwxr-xr-x.  2 jdelmott jdelmott   4096 Apr 20 10:26 obj
--rw-r--r--.  1 jdelmott jdelmott      0 Apr 20 10:26 outfile
--rw-r--r--   1 jdelmott jdelmott    231 Apr 16 12:11 README.md
-drwxr-xr-x  10 jdelmott jdelmott    137 Apr 20 09:33 src
--rw-r--r--   1 jdelmott jdelmott   1491 Apr 16 12:11 z.checklist.md
+hi
+hello
+world
+42

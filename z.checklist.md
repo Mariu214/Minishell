@@ -1,7 +1,8 @@
 # PARSING
 
 
-
+cat <"infile";
+echo <125 | echo jsp;
 
 # EXEC
 

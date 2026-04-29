@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/24 09:43:56 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/28 14:21:22 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	input_redirection(char *file)
 
 	fd = open_file(file, 0);
 	if (fd < 0)
-		return (fd);
+		return (1);
 	if (dup2(fd, STDIN_FILENO) < 0)
 		return (1);
 	if (close(fd) < 0)

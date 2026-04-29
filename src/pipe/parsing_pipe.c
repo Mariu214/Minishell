@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 14:25:46 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:26:02 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
     }
     else
     {
+        wait(NULL);
         dup2(end_pipe[0], 0);
         close(end_pipe[1]);
         while ((*list) && (*list)->type != PIPE)

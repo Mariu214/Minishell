@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/28 10:20:55 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:02:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int    lexer(t_data *data, t_lexst **list, int *i)
     {
         if (lexing_redirection(data, i, list))
             return (1);
-        if (data->str[*i] && lexing_word(data, i, list))
+        if (data->str[*i] && lexing_d_quote(data, i, WORD, list))
             return (1);
     }
 	else if (data->str[*i] && is_quote(data->str, *i, '"'))
@@ -66,6 +66,6 @@ int test_lexer(t_data *data)
     data->list = NULL;
     
     result = init_lexer(data, &data->list);
-    // ft_print_list(data->list);
+    ft_print_list(data->list);
     return (result);
 }

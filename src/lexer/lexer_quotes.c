@@ -6,11 +6,27 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/24 14:55:07 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:11:54 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int choose_quote(t_data *data, t_lexst **list, int *i)
+{
+    int j;
+
+    j = *i;
+    while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
+			&& data->str[j] != '|' && data->str[j] != ' ')
+    {
+        if (data->str[j] == '"')
+            return (lexing_d_quote(data, i, WORD, list));
+        if (data->str[j] == '\'')
+            return (lexing_s_quote(data, i, WORD, list));
+        
+    }
+}
 
 int is_quote(char *src, int j, char q)
 {
