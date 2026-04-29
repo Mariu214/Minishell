@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
+#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/27 09:26:34 by malaimo          ###   ########.fr        #
+#    Updated: 2026/04/27 16:01:29 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 CC = cc
-FLAGS = -Wall -Werror -Wextra -O0
+FLAGS = -Wall -Werror -Wextra -O0 -g -o
 
 INCLUDE =  include/minishell.h
 

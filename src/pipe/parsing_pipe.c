@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/28 14:26:02 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:13:17 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
     {
         dup2(end_pipe[1], 1);
         close(end_pipe[0]);
+        close(end_pipe[1]);
         return_value = schr_redirection(list, data);
         if (return_value != 0)
             ft_shellerror_gc("", data, return_value, 0);
@@ -47,6 +48,7 @@ int     apply_pipe(t_data *data, t_lexst **list)
         wait(NULL);
         dup2(end_pipe[0], 0);
         close(end_pipe[1]);
+        close(end_pipe[0]);
         while ((*list) && (*list)->type != PIPE)
             (*list) = (*list)->next;
         if ((*list)->type == PIPE)
@@ -78,8 +80,6 @@ int     find_pipe(t_data *data)
 		temp = temp->next;
     if (temp)
         return_value = last_pipe(data, &temp);
-    dup2(data->old_stdin, STDIN_FILENO);
-    dup2(data->old_stdout, STDOUT_FILENO);
     return (return_value);
 }
 
@@ -120,8 +120,8 @@ int     parsing_pipe(t_data *data, t_lexst *list)
 {
     t_lexst *temp;
     
-    if (data->str[0] == '|')
-        return (ft_shellerror_gc("Minishell: parse error near `|'\n", data, 1, 1));
+    if (data->str[0] && data->str[0] == '|')
+        return (ft_printf_fd(2, "Minishell: parse error near `|'\n"), 2);
     temp = list;
     while (temp->next)
     {
@@ -130,7 +130,7 @@ int     parsing_pipe(t_data *data, t_lexst *list)
         if (temp->type == PIPE)
         {
             if (ft_strlen(temp->content) > 1)
-                return (ft_shellerror_gc("Minishell: parse error near `|'\n", data, 1, 1));
+                return (ft_printf_fd(2, "Minishell: parse error near `|'\n"), 2);
         }
     }
     if (temp->type == PIPE)

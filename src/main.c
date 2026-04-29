@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/29 10:57:16 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:13:11 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	main(int argc, char *argv[], char *envp[])
 	line = ft_calloc(1, 1);
 	data.old_stdin = dup(STDIN_FILENO);
     data.old_stdout = dup(STDOUT_FILENO);
+	data.pipe_heredoc[0] = -1;
+	data.pipe_heredoc[1] = -1;
 	while (ft_strcmp(line, "exit") != 0)
 	{
 		free(line);
@@ -49,12 +51,17 @@ int	main(int argc, char *argv[], char *envp[])
 			test_lexer(&data);
 			data.dollar = init_parser(&data);
 		}
-		if (data.str[0])
+		if (data.str && data.str[0])
 			add_history(data.str);
 		ft_free_all_gc(&data.gc);
 	}
+	close(data.old_stdin);
+	close(data.old_stdout);
 	g_datacpy = NULL;
 	free(line);
+	close(1);
+	close(0);
+	close(2);
 	free_tab(data.env);
 	return (0);
 }

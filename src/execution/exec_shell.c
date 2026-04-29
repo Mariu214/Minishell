@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 11:50:39 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:43:13 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void	exec(t_lexst **list, t_data *data)
 	}
 	if (path == NULL)
 		path = is_accessible(command.s_cmd[0], data);
+	close_fds(data);
 	if (execve(path, command.s_cmd, data->env) == -1)
 	{
 		if (command.free == 0)

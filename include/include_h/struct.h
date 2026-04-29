@@ -66,6 +66,7 @@ typedef struct s_data
 	int		old_stdin;
 	int		old_stdout;
 	int		process;
+	int		pipe_heredoc[2];
 }			t_data;
 
 typedef struct s_command
