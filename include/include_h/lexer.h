@@ -16,7 +16,8 @@ void	lexing_built_in(t_lexst **list);
 int		lexing_cmd(t_data *data, int *i, t_lexst **list);
 
 /* LEXER_QUOTES */
-int is_quote(char *src, int j, char q);
+int     choose_quote(t_data *data, t_lexst **list, int *i);
+int     is_quote(char *src, int j, char q);
 int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list);
 int     lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list);
 

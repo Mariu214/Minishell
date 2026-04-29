@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/29 11:11:54 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:13:58 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int choose_quote(t_data *data, t_lexst **list, int *i)
             return (lexing_d_quote(data, i, WORD, list));
         if (data->str[j] == '\'')
             return (lexing_s_quote(data, i, WORD, list));
-        
+        j++;
     }
+    return (0);
 }
 
 int is_quote(char *src, int j, char q)

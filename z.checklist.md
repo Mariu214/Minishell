@@ -1,9 +1,5 @@
 # PARSING
 
-
-cat <"infile";
-echo <125 | echo jsp;
-
 # EXEC
 
 - Handle ’ (single quote) which should prevent the shell from interpreting the meta-
