@@ -1,11 +1,17 @@
 # PARSING
 
 //""''echo hola""'''' que""'' tal""''
+<<<<<<< HEAD
 quotes a faire 
 valeur dexit
+=======
+>>>>>>> prototype
 
 # EXEC
 
+
+ctrl c = 130
+ctr \ = 131
 - Handle ’ (single quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence.
 - Handle " (double quote) which should prevent the shell from interpreting the meta-

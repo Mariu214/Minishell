@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 13:41:57 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 14:17:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ int	init_lexer(t_data *data, t_lexst **list)
 	int	return_value;
 	int	size;
 
-	i = 0;
-	return_value = 0;
-	size = ft_strlen(data->str);
-	while (i < size && data->str[i])
-	{
-		return_value = lexer(data, list, &i);
-		if (return_value)
-			return (return_value);
-	}
-	if (!(*list))
-		return (0);
-	while ((*list)->previous)
-		*list = (*list)->previous;
-	lexing_built_in(list);
-	check_expand(data, list);
-	return (0);
+    i = 0;
+    return_value = 0;
+    size = ft_strlen(data->str);
+    while (i < size && data->str[i])
+    {
+        return_value = lexer(data, list, &i);
+        if (return_value)
+            return (return_value);
+    }
+    if (!(*list))
+        return (0);
+    while ((*list)->previous)
+        *list = (*list)->previous;
+    lexing_built_in(list);
+    check_expand(data, list);
+    return (0);
 }
 
 int	test_lexer(t_data *data)
