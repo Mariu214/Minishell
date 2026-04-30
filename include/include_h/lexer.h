@@ -21,6 +21,8 @@ int     is_quote(char *src, int j, char q);
 int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list);
 int     lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list);
 
+int     lexing_quote(t_data *data, int *i, t_type type, t_lexst **list);
+
 /* LEXER_REDIRECTIONS */
 int     lexing_precise_redirection(t_data *data, char *str, t_lexst **list);
 int		lexing_redirection(t_data *data, int *i, t_lexst **list);

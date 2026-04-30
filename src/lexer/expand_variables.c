@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/21 11:03:17 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 16:16:23 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int check_expand(t_data *data, t_lexst **list)
     temp = *list;
     while (temp)
     {
-        if (is_dollar(temp->content))
+        if (is_dollar(temp->content) && temp->word_type != CLOSED_D_QUOTE)
         {
             content = expander(data, temp->content, 0, NULL);
             if (!content)
