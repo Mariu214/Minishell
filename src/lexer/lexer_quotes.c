@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/29 17:26:02 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 11:49:18 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
         if (data->str[j] && data->str[j] == '"')
             num++;
         if (num && num % 2 == 0 && data->str[j] && (data->str[j]  == ' ' || data->str[j] == '|' 
-            || data->str[j] == '<' || data->str[j] == '>' || data->str[j] == '\'')z)
+            || data->str[j] == '<' || data->str[j] == '>' || data->str[j] == '\''))
             break ;
         j++;
     }
@@ -133,4 +133,27 @@ int     lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list)
         *i = j;
     }
     return (0);
+}
+
+int     lexing_quote(t_data *data, int *i, t_type type, t_lexst **list)
+{
+    char    *temp;
+    char    quote;
+    int     j;
+
+    j = (*i);
+    quote = -1;
+    while (data->str[j])
+    {
+        if (data->str[j] && (data->str[j] == '\'' || data->str[j] == '"') && !quote)
+            quote = data->str[j];
+        j++;
+        while (data->str[j] && data->str[j] != quote)
+            j++;
+        while (data->str[j] && data->str[j]  != ' ' && data->str[j] != '|' 
+            && data->str[j] != '<' && data->str[j] != '>' && data->str[j] != '\'' && data->str[j] != "")
+            j++;
+        if (data->str[j] != '\'' && data->str[j] != '"')
+            break;
+    }
 }
