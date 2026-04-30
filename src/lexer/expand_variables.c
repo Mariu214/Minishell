@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 13:40:15 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 14:13:15 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,34 @@ char	*expander(t_data *data, char *str, int i, char *sub)
 {
 	char	*temp;
 	char	*content;
-	// char	*temp2;
+	char	*temp2;
+	int		limit;
 
-	while (str[i] && str[i] != '$')
+	while(str[i])
+	{
+		while (str[i] && str[i] != '$')
+			i++;
+		if (!str[i])
+			return (0);
+		if (i != 0)
+			content = ft_substr_gc(str, 0, i, &data->gc);
 		i++;
-	if (!str[i])
-		return (0);
-	if (i != 0)
-		sub = ft_substr_gc(str, 0, i, &data->gc);
-	if (!str[++i])
-		return (NULL);
-	if (str[i] == '?')
-		return (replace_value(data, str, i + 1, sub));
-	// temp2 = ft_substr_gc(str, i, find_dollar(str + i), )
-	temp = ft_getenv_gc(str + i, data->env, &data->gc);
-	if (!temp)
-		return (NULL);
-	if (!sub)
-		return (temp);
-	content = ft_strjoin_gc(sub, temp, &data->gc);
-	if (!content)
-		return (ft_delone_gc(temp, &data->gc), NULL);
-	return (ft_delone_gc(temp, &data->gc), content);
+		content = ft_renew
+		if (str[i] == '?')
+			return (replace_value(data, str, i + 1, sub));
+		limit = find_dollar(str + i);
+		temp2 = ft_substr_gc(str, i, find_dollar(str + i), &data->gc);
+		i = limit;
+		temp = ft_getenv_gc(temp2, data->env, &data->gc);
+		if (!temp)
+			return (NULL);
+		if (!sub)
+			return (temp);
+		content = ft_strjoin_gc(sub, temp, &data->gc);
+		if (!content)
+			return (ft_delone_gc(temp, &data->gc), NULL);
+		return (ft_delone_gc(temp, &data->gc), content);
+	}
 }
 
 int	check_expand(t_data *data, t_lexst **list)
