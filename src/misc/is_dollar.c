@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_cmd.c                                        :+:      :+:    :+:   */
+/*   is_dollar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/13 13:44:56 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 10:58:29 by malaimo          ###   ########.fr       */
+/*   Created: 2026/04/30 10:53:49 by malaimo           #+#    #+#             */
+/*   Updated: 2026/04/30 10:56:34 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	lexing_cmd(t_data *data, int *i, t_lexst **list)
+int	is_dollar(char *str)
 {
-	int j;
-	char *temp;
+	int i;
 
-	j = *i;
-	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
-		&& data->str[j] != '|' && data->str[j] != '\'' && data->str[j] != '"'
-		&& data->str[j] != ' ') 
-		j++;
-	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
-	if (!temp)
-		return (1);
-	ft_add_node(list, temp, define_type(CMD, WRD), &data->gc);
-	if (data->str[j] && data->str[j] == ' ')
-		j++;
-	*i = j;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1])
+			return (1);
+		i++;
+	}
 	return (0);
 }

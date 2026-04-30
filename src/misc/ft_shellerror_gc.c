@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/28 16:30:09 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 10:59:03 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
 	ft_free_all_gc(&data->gc);
 	close_fds(data);
 	if (mode == 0)
-	{	
+	{
 		close(1);
 		close(0);
 		close(2);
@@ -39,6 +39,5 @@ int	close_fds(t_data *data)
 	data->pipe_heredoc[1] = -1;
 	close(data->old_stdin);
 	close(data->old_stdout);
-
 	return (1);
 }

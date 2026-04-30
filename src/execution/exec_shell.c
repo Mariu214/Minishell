@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/29 11:52:29 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 10:57:43 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*is_accessible(char *cmd, t_data *data)
 	return (cmd);
 }
 
-static char *add_quote(char *str, t_data *data)
+static char	*add_quote(char *str, t_data *data)
 {
 	char	*quoted;
 	int		i;
@@ -97,10 +97,10 @@ static char *add_quote(char *str, t_data *data)
 	return (quoted);
 }
 
-static char **creat_s_cmd(t_lexst **list, t_data *data)
+static char	**creat_s_cmd(t_lexst **list, t_data *data)
 {
-	t_lexst *temp;
-	int	len;
+	t_lexst	*temp;
+	int		len;
 	char	**s_cmd;
 
 	temp = (*list);
@@ -155,7 +155,8 @@ void	exec(t_lexst **list, t_data *data)
 	if (execve(path, command.s_cmd, data->env) == -1)
 	{
 		if (command.free == 0)
-			ft_printf_fd(2, "minishell: %s: command not found: \n", command.s_cmd[0]);
+			ft_printf_fd(2, "minishell: %s: command not found: \n",
+				command.s_cmd[0]);
 		ft_shellerror_gc("", data, 127, 0);
 	}
 }

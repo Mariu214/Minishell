@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/28 15:29:29 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 10:57:46 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-# include <termios.h>
+#include <termios.h>
 
 static char	*here_doc_next(char *lim, t_data *data)
 {
-	char	*scan;
-	char	*doc;
-	char	*nl;
-	struct termios termios;
+	char			*scan;
+	char			*doc;
+	char			*nl;
+	struct termios	termios;
 
 	sigaction(SIGINT, &data->sig_child, NULL);
 	sigaction(SIGQUIT, &data->sig_quit, NULL);
@@ -67,11 +67,11 @@ static char	*here_doc_next(char *lim, t_data *data)
 
 int	here_doc(char *lim, t_data *data)
 {
-	// int		end_pipe[2];
 	pid_t	parent;
 	int		signal;
 	char	*doc;
 
+	// int		end_pipe[2];
 	pipe(data->pipe_heredoc);
 	parent = fork();
 	if (!parent)
@@ -87,7 +87,7 @@ int	here_doc(char *lim, t_data *data)
 	}
 	else
 	{
-        waitpid(parent, &signal, 0);
+		waitpid(parent, &signal, 0);
 		close(data->pipe_heredoc[1]);
 		dup2(data->pipe_heredoc[0], 0);
 		close(data->pipe_heredoc[0]);
