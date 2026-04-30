@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 10:53:49 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 13:50:47 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 14:48:58 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_dollar(char *str)
 	return (0);
 }
 
-int	*find_dollar(char *str)
+int	find_dollar(char *str)
 {
 	int	i;
 

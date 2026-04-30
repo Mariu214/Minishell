@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 14:13:15 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 14:53:47 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,53 +28,28 @@ char	*add_end(t_data *data, char *temp, char *temp2)
 	return (ft_delone_gc(temp, &data->gc), content);
 }
 
-char	*add_sub(t_data *data, char *sub, char *temp, char *temp2)
+char	*rtv(t_data *data)
 {
 	char	*content;
-	char	*content2;
+	int		size;
 
-	content = ft_strjoin_gc(sub, temp, &data->gc);
-	if (temp2 && ft_strlen(temp2))
-	{
-		content2 = ft_strjoin_gc(content, temp2, &data->gc);
-		ft_delone_gc(content, &data->gc);
-		ft_delone_gc(temp2, &data->gc);
-		return (ft_delone_gc(temp, &data->gc), content2);
-	}
-	else
-		return (ft_delone_gc(temp, &data->gc), content);
+	size = ft_strlen(ft_itoa(data->dollar));
+	content = ft_calloc_gc(1, size, &data->gc);
+	if (!content)
+		return(NULL);
+	content = ft_itoa(data->dollar);
+	if (!content)
+		return(NULL);
+	return (content);
 }
 
-char	*replace_value(t_data *data, char *str, int i, char *sub)
-{
-	char	*temp;
-	char	*temp2;
-
-	temp2 = NULL;
-	temp = ft_calloc_gc(1, ft_strlen(ft_itoa(data->dollar)), &data->gc);
-	if (!temp)
-		return (NULL);
-	temp = ft_itoa(data->dollar);
-	if (str[i])
-	{
-		if (is_dollar(str + i))
-			temp2 = expander(data, str + i, 0, NULL);
-		else
-			temp2 = ft_substr_gc(str, i, ft_strlen(str), &data->gc);
-	}
-	if (sub)
-		return (add_sub(data, sub, temp, temp2));
-	else
-		return (add_end(data, temp, temp2));
-}
-
-char	*expander(t_data *data, char *str, int i, char *sub)
+char	*expander(t_data *data, char *str, int i)
 {
 	char	*temp;
 	char	*content;
-	char	*temp2;
 	int		limit;
 
+	content = NULL;
 	while(str[i])
 	{
 		while (str[i] && str[i] != '$')
@@ -83,23 +58,25 @@ char	*expander(t_data *data, char *str, int i, char *sub)
 			return (0);
 		if (i != 0)
 			content = ft_substr_gc(str, 0, i, &data->gc);
-		i++;
-		content = ft_renew
+		if (!str[++i])
+			return (ft_renew_one_gc(content, '$', &data->gc)); 
 		if (str[i] == '?')
-			return (replace_value(data, str, i + 1, sub));
-		limit = find_dollar(str + i);
-		temp2 = ft_substr_gc(str, i, find_dollar(str + i), &data->gc);
-		i = limit;
-		temp = ft_getenv_gc(temp2, data->env, &data->gc);
-		if (!temp)
-			return (NULL);
-		if (!sub)
-			return (temp);
-		content = ft_strjoin_gc(sub, temp, &data->gc);
-		if (!content)
-			return (ft_delone_gc(temp, &data->gc), NULL);
-		return (ft_delone_gc(temp, &data->gc), content);
+		{
+			content = ft_renew_gc(content, rtv(data), 2, &data->gc);
+			i++;
+		}
+		else if (str[i])
+		{
+			limit = find_dollar(str + i);
+			temp = ft_substr_gc(str, i, limit, &data->gc);
+			i = limit;
+			content = ft_renew_gc(content, ft_getenv_gc(temp, data->env, &data->gc), 2, &data->gc);
+			ft_delone_gc(temp, &data->gc);
+		}
+		else
+			return (content);
 	}
+	return (content);
 }
 
 int	check_expand(t_data *data, t_lexst **list)
@@ -112,7 +89,7 @@ int	check_expand(t_data *data, t_lexst **list)
 	{
 		if (is_dollar(temp->content))
 		{
-			content = expander(data, temp->content, 0, NULL);
+			content = expander(data, temp->content, 0);
 			if (!content)
 				ft_delone(data, &temp);
 			else
