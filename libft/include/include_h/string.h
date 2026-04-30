@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:59:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/13 14:08:53 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 14:02:10 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*ft_strnstr_back(const char *big, const char *little, size_t n);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char    *ft_join_one(char const *, char const c);
+char    *ft_renew_one(char *start, char end);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 size_t	ft_splitlen(char **str);

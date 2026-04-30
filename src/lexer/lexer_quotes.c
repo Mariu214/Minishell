@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 11:49:18 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 14:13:23 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,17 +143,29 @@ int     lexing_quote(t_data *data, int *i, t_type type, t_lexst **list)
 
     j = (*i);
     quote = -1;
+    temp = ft_strdup_gc("", &data->gc);
     while (data->str[j])
     {
         if (data->str[j] && (data->str[j] == '\'' || data->str[j] == '"') && !quote)
+        {
             quote = data->str[j];
-        j++;
-        while (data->str[j] && data->str[j] != quote)
             j++;
+        }
+        while (quote && data->str[j] && data->str[j] != quote)
+        {
+            temp = ft_renew_one_gc(temp, data->str[j], &data->gc);
+            j++;
+        }
+        quote = -1;
         while (data->str[j] && data->str[j]  != ' ' && data->str[j] != '|' 
-            && data->str[j] != '<' && data->str[j] != '>' && data->str[j] != '\'' && data->str[j] != "")
+            && data->str[j] != '<' && data->str[j] != '>' && data->str[j] != '\'' && data->str[j] != '"')
+        {
+            temp = ft_renew_one_gc(temp, data->str[j], &data->gc);
             j++;
-        if (data->str[j] != '\'' && data->str[j] != '"')
+        }
+        if (!data->str[j] || (data->str[j] != '\'' && data->str[j] != '"'))
             break;
     }
+    ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
+    *i = j;
 }
