@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/28 15:43:13 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 16:51:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	no_fil_dir(t_command *command, t_data *data)
 {
-	char	**split;
+	// char	**split;
 	char	*path;
 
-	split = ft_split_gc(command->s_cmd[0], '/', &data->gc);
-	if (ft_strcmp(split[0], "usr") == 0 && ft_strcmp(split[1], "bin") == 0)
+	// split = ft_split_gc(command->s_cmd[0], '/', &data->gc);
+	if (ft_strnstr(command->s_cmd[0], "/", 1))/*ft_strcmp(split[0], "usr") == 0 && ft_strcmp(split[1], "bin") == 0*/
 	{
 		if (access(command->s_cmd[0], X_OK | F_OK) != 0)
 		{
@@ -27,7 +27,7 @@ static int	no_fil_dir(t_command *command, t_data *data)
 			{
 				command->free = 1;
 				ft_printf_fd(2, "%s: %s\n", command->s_cmd[0], strerror(errno));
-				return (127);
+				ft_shellerror_gc("", data, 127, 0);
 			}
 		}
 	}
@@ -154,8 +154,15 @@ void	exec(t_lexst **list, t_data *data)
 	close_fds(data);
 	if (execve(path, command.s_cmd, data->env) == -1)
 	{
-		if (command.free == 0)
+		if (ft_strnstr(command.s_cmd[0], "/", 1))
+		{
+			ft_printf_fd(2, "minishell: %s: Is a directory\n");
+			ft_shellerror_gc("", data, 126, 0);
+		}
+		else if (command.free == 0)
+		{
 			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
-		ft_shellerror_gc("", data, 127, 0);
+			ft_shellerror_gc("", data, 127, 0);
+		}
 	}
 }
