@@ -6,18 +6,18 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/29 11:13:11 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 10:59:43 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_data *g_datacpy = NULL;
+t_data	*g_datacpy = NULL;
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	static t_data	data;
-	char	*line;
+	char			*line;
 
 	(void)argc;
 	(void)argv;
@@ -30,7 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	data.env = ft_splitdup(envp);
 	line = ft_calloc(1, 1);
 	data.old_stdin = dup(STDIN_FILENO);
-    data.old_stdout = dup(STDOUT_FILENO);
+	data.old_stdout = dup(STDOUT_FILENO);
 	data.pipe_heredoc[0] = -1;
 	data.pipe_heredoc[1] = -1;
 	while (ft_strcmp(line, "exit") != 0)
@@ -42,14 +42,15 @@ int	main(int argc, char *argv[], char *envp[])
 			&data.sig_child_slash);
 		sigaction(SIGINT, &data.sig_int, NULL);
 		sigaction(SIGQUIT, &data.sig_quit, NULL);
-		line = readline(">minishell ");		
+		line = readline(">minishell ");
 		if (!line)
 			ft_shellerror_gc("exit\n", &data, 0, 0);
 		data.str = ft_strdup_gc(line, &data.gc);
 		if (data.str[0])
 		{
 			test_lexer(&data);
-			data.dollar = init_parser(&data);
+			if (data.list)
+				data.dollar = init_parser(&data);
 		}
 		if (data.str && data.str[0])
 			add_history(data.str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/23 12:03:22 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 10:56:58 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 # define LIST_H
 
 /* DEFINE_TYPE */
-t_token				define_type(t_type type, t_quote quote);
+t_token	define_type(t_type type, t_quote quote);
 
 /* ADD_NODE */
-int					ft_add_node(t_lexst **list, void *content, t_token token,
-						t_gc **gc);
+int		ft_add_node(t_lexst **list, void *content, t_token token, t_gc **gc);
 
 /* DELONE */
-int					ft_delone(t_data *data, t_lexst **target);
+int		ft_delone(t_data *data, t_lexst **target);
 
 /* PRINT_LIST */
-void				ft_print_list(t_lexst *lexer);
+void	ft_print_list(t_lexst *lexer);
 
 void	free_list(t_lexst **gc, t_gc **g);
 

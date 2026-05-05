@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/05 12:12:50 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/05 14:24:47 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	schr_redirection(t_lexst **list, t_data *data)
 {
-	int return_value;
+	int		return_value;
 	t_lexst	*temp;
 
 	temp = (*list);
@@ -29,7 +29,7 @@ int	schr_redirection(t_lexst **list, t_data *data)
 		}
 		temp = temp->next;
 	}
-	return (0);			
+	return (0);
 }
 
 int	do_redirection(t_lexst *list, t_data *data)

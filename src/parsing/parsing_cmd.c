@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/29 16:27:05 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 14:17:09 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	parsing_built_in(t_data *data, t_lexst **list)
 			return (init_cd(data, list));
 		else if (ft_strcmp((*list)->content, "echo") == 0)
 			return (echo(list));
-		else if (ft_strcmp((*list)->content, "$?") == 0)
-			return (printf("%d: command not found\n", data->dollar), 127);
 		else if (ft_strcmp((*list)->content, "pwd") == 0)
 			return (print_pwd(data, list));
 		else if (ft_strcmp((*list)->content, "env") == 0)
@@ -34,7 +32,7 @@ int	parsing_built_in(t_data *data, t_lexst **list)
 	return (1);
 }
 
-static int		parsing_exec(t_lexst **list, t_data *data)
+static int	parsing_exec(t_lexst **list, t_data *data)
 {
 	pid_t	child;
 	int		signal;
@@ -62,7 +60,6 @@ static int		parsing_exec(t_lexst **list, t_data *data)
 int	parsing_cmd(t_data *data, t_lexst **list)
 {
 	// char	*cmd;
-
 	if ((*list)->type == BUILT_IN)
 		return (parsing_built_in(data, list));
 	// cmd = ft_strdup_gc((*list)->content, &data->gc);
@@ -78,7 +75,7 @@ int	parsing_cmd(t_data *data, t_lexst **list)
 
 int	parsing_cmd_next(t_lexst **list, t_data *data)
 {
-    // int     j;
+	// int     j;
 	// char	*temp;
 
 	if (ft_strnstr((*list)->content, "exit", 5))
@@ -96,6 +93,6 @@ int	parsing_cmd_next(t_lexst **list, t_data *data)
 	// 		printf("%s\n", data->env[j++]);
 	// 	return (0);
 	// }
-    else
-        return (parsing_exec(list, data));
+	else
+		return (parsing_exec(list, data));
 }
