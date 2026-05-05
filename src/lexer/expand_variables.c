@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 14:53:47 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/05 10:13:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,55 +49,20 @@ char	*expander(t_data *data, char *str, int i)
 	char	*content;
 	int		limit;
 
-	content = NULL;
-	while(str[i])
-	{
-		while (str[i] && str[i] != '$')
-			i++;
-		if (!str[i])
-			return (0);
-		if (i != 0)
-			content = ft_substr_gc(str, 0, i, &data->gc);
-		if (!str[++i])
-			return (ft_renew_one_gc(content, '$', &data->gc)); 
-		if (str[i] == '?')
-		{
-			content = ft_renew_gc(content, rtv(data), 2, &data->gc);
-			i++;
-		}
-		else if (str[i])
-		{
-			limit = find_dollar(str + i);
-			temp = ft_substr_gc(str, i, limit, &data->gc);
-			i = limit;
-			content = ft_renew_gc(content, ft_getenv_gc(temp, data->env, &data->gc), 2, &data->gc);
-			ft_delone_gc(temp, &data->gc);
-		}
-		else
-			return (content);
-	}
-	return (content);
-}
-
-int	check_expand(t_data *data, t_lexst **list)
-{
-	t_lexst	*temp;
-	char	*content;
-
-	temp = *list;
-	while (temp)
-	{
-		if (is_dollar(temp->content))
-		{
-			content = expander(data, temp->content, 0);
-			if (!content)
-				ft_delone(data, &temp);
-			else
-			{
-				ft_delone_gc(temp->content, &data->gc);
-				temp->content = content;
-			}
-		}
+    temp = *list;
+    while (temp)
+    {
+        if (is_dollar(temp->content) && temp->word_type != CLOSED_D_QUOTE)
+        {
+            content = expander(data, temp->content, 0, NULL);
+            if (!content)
+                ft_delone(data, &temp);
+            else
+            {
+                ft_delone_gc(temp->content, &data->gc);
+                temp->content = content;
+            }
+        }
 		if (temp)
 			temp = temp->next;
 	}
