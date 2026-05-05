@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 16:25:10 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/05 10:13:00 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int choose_quote(t_data *data, t_lexst **list, int *i)
+int	choose_quote(t_data *data, t_lexst **list, int *i)
 {
-    int j;
+	int	j;
 
     j = *i;
     while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
@@ -29,55 +29,55 @@ int choose_quote(t_data *data, t_lexst **list, int *i)
     return (0);
 }
 
-int is_quote(char *src, int j, char q)
+int	is_quote(char *src, int j, char q)
 {
-    while (src[j] && src[j] == ' ')
-        j++;
-    while (src[j] && src[j] != ' ')
-    {
-        if (src[j] == q)
-            return (1);
-        j++;
-    }
-    return (0);
+	while (src[j] && src[j] == ' ')
+		j++;
+	while (src[j] && src[j] != ' ')
+	{
+		if (src[j] == q)
+			return (1);
+		j++;
+	}
+	return (0);
 }
 
-static char    *rm_quote(char *src, char quote, t_data *data)
+static char	*rm_quote(char *src, char quote, t_data *data)
 {
-    int i;
-    int len;
-    char    *retu;
+	int		i;
+	int		len;
+	char	*retu;
 
-    len = 0;
-    i = 0;
-    while (src[i])
-    {
-        if (src[i] != quote)
-            len++;
-        i++;
-    }
-    i = 0;
-    retu = ft_calloc_gc(sizeof(char), len + 1, &data->gc);
-    if (!retu)
-        return (NULL);
-    len = 0;
-    while (src[i])
-    {
-        if (src[i] != quote)
-        {
-            retu[len] = src[i];
-            len++;
-        }
-        i++;
-    }
-    return (retu);
+	len = 0;
+	i = 0;
+	while (src[i])
+	{
+		if (src[i] != quote)
+			len++;
+		i++;
+	}
+	i = 0;
+	retu = ft_calloc_gc(sizeof(char), len + 1, &data->gc);
+	if (!retu)
+		return (NULL);
+	len = 0;
+	while (src[i])
+	{
+		if (src[i] != quote)
+		{
+			retu[len] = src[i];
+			len++;
+		}
+		i++;
+	}
+	return (retu);
 }
 
-int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
+int	lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
 {
-    char    *temp;
-    int     j;
-    int     num;
+	char	*temp;
+	int		j;
+	int		num;
 
     j = *i;
     num = 0;
@@ -104,11 +104,11 @@ int     lexing_d_quote(t_data *data, int *i, t_type type, t_lexst **list)
     return (0);
 }
 
-int     lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list)
+int	lexing_s_quote(t_data *data, int *i, t_type type, t_lexst **list)
 {
-    char    *temp;
-    int     j;
-    int     num;
+	char	*temp;
+	int		j;
+	int		num;
 
     j = *i;
     num = 0;

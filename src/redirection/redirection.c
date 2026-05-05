@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/28 14:21:22 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/04/30 10:59:40 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	schr_redirection(t_lexst **list, t_data *data)
 {
-	int return_value;
+	int		return_value;
 	t_lexst	*temp;
 
 	temp = (*list);
@@ -29,7 +29,7 @@ int	schr_redirection(t_lexst **list, t_data *data)
 		}
 		temp = temp->next;
 	}
-	return (0);			
+	return (0);
 }
 
 int	do_redirection(t_lexst *list, t_data *data)

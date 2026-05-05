@@ -1,6 +1,11 @@
 # PARSING
 
 //""''echo hola""'''' que""'' tal""''
+<<<<<<< HEAD
+quotes a faire 
+valeur dexit
+=======
+>>>>>>> prototype
 
 # EXEC
 

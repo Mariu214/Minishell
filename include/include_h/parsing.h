@@ -17,13 +17,11 @@ int						parsing_cmd_next(t_lexst **list, t_data *data);
 // void					parsing_heredoc(t_data *data, char *lim);
 
 /* PARSING_REDIRECTIONS */
-int parsing_input(t_lexst *list);
-int parsing_heredoc(t_data *data, t_lexst *list);
-int parsing_ou_trunc(t_lexst *list);
-int parsing_ou_append(t_lexst *list);
+int						parsing_input(t_lexst *list);
+int						parsing_heredoc(t_data *data, t_lexst *list);
+int						parsing_ou_trunc(t_lexst *list);
+int						parsing_ou_append(t_lexst *list);
 
-int parsing_quote(t_lexst **lex, t_data *data);
-
-
+int						parsing_quote(t_lexst **lex, t_data *data);
 
 #endif

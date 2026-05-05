@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_add_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:53:05 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/11 12:34:25 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/04/30 10:58:55 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_add_node(t_lexst **list, void *content, t_token token, t_gc **gc)
 {
-	t_lexst	*new;
+	t_lexst *new;
 
 	new = ft_malloc_gc(sizeof(t_lexst), 1, gc);
 	if (!new)

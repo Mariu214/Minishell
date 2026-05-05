@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 16:51:25 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/05 10:13:36 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*is_accessible(char *cmd, t_data *data)
 	return (cmd);
 }
 
-static char *add_quote(char *str, t_data *data)
+static char	*add_quote(char *str, t_data *data)
 {
 	char	*quoted;
 	int		i;
@@ -97,10 +97,10 @@ static char *add_quote(char *str, t_data *data)
 	return (quoted);
 }
 
-static char **creat_s_cmd(t_lexst **list, t_data *data)
+static char	**creat_s_cmd(t_lexst **list, t_data *data)
 {
-	t_lexst *temp;
-	int	len;
+	t_lexst	*temp;
+	int		len;
 	char	**s_cmd;
 
 	temp = (*list);
