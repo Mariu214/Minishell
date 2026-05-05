@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/28 14:21:22 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/05 12:12:50 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	input_redirection(char *file)
 
 	fd = open_file(file, 0);
 	if (fd < 0)
-		return (1);
+		return (fd * -1);
 	if (dup2(fd, STDIN_FILENO) < 0)
 		return (1);
 	if (close(fd) < 0)
@@ -65,7 +65,7 @@ int	output_redirection_trunc(char *file)
 
 	fd = open_file(file, 2);
 	if (fd < 0)
-		return (fd);
+		return (fd * -1);
 	if (dup2(fd, STDOUT_FILENO) < 0)
 		return (1);
 	if (close(fd) < 0)
@@ -79,7 +79,7 @@ int	output_redirection_append(char *file)
 
 	fd = open_file(file, 1);
 	if (fd < 0)
-		return (fd);
+		return (fd * -1);
 	if (dup2(fd, STDOUT_FILENO) < 0)
 		return (1);
 	if (close(fd) < 0)
