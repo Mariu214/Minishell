@@ -4,8 +4,8 @@
 typedef struct s_data	t_data;
 
 /* EXPAND_VARIABLE */
-char					*expander(t_data *data, char *str, int i);
-int						check_expand(t_data *data, t_lexst **list);
+char					*expander(t_data *data, char *str, int i, int j);
+char					*check_expand(t_data *data, t_lexst **list);
 
 /* LEXER_BUILT_IN */
 int						is_built_in(const char *str);

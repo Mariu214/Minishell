@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/05 10:13:04 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/05 11:48:11 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,71 @@ char	*rtv(t_data *data)
 	return (content);
 }
 
-char	*expander(t_data *data, char *str, int i)
+int		with_dollar(t_data *data, char *str, int *i, char **content)
 {
 	char	*temp;
-	char	*content;
 	int		limit;
+	
+	if (str[*i] == '?')
+	{
+		*content = ft_renew_gc(*content, rtv(data), 2, &data->gc);
+		if (!*content)
+			return (1);
+		(*i)++;
+	}
+	else if (str[*i])
+	{
+		limit = find_dollar(str + (*i));
+		temp = ft_substr_gc(str, *i, limit, &data->gc);
+		if (!temp)
+			return (1);
+		*i += limit;
+		*content = ft_renew_gc(*content, ft_getenv_gc(temp, data->env, &data->gc), 2, &data->gc);
+		if (!*content)
+			return (ft_delone_gc(temp, &data->gc), 1);
+	}
+	return (0);
+}
+
+char	*expander(t_data *data, char *str, int i, int j)
+{
+	char	*content;
+
+	content = NULL;
+	while(str[i])
+	{
+		while (str[i] && str[i] != '$')
+			i++;
+		if (i != j)
+		{
+			content = ft_renew_gc(content, ft_substr_gc(str, j, i - j, &data->gc), 2, &data->gc);
+			if (!content)
+				return (NULL);
+		}
+		if (!str[i])
+			return (content);
+		i++;
+		if (!str[i])
+			return (ft_renew_one_gc(content, '$', &data->gc));
+		if (with_dollar(data, str, &i, &content))
+			return (NULL);
+		j = i;
+	}
+	return (content);
+}
+
+
+char	*check_expand(t_data *data, t_lexst **list)
+{
+	t_lexst	*temp;
+	char	*content;
 
     temp = *list;
     while (temp)
     {
         if (is_dollar(temp->content) && temp->word_type != CLOSED_D_QUOTE)
         {
-            content = expander(data, temp->content, 0, NULL);
+            content = expander(data, temp->content, 0, 0);
             if (!content)
                 ft_delone(data, &temp);
             else
