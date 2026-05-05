@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/04 12:04:23 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:28:28 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,24 @@ int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
 int	close_fds(t_data *data)
 {
 	if (data->pipe_heredoc[0] != -1)
+	{
 		close(data->pipe_heredoc[0]);
+		data->pipe_heredoc[0] = -1;
+	}
 	if (data->pipe_heredoc[1] != -1)
+	{
 		close(data->pipe_heredoc[1]);
-	data->pipe_heredoc[0] = -1;
-	data->pipe_heredoc[1] = -1;
-	if (data->old_stdin)
+		data->pipe_heredoc[1] = -1;
+	}
+	if (data->old_stdin != -1)
+	{
 		close(data->old_stdin);
-	if (data->old_stdout)
+		data->old_stdin = -1;
+	}
+	if (data->old_stdout != -1)
+	{
 		close(data->old_stdout);
+		data->old_stdout = -1;
+	}
 	return (1);
 }
