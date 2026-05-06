@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 15:07:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 10:59:42 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 12:56:29 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ int	ft_delone(t_data *data, t_lexst **target)
 	if (temp->previous)
 		temp->previous->next = temp->next;
 	else
-		*target = temp->next;
+	{
+		if (temp->next)
+			*target = temp->next;
+	}
 	if (temp->next)
 		temp->next->previous = temp->previous;
+	else 
+		*target = temp->previous;
 	if (temp->content)
 		ft_delone_gc(temp->content, &data->gc);
 	ft_delone_gc(temp, &data->gc);
