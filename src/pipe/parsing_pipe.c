@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/05 10:13:25 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 12:08:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	apply_pipe(t_data *data, t_lexst **list)
 				|| (*list)->type == WORD))
 			(*list) = (*list)->next;
 		return_value = parsing_cmd(data, list);
+		ft_printf_fd(1, "\0");
 		(*list) = (*list)->next;
 		if ((*list)->type == PIPE)
 			(*list) = (*list)->next;
@@ -45,7 +46,7 @@ int	apply_pipe(t_data *data, t_lexst **list)
 	}
 	else
 	{
-		wait(NULL);
+		// wait(NULL);
 		dup2(end_pipe[0], 0);
 		close(end_pipe[1]);
 		close(end_pipe[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 14:17:09 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 12:10:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	parsing_exec(t_lexst **list, t_data *data)
 	if (!child)
 		exec(list, data);
 	else
-		waitpid(child, &signal, 0);
+		wait(NULL);
 	if (WIFSIGNALED(signal))
 	{
 		if (WTERMSIG(signal) == 3)

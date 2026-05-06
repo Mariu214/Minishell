@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_word.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 09:25:51 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 10:58:45 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 10:08:45 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	lexing_word(t_data *data, int *i, t_lexst **list)
 {
 	int j;
 	char *temp;
-
+	
+	while (data->str[*i] && data->str[*i] == ' ')
+		(*i)++;
 	j = *i;
 	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
 		&& data->str[j] != '|' && data->str[j] != ' ')
