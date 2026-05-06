@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_quote.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:23:26 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 10:59:17 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:58:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	last_quote(t_data *data, char *prompt, char q)
 
 int	parsing_quote(t_lexst **lex, t_data *data)
 {
-	t_lexst *list;
+	t_lexst	*list;
 
 	list = *lex;
 	while (list)

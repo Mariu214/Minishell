@@ -6,71 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 14:30:17 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:38:05 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static int	no_fil_dir(t_command *command, t_data *data)
-{
-	// char	**split;
-	char	*path;
-
-	// split = ft_split_gc(command->s_cmd[0], '/', &data->gc);
-	if (ft_strnstr(command->s_cmd[0], "/", 1))/*ft_strcmp(split[0], "usr") == 0 && ft_strcmp(split[1], "bin") == 0*/
-	{
-		if (access(command->s_cmd[0], X_OK | F_OK) != 0)
-		{
-			path = ft_strjoin_gc("/", command->s_cmd[0], &data->gc);
-			if (access(path, X_OK | F_OK) != 0)
-			{
-				command->free = 1;
-				ft_printf_fd(2, "%s: %s\n", command->s_cmd[0], strerror(errno));
-				ft_shellerror_gc("", data, 127, 0);
-			}
-		}
-	}
-	return (0);
-}
-
-static char	*is_already_path(t_command *command, t_data *data)
-{
-	char	*path;
-
-	if (!*command->s_cmd || !*command->s_cmd[0])
-		return (NULL);
-	if (no_fil_dir(command, data) == 127)
-		return (NULL);
-	if (access(command->s_cmd[0], X_OK | F_OK) == 0)
-		return (command->s_cmd[0]);
-	path = ft_strjoin_gc("/", command->s_cmd[0], &data->gc);
-	if (!path)
-		return (NULL);
-	if (access(path, X_OK | F_OK) == 0)
-		return (path);
-	return (NULL);
-}
-
-static char	*is_accessible(char *cmd, t_data *data)
-{
-	t_accessible	temp;
-
-	temp.i = 0;
-	temp.all_path = ft_split_gc(ft_getenv("PATH", data->env), ':', &data->gc);
-	temp.s_cmd = ft_strdup_gc(cmd, &data->gc);
-	while (temp.all_path[temp.i])
-	{
-		temp.join = ft_strjoin_gc(temp.all_path[temp.i], "/", &data->gc);
-		temp.path = ft_strjoin_gc(temp.join, temp.s_cmd, &data->gc);
-		if (access(temp.path, X_OK | F_OK) == 0)
-			return (temp.path);
-		ft_delone_gc(temp.join, &data->gc);
-		ft_delone_gc(temp.path, &data->gc);
-		temp.i++;
-	}
-	return (cmd);
-}
 
 static char	*add_quote(char *str, t_data *data)
 {
@@ -97,6 +37,22 @@ static char	*add_quote(char *str, t_data *data)
 	return (quoted);
 }
 
+static int	copy_s_cmd(t_lexst **list, t_data *data, char ***s_cmd, int *len)
+{
+	if (is_there(' ', (*list)->content))
+		(*s_cmd)[*len] = add_quote((*list)->content, data);
+	else
+		(*s_cmd)[*len] = ft_strdup_gc((*list)->content, &data->gc);
+	if (!(*s_cmd)[*len])
+		return (1);
+	(*list) = (*list)->next;
+	(*len)++;
+	while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
+			|| (*list)->type == WORD))
+		(*list) = (*list)->next;
+	return (0);
+}
+
 static char	**creat_s_cmd(t_lexst **list, t_data *data)
 {
 	t_lexst	*temp;
@@ -109,7 +65,8 @@ static char	**creat_s_cmd(t_lexst **list, t_data *data)
 	{
 		temp = temp->next;
 		len++;
-		while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC) || temp->type == WORD))
+		while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC)
+				|| temp->type == WORD))
 			temp = temp->next;
 	}
 	s_cmd = ft_calloc_gc(len + 1, sizeof(*s_cmd), &data->gc);
@@ -117,20 +74,24 @@ static char	**creat_s_cmd(t_lexst **list, t_data *data)
 		return (NULL);
 	len = 0;
 	while ((*list) && (*list)->type == CMD)
-	{
-		if (is_there(' ', (*list)->content))
-			s_cmd[len] = add_quote((*list)->content, data);
-		else
-			s_cmd[len] = ft_strdup_gc((*list)->content, &data->gc);
-		if (!s_cmd[len])
+		if (copy_s_cmd(list, data, &s_cmd, &len) == 1)
 			return (NULL);
-		(*list) = (*list)->next;
-		len++;
-		while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC) || (*list)->type == WORD))
-			(*list) = (*list)->next;
-	}
 	s_cmd[len] = NULL;
 	return (s_cmd);
+}
+
+static void	exec_fail(t_command command, t_data *data)
+{
+	if (ft_strnstr(command.s_cmd[0], "/", 1))
+	{
+		ft_printf_fd(2, "minishell: %s: Is a directory\n");
+		ft_shellerror_gc("", data, 126, 0);
+	}
+	else if (command.free == 0)
+	{
+		ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
+		ft_shellerror_gc("", data, 127, 0);
+	}
 }
 
 void	exec(t_lexst **list, t_data *data)
@@ -157,16 +118,5 @@ void	exec(t_lexst **list, t_data *data)
 		path = is_accessible(command.s_cmd[0], data);
 	close_fds(data);
 	if (execve(path, command.s_cmd, data->env) == -1)
-	{
-		if (ft_strnstr(command.s_cmd[0], "/", 1))
-		{
-			ft_printf_fd(2, "minishell: %s: Is a directory\n");
-			ft_shellerror_gc("", data, 126, 0);
-		}
-		else if (command.free == 0)
-		{
-			ft_printf_fd(2, "%s: command not found: \n", command.s_cmd[0]);
-			ft_shellerror_gc("", data, 127, 0);
-		}
-	}
+		exec_fail(command, data);
 }

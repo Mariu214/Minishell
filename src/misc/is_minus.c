@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   is_minus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:17:33 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/05 13:20:27 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:58:16 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int is_minus(char *str)
+int	is_minus(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(str[i] && str[i] != '=')
-    {
-        if (str[i] == '-')
-            return (1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i] == '-')
+			return (1);
+		i++;
+	}
+	return (0);
 }

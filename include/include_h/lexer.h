@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 13:57:08 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 14:02:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 16:44:40 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define LEXER_H
 
 typedef struct s_data	t_data;
+
+typedef struct s_lqt
+{
+	char	*temp;
+	char	quote;
+	int		j;
+}			t_lqt;
 
 /* EXPAND_VARIABLE */
 char					*expander(t_data *data, char *str, int i, int j);
@@ -29,10 +36,7 @@ int						lexing_cmd(t_data *data, int *i, t_lexst **list);
 /* LEXER_QUOTES */
 int						choose_quote(t_data *data, t_lexst **list, int *i);
 int						is_quote(char *src, int j, char q);
-int						lexing_d_quote(t_data *data, int *i, t_type type,
-							t_lexst **list);
-int						lexing_s_quote(t_data *data, int *i, t_type type,
-							t_lexst **list);
+int						parsing_expand_quote(t_data *data, int *i, char **temp);
 
 int						lqt(t_data *data, int *i, t_type type, t_lexst **list);
 

@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 13:14:34 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:57:58 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_shellerror_gc(char *str, t_data *data, long out, int mode)
 	ft_printf_fd(2, "%s", str);
 	ft_free_all_gc(&data->gc);
 	if (mode == 0)
-	{	
+	{
 		close_fds(data);
 		close(1);
 		close(0);

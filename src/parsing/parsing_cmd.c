@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 13:14:43 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:58:21 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,40 +61,10 @@ static int	parsing_exec(t_lexst **list, t_data *data)
 
 int	parsing_cmd(t_data *data, t_lexst **list)
 {
-	// char	*cmd;
 	if ((*list)->type == BUILT_IN)
 		return (parsing_built_in(data, list));
-	// cmd = ft_strdup_gc((*list)->content, &data->gc);
-	// (*list) = (*list)->next;
-	// while ((*list) && (*list)->type == CMD)
-	// {
-	// 	cmd = ft_renew_gc(cmd, " ", 0, &data->gc);
-	// 	cmd = ft_renew_gc(cmd, (*list)->content, 0, &data->gc);
-	// 	(*list) = (*list)->next;
-	// }
-	return (parsing_cmd_next(list, data));
-}
-
-int	parsing_cmd_next(t_lexst **list, t_data *data)
-{
-	// int     j;
-	// char	*temp;
-
 	if (ft_strnstr((*list)->content, "exit", 5))
 		return (255);
-	// if (ft_strcmp(cmd, "pwd") == 0)
-	// {
-	// 	temp = ft_getenv("PWD", data->env);
-	// 	printf("%s\n", temp);
-	// 	return (0);
-	// }
-	// else if (ft_strcmp(cmd, "env") == 0)
-	// {
-	// 	j = 0;
-	// 	while (data->env[j])
-	// 		printf("%s\n", data->env[j++]);
-	// 	return (0);
-	// }
 	else
 		return (parsing_exec(list, data));
 }

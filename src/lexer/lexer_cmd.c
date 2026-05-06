@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:44:56 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 10:58:29 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:56:42 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	lexing_cmd(t_data *data, int *i, t_lexst **list)
 {
-	int j;
-	char *temp;
+	int		j;
+	char	*temp;
 
 	j = *i;
 	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
 		&& data->str[j] != '|' && data->str[j] != '\'' && data->str[j] != '"'
-		&& data->str[j] != ' ') 
+		&& data->str[j] != ' ')
 		j++;
 	temp = ft_substr_gc(data->str, *i, j - *i, &data->gc);
 	if (!temp)

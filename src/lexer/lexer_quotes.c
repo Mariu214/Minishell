@@ -3,64 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 14:02:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 17:03:28 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	choose_quote(t_data *data, t_lexst **list, int *i)
-{
-	int	j;
-
-	j = *i;
-	while (data->str[j] && data->str[j] != '>' && data->str[j] != '<'
-		&& data->str[j] != '|' && data->str[j] != ' ')
-	{
-		if (data->str[j] == '"')
-			return (lqt(data, i, WORD, list));
-		if (data->str[j] == '\'')
-			return (lqt(data, i, WORD, list));
-		j++;
-	}
-	return (0);
-}
-
-int	is_quote(char *src, int j, char q)
-{
-	while (src[j] && src[j] == ' ')
-		j++;
-	while (src[j] && src[j] != ' ')
-	{
-		if (src[j] == q)
-			return (1);
-		j++;
-	}
-	return (0);
-}
-
-int	parsing_expand_quote(t_data *data, int *i, char **temp)
-{
-	char	*tmp;
-	int		j;
-
-	j = (*i) + 1;
-	tmp = ft_strdup_gc(data->str, &data->gc);
-	if (!tmp[j] || (tmp[j] && (tmp[j] == '<' || tmp[j] == '>' || tmp[j] == '|'
-				|| tmp[j] == ' ' || tmp[j] == '\'' || tmp[j] == '"')))
-		return ((*temp) = ft_renew_one_gc((*temp), data->str[*i], &data->gc),
-			(*i) += 1, 1);
-	else if (tmp[j] && tmp[j] == '?')
-	{
-		(*temp) = ft_renew_gc((*temp), ft_itoa(data->dollar), 0, &data->gc);
-		(*i) += 2;
-		return (1);
-	}
-	return (0);
-}
 
 int	expand_quote(t_data *data, int *i, char **temp)
 {
@@ -83,66 +33,79 @@ int	expand_quote(t_data *data, int *i, char **temp)
 	return (0);
 }
 
+static int	lqt_next(t_data *data, t_type type, t_lexst **list, t_lqt *l)
+{
+	if (data->str[l->j] && (data->str[l->j] == '\'' || data->str[l->j] == '"')
+			&& l->quote == -1)
+	{
+		l->quote = data->str[l->j];
+		l->j++;
+	}
+	while (l->quote != -1 && data->str[l->j] && data->str[l->j] != l->quote)
+	{
+		if (data->str[l->j] && data->str[l->j] == '$' && l->quote != '\''
+			&& data->str[l->j + 1])
+		{
+			if (expand_quote(data, &l->j, &l->temp))
+				return (ft_add_node(list, l->temp, define_type(type,
+							CLOSED_D_QUOTE), &data->gc), 1);
+		}
+		else
+		{
+			l->temp = ft_renew_one_gc(l->temp, data->str[l->j], &data->gc);
+			l->j++;
+		}
+	}
+	return (0);
+}
+
+static int	lqt_next_next(t_data *data, t_type type, t_lexst **list, t_lqt *l)
+{
+	while (data->str[l->j] && data->str[l->j] != ' ' && data->str[l->j] != '|'
+		&& data->str[l->j] != '<' && data->str[l->j] != '>'
+		&& data->str[l->j] != '\'' && data->str[l->j] != '"')
+	{
+		if (data->str[l->j] && data->str[l->j] == '$' && l->quote != '\''
+			&& data->str[l->j + 1] && data->str[l->j + 1] != '?')
+		{
+			if (expand_quote(data, &l->j, &l->temp))
+				return (ft_add_node(list, l->temp, define_type(type,
+							CLOSED_D_QUOTE), &data->gc), 1);
+		}
+		else
+		{
+			l->temp = ft_renew_one_gc(l->temp, data->str[l->j], &data->gc);
+			l->j++;
+		}
+	}
+	return (0);
+}
+
 int	lqt(t_data *data, int *i, t_type type, t_lexst **list)
 {
-	char	*temp;
-	char	quote;
-	int		j;
+	t_lqt	l;
 
-	j = (*i);
-	quote = -1;
-	temp = ft_strdup_gc("", &data->gc);
-	while (data->str[j] && data->str[j] == ' ')
-		j++;
-	while (data->str[j])
+	l.j = (*i);
+	l.quote = -1;
+	l.temp = ft_strdup_gc("", &data->gc);
+	while (data->str[l.j] && data->str[l.j] == ' ')
+		l.j++;
+	while (data->str[l.j])
 	{
-		if (data->str[j] && (data->str[j] == '\'' || data->str[j] == '"')
-				&& quote == -1)
+		if (lqt_next(data, type, list, &l) == 1)
+			return (1);
+		if (l.quote == data->str[l.j])
 		{
-			quote = data->str[j];
-			j++;
+			l.j++;
+			l.quote = -1;
 		}
-		while (quote != -1 && data->str[j] && data->str[j] != quote)
-		{
-			if (data->str[j] && data->str[j] == '$' && quote != '\''
-				&& data->str[j + 1])
-			{
-				if (expand_quote(data, &j, &temp))
-					return (ft_add_node(list, temp, define_type(type,
-								CLOSED_D_QUOTE), &data->gc), 1);
-			}
-			else
-			{
-				temp = ft_renew_one_gc(temp, data->str[j], &data->gc);
-				j++;
-			}
-		}
-		if (quote == data->str[j])
-		{
-			j++;
-			quote = -1;
-		}
-		while (data->str[j] && data->str[j] != ' ' && data->str[j] != '|'
-			&& data->str[j] != '<' && data->str[j] != '>'
-			&& data->str[j] != '\'' && data->str[j] != '"')
-		{
-			if (data->str[j] && data->str[j] == '$' && quote != '\''
-				&& data->str[j + 1] && data->str[j + 1] != '?')
-			{
-				if (expand_quote(data, &j, &temp))
-					return (ft_add_node(list, temp, define_type(type,
-								CLOSED_D_QUOTE), &data->gc), 1);
-			}
-			else
-			{
-				temp = ft_renew_one_gc(temp, data->str[j], &data->gc);
-				j++;
-			}
-		}
-		if (!data->str[j] || (data->str[j] != '\'' && data->str[j] != '"'))
+		if (lqt_next_next(data, type, list, &l) == 1)
+			return (1);
+		if (!data->str[l.j] || (data->str[l.j] != '\''
+				&& data->str[l.j] != '"'))
 			break ;
 	}
-	ft_add_node(list, temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
-	*i = j;
+	ft_add_node(list, l.temp, define_type(type, CLOSED_D_QUOTE), &data->gc);
+	*i = l.j;
 	return (0);
 }

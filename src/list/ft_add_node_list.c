@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_heredoc.c                                  :+:      :+:    :+:   */
+/*   ft_add_node_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 10:41:11 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/16 14:54:32 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/05/06 14:50:48 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/05/06 14:57:31 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// void    parsing_heredoc(t_data *data, char *lim)
-// {
-//     if (!data->str[1])
-//     {
-//         ft_shellerror_gc("minishell: syntax error near unexpected token `newline'\n", data, 1, 0);
-//     }
-//     here_doc(lim, data->pipenb, data);
-//     return ;
-// }
+int	ft_add_node_list(t_lexst **list, t_lexst **temp)
+{
+	while ((*list)->next)
+		(*list) = (*list)->next;
+	(*temp)->previous = (*list);
+	(*list)->next = (*temp);
+	while ((*list)->previous)
+		(*list) = (*list)->previous;
+	return (0);
+}
