@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/05 10:13:25 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 11:49:38 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	apply_pipe(t_data *data, t_lexst **list)
 	pid_t	child;
 	int		end_pipe[2];
 	int		return_value;
-
+	
 	return_value = 0;
 	pipe(end_pipe);
 	child = fork();

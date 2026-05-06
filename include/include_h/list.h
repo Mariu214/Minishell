@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 10:56:58 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 11:10:36 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		ft_delone(t_data *data, t_lexst **target);
 
 /* PRINT_LIST */
 void	ft_print_list(t_lexst *lexer);
+void	print_type(t_type type);
 
 void	free_list(t_lexst **gc, t_gc **g);
 

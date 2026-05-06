@@ -6,17 +6,17 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:22:42 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/05 14:23:18 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 10:36:53 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-int	ft_atoll(const char *nptr)
+long	ft_atoll(const char *nptr, t_data *data)
 {
-	int	signe;
-	long long   nbr;
-	int	i;
+	int		signe;
+	long   nbr;
+	int		i;
 
 	signe = 1;
 	nbr = 0;
@@ -29,8 +29,10 @@ int	ft_atoll(const char *nptr)
 			signe = -signe;
 		i++;
 	}
-	while (ft_isdigit(nptr[i]))
+	while (nptr[i])
 	{
+		if (!ft_isdigit(nptr[i]))
+			ft_shellerror_gc("exit: numeric argument required\n", data, 2, 0);
 		nbr = nbr * 10 + (nptr[i] - '0');
 		i++;
 	}
