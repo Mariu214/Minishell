@@ -6,13 +6,13 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:09:29 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 10:59:00 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 11:11:02 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	print_type(t_type type)
+void	print_type(t_type type)
 {
 	if (type == CMD)
 		ft_printf_fd(2, "CMD, ");

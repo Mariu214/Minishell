@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 12:08:46 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 13:14:54 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	apply_pipe(t_data *data, t_lexst **list)
 	pid_t	child;
 	int		end_pipe[2];
 	int		return_value;
-
+	
 	return_value = 0;
 	pipe(end_pipe);
 	child = fork();

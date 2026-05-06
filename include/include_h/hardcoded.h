@@ -25,4 +25,7 @@ int	print_env(t_data *data, t_lexst **list);
 /* PRINT_PWD */
 int	print_pwd(t_data *data, t_lexst **list);
 
+/* EXIT */
+void    ft_exit(t_data *data, t_lexst **list);
+
 #endif

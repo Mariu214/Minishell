@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 12:10:29 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 13:14:43 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	parsing_built_in(t_data *data, t_lexst **list)
 			return (print_pwd(data, list));
 		else if (ft_strcmp((*list)->content, "env") == 0)
 			return (print_env(data, list));
+		else if (ft_strcmp((*list)->content, "exit") == 0)
+			return (ft_exit(data, list), 0);
 	}
 	return (1);
 }

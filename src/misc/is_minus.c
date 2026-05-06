@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.h                                             :+:      :+:    :+:   */
+/*   is_minus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 11:10:36 by malaimo          ###   ########.fr       */
+/*   Created: 2026/05/05 12:17:33 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/05 13:20:27 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_H
-# define LIST_H
+#include "../../include/minishell.h"
 
-/* DEFINE_TYPE */
-t_token	define_type(t_type type, t_quote quote);
+int is_minus(char *str)
+{
+    int i;
 
-/* ADD_NODE */
-int		ft_add_node(t_lexst **list, void *content, t_token token, t_gc **gc);
-
-/* DELONE */
-int		ft_delone(t_data *data, t_lexst **target);
-
-/* PRINT_LIST */
-void	ft_print_list(t_lexst *lexer);
-void	print_type(t_type type);
-
-void	free_list(t_lexst **gc, t_gc **g);
-
-#endif
+    i = 0;
+    while(str[i] && str[i] != '=')
+    {
+        if (str[i] == '-')
+            return (1);
+        i++;
+    }
+    return (0);
+}

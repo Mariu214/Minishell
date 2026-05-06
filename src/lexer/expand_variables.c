@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/05 11:50:15 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 12:57:39 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ char	*check_expand(t_data *data, t_lexst **list)
         {
             content = expander(data, temp->content, 0, 0);
             if (!content)
+			{
                 ft_delone(data, &temp);
+				*list = temp;
+			}
             else
             {
                 ft_delone_gc(temp->content, &data->gc);

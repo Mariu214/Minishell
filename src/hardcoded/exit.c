@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 11:49:02 by malaimo          ###   ########.fr       */
+/*   Created: 2026/05/05 13:30:07 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/06 10:37:31 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	init_parser(t_data *data)
+void    ft_exit(t_data *data, t_lexst **list)
 {
-	int	return_value;
-
-	return_value = 0;
-	g_datacpy->process = 1;
-	if (parsing_pipe(data, data->list))
-		return (1);
-	return_value = find_pipe(data);
-	dup2(data->old_stdin, STDIN_FILENO);
-	dup2(data->old_stdout, STDOUT_FILENO);
-	g_datacpy->process = 0;
-	return (return_value);
+    *list=(*list)->next;
+    if (!list || (*list)->type != BUILT_IN)
+        ft_shellerror_gc("exit\n", data, 0, 0);
+    if ((*list)->next && (*list)->next->type == BUILT_IN)
+        ft_shellerror_gc("exit\ntoo many arguments\n", data, 1, 0);
+    ft_shellerror_gc("exit\n", data, ft_atoll((*list)->content, data) % 256, 0);
 }

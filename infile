@@ -1,1 +1,25 @@
+<<<<<<< HEAD
 hihi je suis trop hihi NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN tout sauf un haha
+=======
+total 484
+drwxr-xr-x.  8 malaimo malaimo   4096 May  6 11:44 .
+drwxr-xr-x   4 malaimo malaimo     45 Mar 24 16:51 ..
+-rwxr-xr-x.  1 malaimo malaimo      0 May  6 11:05 =
+drwxr-xr-x.  7 malaimo malaimo   4096 May  6 10:26 .git
+-rw-r--r--.  1 malaimo malaimo     43 Mar 19 16:01 .gitignore
+-rwxr-xr-x.  1 malaimo malaimo     50 May  6 11:38 hi
+drwxr-xr-x.  3 malaimo malaimo     42 May  5 11:50 include
+-rw-r--r--.  1 malaimo malaimo      0 May  6 11:47 infile
+-rwxr-xr-x.  1 malaimo malaimo      0 May  5 11:50 jsp
+drwxr-xr-x.  5 malaimo malaimo     92 May  6 10:37 libft
+-rw-r--r--.  1 malaimo malaimo   2592 May  6 10:35 Makefile
+-rwxr-xr-x.  1 malaimo malaimo 448672 May  6 11:44 minishell
+drwxr-xr-x   9 malaimo malaimo   4096 May  6 10:48 minishell_tester
+drwxr-xr-x.  2 malaimo malaimo   4096 May  6 11:44 obj
+-rwxr-xr-x.  1 malaimo malaimo     26 May  6 10:26 outfile
+-rw-r--r--.  1 malaimo malaimo    152 Apr 29 15:02 readline.supp
+-rw-r--r--.  1 malaimo malaimo    231 Apr  1 13:42 README.md
+drwxr-xr-x. 10 malaimo malaimo    137 May  5 11:50 src
+-rwxr-xr-x.  1 malaimo malaimo      0 May  6 11:05 type
+-rw-r--r--.  1 malaimo malaimo   1628 May  6 10:26 z.checklist.md
+>>>>>>> prototype

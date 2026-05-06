@@ -7,14 +7,12 @@ typedef enum e_type
 {
 	CMD = 1,
 	WORD,
-	D_QUOTE,
-	S_QUOTE,
 	INPUT,
 	OU_APPEND,
 	OU_TRUNC,
 	HEREDOC,
-	PIPE,
 	BUILT_IN,
+	PIPE,
 }						t_type;
 
 typedef enum e_quote
