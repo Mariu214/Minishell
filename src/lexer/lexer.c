@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 14:02:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 17:15:02 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int	test_lexer(t_data *data)
 
 	data->list = NULL;
 	result = init_lexer(data, &data->list);
-	// ft_print_list(data->list);
+	ft_print_list(data->list);
 	return (result);
 }

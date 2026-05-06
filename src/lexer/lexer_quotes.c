@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 17:03:28 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 17:05:29 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	expand_quote(t_data *data, int *i, char **temp)
 static int	lqt_next(t_data *data, t_type type, t_lexst **list, t_lqt *l)
 {
 	if (data->str[l->j] && (data->str[l->j] == '\'' || data->str[l->j] == '"')
-			&& l->quote == -1)
+		&& l->quote == -1)
 	{
 		l->quote = data->str[l->j];
 		l->j++;
@@ -66,7 +66,7 @@ static int	lqt_next_next(t_data *data, t_type type, t_lexst **list, t_lqt *l)
 		&& data->str[l->j] != '\'' && data->str[l->j] != '"')
 	{
 		if (data->str[l->j] && data->str[l->j] == '$' && l->quote != '\''
-			&& data->str[l->j + 1] && data->str[l->j + 1] != '?')
+			&& data->str[l->j + 1])
 		{
 			if (expand_quote(data, &l->j, &l->temp))
 				return (ft_add_node(list, l->temp, define_type(type,
