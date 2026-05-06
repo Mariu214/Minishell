@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 13:14:54 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:16:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	apply_pipe(t_data *data, t_lexst **list)
 				|| (*list)->type == WORD))
 			(*list) = (*list)->next;
 		return_value = parsing_cmd(data, list);
-		ft_printf_fd(1, "\0");
 		(*list) = (*list)->next;
 		if ((*list)->type == PIPE)
 			(*list) = (*list)->next;
@@ -46,7 +45,6 @@ int	apply_pipe(t_data *data, t_lexst **list)
 	}
 	else
 	{
-		// wait(NULL);
 		dup2(end_pipe[0], 0);
 		close(end_pipe[1]);
 		close(end_pipe[0]);
@@ -79,6 +77,8 @@ int	find_pipe(t_data *data)
 	while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC)
 			|| temp->type == WORD))
 		temp = temp->next;
+	if (!data->pipenb)
+		wait(NULL);
 	if (temp)
 		return_value = last_pipe(data, &temp);
 	return (return_value);
