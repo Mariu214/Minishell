@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:27:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 10:59:37 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 10:01:05 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	open_file(char *fd_arg, int mode)
 	{
 		ft_printf_fd(2, "minishell: %s: %s\n", fd_arg, strerror(errno));
 		if (mode == 0)
-			return (-127);
+			return (-1);
 		return (-1);
 	}
 	return (fd);

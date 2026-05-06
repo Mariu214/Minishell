@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/05 10:13:36 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 09:58:11 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ static char	**creat_s_cmd(t_lexst **list, t_data *data)
 	{
 		temp = temp->next;
 		len++;
+		while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC) || temp->type == WORD))
+			temp = temp->next;
 	}
 	s_cmd = ft_calloc_gc(len + 1, sizeof(*s_cmd), &data->gc);
 	if (!s_cmd)
@@ -124,6 +126,8 @@ static char	**creat_s_cmd(t_lexst **list, t_data *data)
 			return (NULL);
 		(*list) = (*list)->next;
 		len++;
+		while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC) || (*list)->type == WORD))
+			(*list) = (*list)->next;
 	}
 	s_cmd[len] = NULL;
 	return (s_cmd);
