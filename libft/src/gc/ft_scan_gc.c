@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_scan_gc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 13:35:43 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/27 14:34:48 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:18:57 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,44 @@
 #define RM_NL 0
 #define NL 
 
-static char *read_line(char *line, int fd, t_gc **gc)
+static	char	*read_line(char *line, int fd, t_gc **gc)
 {
-    char    *buffer;
-    int     nb_read;
+	char	*buffer;
+	int		nb_read;
 
-    nb_read = 1;
-    buffer = ft_calloc_gc(sizeof(char), 2, gc);
-    if (!buffer)
-        return (NULL);
-    while (nb_read > 0 && ft_strcmp(line, "\n") != 0)
-    {
-        nb_read = read(fd, buffer, 1);
-        if (nb_read == -1)
-            return (ft_delone_gc(buffer, gc), ft_delone_gc(line, gc), NULL);
-        buffer[1] = 0;
-        line = ft_renew_gc(line, buffer, 0, gc);
-        if (!line)
-            return (NULL);
-        if (ft_strcmp(buffer, "\n") == 0)
-            break ;
-    }
-    return (ft_delone_gc(buffer, gc), line);
+	nb_read = 1;
+	buffer = ft_calloc_gc(sizeof(char), 2, gc);
+	if (!buffer)
+		return (NULL);
+	while (nb_read > 0 && ft_strcmp(line, "\n") != 0)
+	{
+		nb_read = read(fd, buffer, 1);
+		if (nb_read == -1)
+			return (ft_delone_gc(buffer, gc), ft_delone_gc(line, gc), NULL);
+		buffer[1] = 0;
+		line = ft_renew_gc(line, buffer, 0, gc);
+		if (!line)
+			return (NULL);
+		if (ft_strcmp(buffer, "\n") == 0)
+			break ;
+	}
+	return (ft_delone_gc(buffer, gc), line);
 }
 
-char    *ft_scan_gc(char *prompt, int mode, t_gc **gc, int fd)
+char	*ft_scan_gc(char *prompt, int mode, t_gc **gc, int fd)
 {
-    char  *scaned;
-    char  *line;
-  
-    ft_printf_fd(2, "%s", prompt);
-    scaned = ft_calloc_gc(1, 1, gc);
-    scaned = read_line(scaned, fd, gc);
-    if (!scaned)
-        return (NULL);
-    if (mode == 0)// remove the '\n'
-        line = ft_substr_gc(scaned, 0, ft_strlen(scaned) - 1, gc);
-    else// leave the '\n'
-        line = ft_strdup_gc(scaned, gc);
-    ft_delone_gc(scaned, gc);
-    return (line);
+	char	*scaned;
+	char	*line;
+
+	ft_printf_fd(2, "%s", prompt);
+	scaned = ft_calloc_gc(1, 1, gc);
+	scaned = read_line(scaned, fd, gc);
+	if (!scaned)
+		return (NULL);
+	if (mode == 0)
+		line = ft_substr_gc(scaned, 0, ft_strlen(scaned) - 1, gc);
+	else
+		line = ft_strdup_gc(scaned, gc);
+	ft_delone_gc(scaned, gc);
+	return (line);
 }

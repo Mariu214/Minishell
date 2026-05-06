@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:33:03 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 12:10:16 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 13:53:20 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ void	exec(t_lexst **list, t_data *data)
 
 	if (!(*list) || !(*list)->content)
 		exit(1);
-	sigaction(SIGINT, &data->sig_child, NULL);
-	sigaction(SIGQUIT, &data->sig_child_slash, NULL);
+	sigaction(SIGINT, &data->sig_chd, NULL);
+	sigaction(SIGQUIT, &data->sig_sh, NULL);
 	command.free = 0;
 	command.s_cmd = creat_s_cmd(list, data);
 	if (!command.s_cmd)

@@ -6,24 +6,24 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 09:46:32 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/16 10:43:53 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:12:58 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-int ft_free_tab_gc(char **tab, t_gc **gc)
+int	ft_free_tab_gc(char **tab, t_gc **gc)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (tab[i])
-    {
-        if (ft_delone_gc(tab[i], gc))
-            return (1);
-        i++;
-    }
-    if (ft_delone_gc(tab, gc))
-        return (1);
-    return (0);
+	i = 0;
+	while (tab[i])
+	{
+		if (ft_delone_gc(tab[i], gc))
+			return (1);
+		i++;
+	}
+	if (ft_delone_gc(tab, gc))
+		return (1);
+	return (0);
 }

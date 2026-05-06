@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:57:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 13:14:27 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:02:50 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	lexer(t_data *data, t_lexst **list, int *i)
 			return (1);
 	}
 	else if (data->str[*i] && is_quote(data->str, *i, '"'))
-		return (lexing_quote(data, i, CMD, list));
+		return (lqt(data, i, CMD, list));
 	else if (data->str[*i] && is_quote(data->str, *i, '\''))
-		return (lexing_quote(data, i, CMD, list));
+		return (lqt(data, i, CMD, list));
 	else if (data->str[*i] && data->str[*i] == ' ')
 	{
 		*i += 1;

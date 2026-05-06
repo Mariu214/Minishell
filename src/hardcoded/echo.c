@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 13:59:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 11:56:03 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 13:32:22 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,20 @@ static int	is_option(t_lexst *list)
 	return (1);
 }
 
-// echo <"./minishell_tester/test_files/infile" "bonjour       42"
+static void	print_echo(t_lexst *list)
+{
+	while (list && ((list->type >= WORD && list->type <= HEREDOC)))
+		list = list->next;
+	if (list && (((list)->type >= CMD && (list)->type <= BUILT_IN)))
+	{
+		printf("%s", (list)->content);
+		list = (list)->next;
+		if (list && (list->type >= CMD && list->type <= BUILT_IN))
+			printf(" ");
+	}
+}
 
-int	echo(t_lexst **list)
+int		echo(t_lexst **list)
 {
 	int	option;
 
@@ -49,17 +60,7 @@ int	echo(t_lexst **list)
 			*list = (*list)->next;
 	}
 	while (*list && (((*list)->type >= CMD && (*list)->type <= BUILT_IN)))
-	{
-		while (*list && (((*list)->type >= WORD && (*list)->type <= HEREDOC)))
-			*list = (*list)->next;
-		if (*list && (((*list)->type >= CMD && (*list)->type <= BUILT_IN)))
-		{
-			printf("%s", (*list)->content);
-			*list = (*list)->next;
-			if (*list && ((*list)->type >= CMD && (*list)->type <= BUILT_IN))
-				printf(" ");
-		}
-	}
+		print_echo(*list);
 	if (option == 0)
 		printf("\n");
 	return (0);

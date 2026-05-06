@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:59:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 14:02:10 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:12:26 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ char	*ft_strnstr_back(const char *big, const char *little, size_t n);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
-char    *ft_join_one(char const *, char const c);
-char    *ft_renew_one(char *start, char end);
+char	*ft_join_one(char const *s, char const c);
+char	*ft_renew_one(char *start, char end);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 size_t	ft_splitlen(char **str);
@@ -37,6 +37,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 void	free_tab(char **tab);
 char	**ft_split_sentence(char *str, const char sep, char *start);
-char    *ft_scan(char *prompt, int mode);
+char	*ft_scan(char *prompt, int mode);
 
 #endif

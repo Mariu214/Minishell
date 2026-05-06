@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 09:21:32 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 10:57:49 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:26:33 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,24 @@ void	signal_quit(int signum)
 	ft_shellerror_gc("", g_datacpy, 131, 0);
 }
 
-void	init_signal(struct sigaction *sig_int, struct sigaction *sig_quit,
-		struct sigaction *sig_child, struct sigaction *sig_child_slash)
+void	insig(struct sigaction *sig_it, struct sigaction *sig_qt)
 {
-	sig_child_slash->sa_handler = signal_quit;
-	sigemptyset(&sig_child_slash->sa_mask);
-	sig_child_slash->sa_flags = SA_RESTART;
-	sig_child->sa_handler = child_quit;
-	sigemptyset(&sig_child->sa_mask);
-	sig_child->sa_flags = SA_RESTART;
-	sig_int->sa_handler = signal_handler;
-	sigemptyset(&sig_int->sa_mask);
-	sig_int->sa_flags = SA_RESTART;
-	sig_quit->sa_handler = SIG_IGN;
-	sigemptyset(&sig_quit->sa_mask);
-	sig_quit->sa_flags = SA_RESTART;
+	sig_it->sa_handler = signal_handler;
+	sigemptyset(&sig_it->sa_mask);
+	sig_it->sa_flags = SA_RESTART;
+	sig_qt->sa_handler = SIG_IGN;
+	sigemptyset(&sig_qt->sa_mask);
+	sig_qt->sa_flags = SA_RESTART;
+}
+
+void	inseg(struct sigaction *sig_chd, struct sigaction *sig_sh)
+{
+	sig_sh->sa_handler = signal_quit;
+	sigemptyset(&sig_sh->sa_mask);
+	sig_sh->sa_flags = SA_RESTART;
+	sig_chd->sa_handler = child_quit;
+	sigemptyset(&sig_chd->sa_mask);
+	sig_chd->sa_flags = SA_RESTART;
 }
 
 void	signal_handler(int signum)

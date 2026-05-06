@@ -6,13 +6,13 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:16:02 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/08 15:33:07 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:10:04 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-char	*ft_substr_gc(char const *s, unsigned int start, size_t len, t_gc	**gc)
+char	*ft_substr_gc(char const *s, unsigned int start, size_t len, t_gc **gc)
 {
 	char	*new;
 	size_t	i;

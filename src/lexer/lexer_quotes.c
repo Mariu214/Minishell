@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:22:25 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/05 15:26:09 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:02:50 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	choose_quote(t_data *data, t_lexst **list, int *i)
 		&& data->str[j] != '|' && data->str[j] != ' ')
 	{
 		if (data->str[j] == '"')
-			return (lexing_quote(data, i, WORD, list));
+			return (lqt(data, i, WORD, list));
 		if (data->str[j] == '\'')
-			return (lexing_quote(data, i, WORD, list));
+			return (lqt(data, i, WORD, list));
 		j++;
 	}
 	return (0);
@@ -83,7 +83,7 @@ int	expand_quote(t_data *data, int *i, char **temp)
 	return (0);
 }
 
-int	lexing_quote(t_data *data, int *i, t_type type, t_lexst **list)
+int	lqt(t_data *data, int *i, t_type type, t_lexst **list)
 {
 	char	*temp;
 	char	quote;

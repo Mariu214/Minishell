@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 13:57:08 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/06 14:02:50 by malaimo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEXER_H
 # define LEXER_H
 
@@ -22,7 +34,7 @@ int						lexing_d_quote(t_data *data, int *i, t_type type,
 int						lexing_s_quote(t_data *data, int *i, t_type type,
 							t_lexst **list);
 
-int     lexing_quote(t_data *data, int *i, t_type type, t_lexst **list);
+int						lqt(t_data *data, int *i, t_type type, t_lexst **list);
 
 /* LEXER_REDIRECTIONS */
 int						lexing_precise_redirection(t_data *data, char *str,

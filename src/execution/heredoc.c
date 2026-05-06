@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 10:57:46 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:25:46 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static char	*here_doc_next(char *lim, t_data *data)
 	char			*nl;
 	struct termios	termios;
 
-	sigaction(SIGINT, &data->sig_child, NULL);
-	sigaction(SIGQUIT, &data->sig_quit, NULL);
+	sigaction(SIGINT, &data->sig_chd, NULL);
+	sigaction(SIGQUIT, &data->sig_qt, NULL);
 	tcgetattr(0, &termios);
 	// termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &termios);
@@ -42,27 +42,7 @@ static char	*here_doc_next(char *lim, t_data *data)
 		else if (ft_strcmp(scan, nl) != 0)
 			doc = ft_renew_gc(doc, scan, 0, &data->gc);
 	}
-	// ft_printf_fd(end_pipe[1], "%s", doc);
 	return (doc);
-	// (void)data;
-	// ft_printf_fd(2, "heredoc> ");
-	// join = ft_strjoin_gc(lim, "\n", &data->gc);
-	// gnl = ft_gnl_gc(0, &data->gc);
-	// close(end_pipe[0]);
-	// while (ft_strcmp(gnl, join) != 0 && gnl)
-	// {
-	// 	print_pipe(pipenb);
-	// 	ft_printf_fd(2, "heredoc> ");
-	// 	ft_printf_fd(end_pipe[1], "%s", gnl);
-	// 	ft_delone_gc(gnl, &data->gc);
-	// 	gnl = ft_gnl_gc(0, &data->gc);
-	// }
-	// if (!gnl)
-	// {
-	// 	ft_printf_fd(2, "\n");
-	// 	ft_shellerror_gc("", data, 2, 0);
-	// }
-	// ft_shellerror_gc("", data, 0, 0);
 }
 
 int	here_doc(char *lim, t_data *data)

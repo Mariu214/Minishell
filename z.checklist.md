@@ -1,7 +1,5 @@
 # PARSING
 
-//""''echo hola""'''' que""'' tal""''
-
 # EXEC
 
 

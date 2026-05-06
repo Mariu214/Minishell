@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 13:47:48 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/06 13:54:45 by malaimo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXEC_H
 # define EXEC_H
 
@@ -20,6 +32,7 @@ int					here_doc(char *lim, t_data *data);
 void				child_quit(int signum);
 void				signal_quit(int signum);
 void				signal_handler(int signum);
-void				init_signal(struct sigaction *sig_int, struct sigaction *sig_quit, struct sigaction *sig_child, struct sigaction *sig_child_slash);
+void				insig(struct sigaction *sig_it, struct sigaction *sig_qt);
+void				inseg(struct sigaction *sig_chd, struct sigaction *sig_sh);
 
 #endif

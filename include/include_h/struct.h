@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 14:08:35 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/06 14:08:43 by malaimo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
 
@@ -54,10 +66,10 @@ typedef struct s_data
 	t_cmd				*line;
 	char				*str;
 	char				**env;
-	struct sigaction	sig_int;
-	struct sigaction	sig_quit;
-	struct sigaction	sig_child;
-	struct sigaction	sig_child_slash;
+	struct sigaction	sig_it;
+	struct sigaction	sig_qt;
+	struct sigaction	sig_chd;
+	struct sigaction	sig_sh;
 	int					pipenb;
 	int					dollar;
 	int					pipedone;
