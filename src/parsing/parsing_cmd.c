@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 14:58:21 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 17:37:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	parsing_exec(t_lexst **list, t_data *data)
 	if (!child)
 		exec(list, data);
 	else
-		wait(NULL);
+		waitpid(child, &signal, 0);
 	if (WIFSIGNALED(signal))
 	{
 		if (WTERMSIG(signal) == 3)
