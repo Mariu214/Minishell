@@ -6,7 +6,11 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:27:07 by jdelmott          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/05/06 09:46:03 by jdelmott         ###   ########.fr       */
+=======
+/*   Updated: 2026/05/06 10:01:05 by jdelmott         ###   ########.fr       */
+>>>>>>> jona
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +32,7 @@ int	open_file(char *fd_arg, int mode)
 		ft_printf_fd(2, "minishell: %s: %s\n", fd_arg, strerror(errno));
 		if (mode == 0)
 			return (-1);
-		return (-2);
+		return (-1);
 	}
 	return (fd);
 }
