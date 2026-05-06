@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:10:04 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 11:44:53 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/05 13:29:35 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ static int	is_usable(char *str)
 	i = 0;
 	if (!str)
 		return (0);
-	if ((!ft_isalpha(str[0]) && str[0] != '_') || ft_strchr(str, '-'))
+	if ((!ft_isalpha(str[0]) && str[0] != '_') || is_minus(str))
 		return (ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
 				str), 0);
 	while (str[i])
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '='
-			&& str[i] != ' ')
+			&& str[i] != ' ' && str[i] != '-')
 			return (ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
 					str), 0);
 		i++;
