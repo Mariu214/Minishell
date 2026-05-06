@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 13:46:42 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:16:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	apply_pipe(t_data *data, t_lexst **list)
 				|| (*list)->type == WORD))
 			(*list) = (*list)->next;
 		return_value = parsing_cmd(data, list);
-		ft_printf_fd(1, "\0");
 		(*list) = (*list)->next;
 		if ((*list)->type == PIPE)
 			(*list) = (*list)->next;
