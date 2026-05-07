@@ -3,20 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
+#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/05/06 13:42:43 by malaimo          ###   ########.fr        #
+#    Updated: 2026/05/06 15:44:42 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing cd unset export \
+FILES = main heredoc exec_shell signals_handlers parsing_pipe parsing cd unset export \
 		open_files redirection parsing_cmd ft_shellerror_gc echo lexer define_type ft_atoll \
 		parsing_quote free_list parsing_redirections lexing_pipe lexing_word exit init_data \
-		ft_add_node ft_print_lex lexer_quotes lexer_redirections is_dollar is_minus \
+		ft_add_node ft_print_lex lexer_quotes lexer_redirections is_dollar is_minus ft_add_node_list \
 		lexer_cmd pipenb last_pipe expand_variables ft_delone print_pwd print_env lexer_built_in \
+		find_path lexer_quotes_utils \
 
 SRC_DIR = src/
 OBJ_DIR = obj/

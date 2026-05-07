@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:27:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 10:36:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:55:37 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	open_file(char *fd_arg, int mode)
 		fd = open(fd_arg, O_CREAT | O_WRONLY | O_APPEND, 0777);
 	else
 		fd = open(fd_arg, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-			// si je retire trunc ca marche mais ca fait pas ce qui fqut donc en vrai je sais pas trop
 	if (fd == -1)
 	{
 		ft_printf_fd(2, "minishell: %s: %s\n", fd_arg, strerror(errno));

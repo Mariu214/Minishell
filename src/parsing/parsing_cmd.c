@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 15:44:19 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 10:29:53 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	parsing_exec(t_lexst **list, t_data *data)
 	if (!child)
 		exec(list, data);
 	else
-		wait(NULL);
+		waitpid(child, &signal, 0);
 	if (WIFSIGNALED(signal))
 	{
 		if (WTERMSIG(signal) == 3)
@@ -61,44 +61,10 @@ static int	parsing_exec(t_lexst **list, t_data *data)
 
 int	parsing_cmd(t_data *data, t_lexst **list)
 {
-	int 	return_value;
-	// char	*cmd;
 	if ((*list)->type == BUILT_IN)
 		return (parsing_built_in(data, list));
-	// cmd = ft_strdup_gc((*list)->content, &data->gc);
-	// (*list) = (*list)->next;
-	// while ((*list) && (*list)->type == CMD)
-	// {
-	// 	cmd = ft_renew_gc(cmd, " ", 0, &data->gc);
-	// 	cmd = ft_renew_gc(cmd, (*list)->content, 0, &data->gc);
-	// 	(*list) = (*list)->next;
-	// }
-	return_value = parsing_cmd_next(list, data);
-	return (return_value);
-}
-
-int	parsing_cmd_next(t_lexst **list, t_data *data)
-{
-	// int     j;
-	// char	*temp;
-
 	if (ft_strnstr((*list)->content, "exit", 5))
 		return (255);
-	// if (ft_strcmp(cmd, "pwd") == 0)
-	// {
-	// 	temp = ft_getenv("PWD", data->env);
-	// 	printf("%s\n", temp);
-	// 	return (0);
-	// }
-	// else if (ft_strcmp(cmd, "env") == 0)
-	// {
-	// 	j = 0;
-	// 	while (data->env[j])
-	// 		printf("%s\n", data->env[j++]);
-	// 	return (0);
-	// }
 	else
 		return (parsing_exec(list, data));
-	// else
-	// 	return (parsing_exec(list, data));
 }

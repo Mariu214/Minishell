@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 09:25:51 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 10:08:45 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:57:14 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	lexing_word(t_data *data, int *i, t_lexst **list)
 {
-	int j;
-	char *temp;
-	
+	int		j;
+	char	*temp;
+
 	while (data->str[*i] && data->str[*i] == ' ')
 		(*i)++;
 	j = *i;

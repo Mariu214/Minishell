@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 14:25:46 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:36:17 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static char	*here_doc_next(char *lim, t_data *data)
 	sigaction(SIGINT, &data->sig_chd, NULL);
 	sigaction(SIGQUIT, &data->sig_qt, NULL);
 	tcgetattr(0, &termios);
-	// termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &termios);
 	scan = ft_calloc_gc(1, 1, &data->gc);
 	doc = ft_calloc_gc(1, 1, &data->gc);
@@ -33,12 +32,8 @@ static char	*here_doc_next(char *lim, t_data *data)
 		ft_delone_gc(scan, &data->gc);
 		print_pipe(data->pipenb);
 		scan = ft_scan_gc("heredoc> ", 1, &data->gc, data->old_stdin);
-		// printf("scan = %s taille = %ld\n", scan, ft_strlen(scan));
 		if (!scan || ft_strlen(scan) == 0)
-		{
-			ft_printf_fd(2, "\n");
-			ft_shellerror_gc("", data, 0, 0);
-		}
+			ft_shellerror_gc("\n", data, 0, 0);
 		else if (ft_strcmp(scan, nl) != 0)
 			doc = ft_renew_gc(doc, scan, 0, &data->gc);
 	}
@@ -51,7 +46,6 @@ int	here_doc(char *lim, t_data *data)
 	int		signal;
 	char	*doc;
 
-	// int		end_pipe[2];
 	pipe(data->pipe_heredoc);
 	parent = fork();
 	if (!parent)
@@ -59,10 +53,6 @@ int	here_doc(char *lim, t_data *data)
 		doc = here_doc_next(lim, data);
 		ft_printf_fd(data->pipe_heredoc[1], "%s", doc);
 		ft_printf_fd(data->pipe_heredoc[1], "\0");
-		close(data->pipe_heredoc[0]);
-		close(data->pipe_heredoc[1]);
-		data->pipe_heredoc[0] = -1;
-		data->pipe_heredoc[1] = -1;
 		ft_shellerror_gc("", data, 0, 0);
 	}
 	else

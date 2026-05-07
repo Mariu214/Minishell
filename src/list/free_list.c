@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:53:07 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 10:58:52 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:57:26 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	free_list(t_lexst **gc, t_gc **g)
 {
-	t_lexst *temp;
-	t_lexst *tp;
+	t_lexst	*temp;
+	t_lexst	*tp;
 
 	temp = (*gc);
 	while (temp)

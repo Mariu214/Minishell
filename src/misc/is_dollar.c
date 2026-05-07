@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_dollar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 10:53:49 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/05 11:18:54 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:58:08 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_dollar(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -31,7 +31,7 @@ int	find_dollar(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '$')
 			return (i);

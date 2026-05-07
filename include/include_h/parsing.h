@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 13:58:06 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 13:58:07 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:38:45 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int						init_parser(t_data *data);
 /* PARSING_CMD*/
 int						parsing_built_in(t_data *data, t_lexst **list);
 int						parsing_cmd(t_data *data, t_lexst **list);
-int						parsing_cmd_next(t_lexst **list, t_data *data);
 
 // /* PARSING_HEREDOC */
 // void					parsing_heredoc(t_data *data, char *lim);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 13:59:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 13:32:22 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 17:30:07 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ static int	is_option(t_lexst *list)
 	return (1);
 }
 
-static void	print_echo(t_lexst *list)
+static void	print_echo(t_lexst **list)
 {
-	while (list && ((list->type >= WORD && list->type <= HEREDOC)))
-		list = list->next;
-	if (list && (((list)->type >= CMD && (list)->type <= BUILT_IN)))
+	while ((*list) && (((*list)->type >= WORD && (*list)->type <= HEREDOC)))
+		(*list) = (*list)->next;
+	if ((*list) && (((*list)->type == CMD || (*list)->type == BUILT_IN)))
 	{
-		printf("%s", (list)->content);
-		list = (list)->next;
-		if (list && (list->type >= CMD && list->type <= BUILT_IN))
+		printf("%s", (*list)->content);
+		(*list) = (*list)->next;
+		if ((*list) && ((*list)->type >= CMD && (*list)->type <= BUILT_IN))
 			printf(" ");
 	}
 }
@@ -59,8 +59,8 @@ int		echo(t_lexst **list)
 		while (*list && (*list)->type == BUILT_IN && is_option(*list))
 			*list = (*list)->next;
 	}
-	while (*list && (((*list)->type >= CMD && (*list)->type <= BUILT_IN)))
-		print_echo(*list);
+	while (*list && (((*list)->type == CMD || (*list)->type == BUILT_IN)))
+		print_echo(list);
 	if (option == 0)
 		printf("\n");
 	return (0);

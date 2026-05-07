@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:22:42 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 10:36:53 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:57:54 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long	ft_atoll(const char *nptr, t_data *data)
 {
 	int		signe;
-	long   nbr;
+	long	nbr;
 	int		i;
 
 	signe = 1;

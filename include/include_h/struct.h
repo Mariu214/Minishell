@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 14:08:35 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 14:08:43 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 17:23:26 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 typedef enum e_type
 {
 	CMD = 1,
+	BUILT_IN,
 	WORD,
 	INPUT,
 	OU_APPEND,
 	OU_TRUNC,
 	HEREDOC,
-	BUILT_IN,
 	PIPE,
 }						t_type;
 

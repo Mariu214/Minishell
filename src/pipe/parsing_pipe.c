@@ -6,15 +6,25 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 15:38:20 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 10:30:26 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	last_pipe(t_data *data, t_lexst **list)
+static void	in_pipe(int *return_value, t_data *data, t_lexst **list)
 {
-	return (parsing_cmd(data, list));
+	*return_value = schr_redirection(list, data);
+	if (*return_value != 0)
+		ft_shellerror_gc("", data, *return_value, 0);
+	while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
+			|| (*list)->type == WORD))
+		(*list) = (*list)->next;
+	*return_value = parsing_cmd(data, list);
+	(*list) = (*list)->next;
+	if ((*list)->type == PIPE)
+		(*list) = (*list)->next;
+	ft_shellerror_gc("", data, *return_value, 0);
 }
 
 int	apply_pipe(t_data *data, t_lexst **list)
@@ -22,7 +32,7 @@ int	apply_pipe(t_data *data, t_lexst **list)
 	pid_t	child;
 	int		end_pipe[2];
 	int		return_value;
-	
+
 	return_value = 0;
 	pipe(end_pipe);
 	child = fork();
@@ -31,22 +41,10 @@ int	apply_pipe(t_data *data, t_lexst **list)
 		dup2(end_pipe[1], 1);
 		close(end_pipe[0]);
 		close(end_pipe[1]);
-		return_value = schr_redirection(list, data);
-		if (return_value != 0)
-			ft_shellerror_gc("", data, return_value, 0);
-		while ((*list) && (((*list)->type >= INPUT && (*list)->type <= HEREDOC)
-				|| (*list)->type == WORD))
-			(*list) = (*list)->next;
-		return_value = parsing_cmd(data, list);
-		ft_printf_fd(1, "\0");
-		(*list) = (*list)->next;
-		if ((*list)->type == PIPE)
-			(*list) = (*list)->next;
-		ft_shellerror_gc("", data, return_value, 0);
+		in_pipe(&return_value, data, list);
 	}
 	else
 	{
-		// wait(NULL);
 		dup2(end_pipe[0], 0);
 		close(end_pipe[1]);
 		close(end_pipe[0]);
@@ -79,8 +77,10 @@ int	find_pipe(t_data *data)
 	while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC)
 			|| temp->type == WORD))
 		temp = temp->next;
+	if (!data->pipenb)
+		wait(NULL);
 	if (temp)
-		return_value = last_pipe(data, &temp);
+		return_value = parsing_cmd(data, &temp);
 	return (return_value);
 }
 
@@ -101,15 +101,9 @@ static int	parsing_last_pipe(t_data *data)
 		data->str = ft_scan_gc("pipe> ", 0, &data->gc, 0);
 	}
 	if (!data->str)
-		return (ft_shellerror_gc("malloc error(parsing_last_pipe)\n", data, 0,
-				1));
+		return (ft_shellerror_gc("last_pipe\n", data, 0, 1));
 	init_lexer(data, &temp);
-	while (data->list->next)
-		data->list = data->list->next;
-	temp->previous = data->list;
-	data->list->next = temp;
-	while (data->list->previous)
-		data->list = data->list->previous;
+	ft_add_node_list(&data->list, &temp);
 	if (parsing_pipe(data, temp))
 		return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
 	if (parsing_quote(&data->list, data))
