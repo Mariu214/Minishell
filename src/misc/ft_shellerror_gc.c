@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 15:42:20 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:05:44 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_shellerror_gc(char *str, t_data *data, long out, int mode)
 {
 	struct termios	termios;
-	
+
 	tcgetattr(0, &termios);
 	termios.c_lflag |= ECHOCTL;
 	tcsetattr(0, TCSANOW, &termios);

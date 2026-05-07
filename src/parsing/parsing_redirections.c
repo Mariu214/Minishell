@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 12:41:01 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/07 16:43:50 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:06:10 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	parsing_input(t_lexst *list)
 {
 	if (!list->next)
 	{
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `newline'\n");
+		ft_printf_fd(2,
+			"minishell: syntax error near unexpected token `newline'\n");
 		return (2);
 	}
 	list = list->next;
@@ -34,7 +35,8 @@ int	parsing_heredoc(t_data *data, t_lexst *list)
 {
 	if (!list->next)
 	{
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `newline'\n");
+		ft_printf_fd(2,
+			"minishell: syntax error near unexpected token `newline'\n");
 		return (2);
 	}
 	list = list->next;
@@ -54,7 +56,8 @@ int	parsing_ou_trunc(t_lexst *list)
 {
 	if (!list->next)
 	{
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `newline'\n");
+		ft_printf_fd(2,
+			"minishell: syntax error near unexpected token `newline'\n");
 		return (2);
 	}
 	list = list->next;
@@ -72,7 +75,8 @@ int	parsing_ou_append(t_lexst *list)
 {
 	if (!list->next)
 	{
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `newline'\n");
+		ft_printf_fd(2,
+			"minishell: syntax error near unexpected token `newline'\n");
 		return (2);
 	}
 	list = list->next;

@@ -2,10 +2,10 @@
 
 # EXEC
 
-ls | 
+ls | <----------------------------t pas obligee si t'a la flemme les les ctrl marchent pas avec une pipe a la fin(ej crois que c'est exactement pareil que heredoc)
 pipe> (ctrl)
 
->minishell << LIM cat
+<!-- >minishell << LIM cat <---------------------------------------------------------------------------NORMALEMENT C BON
 heredoc> l
 heredoc> l
 heredoc> l
@@ -52,7 +52,7 @@ heredoc> LIM
 ==1096358== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
 l
 l
-l
+l -->
 
 
 Ajouter un memeset pour initialiser la struct termios. 

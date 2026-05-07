@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 16:56:46 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:06:42 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ int	parsing_pipe(t_data *data, t_lexst *list)
 		if (temp->type == PIPE)
 		{
 			if ((ft_strlen(temp->content) > 1) || (temp->previous
-				&& temp->previous->type >= INPUT
-				&& temp->previous->type <= HEREDOC))
+					&& temp->previous->type >= INPUT
+					&& temp->previous->type <= HEREDOC))
 				return (ft_printf_fd(2, "Minishell: parse error near `|'\n"),
 					2);
 		}
