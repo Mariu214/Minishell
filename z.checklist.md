@@ -2,6 +2,9 @@
 
 # EXEC
 
+ls | 
+pipe> (ctrl)
+
 >minishell << LIM cat
 heredoc> l
 heredoc> l
