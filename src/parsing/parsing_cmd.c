@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 13:14:43 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:44:19 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static int	parsing_exec(t_lexst **list, t_data *data)
 
 int	parsing_cmd(t_data *data, t_lexst **list)
 {
+	int 	return_value;
 	// char	*cmd;
 	if ((*list)->type == BUILT_IN)
 		return (parsing_built_in(data, list));
@@ -72,7 +73,8 @@ int	parsing_cmd(t_data *data, t_lexst **list)
 	// 	cmd = ft_renew_gc(cmd, (*list)->content, 0, &data->gc);
 	// 	(*list) = (*list)->next;
 	// }
-	return (parsing_cmd_next(list, data));
+	return_value = parsing_cmd_next(list, data);
+	return (return_value);
 }
 
 int	parsing_cmd_next(t_lexst **list, t_data *data)
@@ -97,4 +99,6 @@ int	parsing_cmd_next(t_lexst **list, t_data *data)
 	// }
 	else
 		return (parsing_exec(list, data));
+	// else
+	// 	return (parsing_exec(list, data));
 }

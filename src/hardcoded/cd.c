@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 14:09:17 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 11:46:07 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 14:57:28 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	init_cd(t_data *data, t_lexst **list)
 	{
 		while (*list && (*list)->type == BUILT_IN)
 			*list = (*list)->next;
-		return (ft_printf_fd(2, "minishell: cd: too many arguents\n"), 1);
+		return (ft_printf_fd(2, "minishell: cd: too many arguments\n"), 1);
 	}
 	return (cd(data, (*list)->content));
 }

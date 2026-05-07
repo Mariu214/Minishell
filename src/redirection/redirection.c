@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 11:49:56 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/06 15:00:26 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	schr_redirection(t_lexst **list, t_data *data)
 		{
 			return_value = do_redirection(temp, data);
 			if (return_value != 0)
+			{
+				printf("value at schr = %d\n", return_value);
 				return (return_value);
+			}
 		}
 		temp = temp->next;
 	}
