@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:25:42 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 10:58:03 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 10:33:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_env(t_data *data, t_lexst **list)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (data->env[j])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 14:36:17 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:00:28 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static char	*here_doc_next(char *lim, t_data *data)
 	sigaction(SIGINT, &data->sig_chd, NULL);
 	sigaction(SIGQUIT, &data->sig_qt, NULL);
 	tcgetattr(0, &termios);
+	termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &termios);
 	scan = ft_calloc_gc(1, 1, &data->gc);
 	doc = ft_calloc_gc(1, 1, &data->gc);

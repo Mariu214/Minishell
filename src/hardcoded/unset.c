@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:06:32 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 10:58:09 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 10:33:35 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	is_usable(char *str)
 
 int	init_unset(t_data *data, t_lexst **list)
 {
-	int return_value;
+	int	return_value;
 
 	return_value = 0;
 	*list = (*list)->next;

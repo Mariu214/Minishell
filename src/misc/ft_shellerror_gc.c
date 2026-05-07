@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 10:30:16 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 12:01:11 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 int	ft_shellerror_gc(char *str, t_data *data, long out, int mode)
 {
+	struct termios	termios;
+	
+	tcgetattr(0, &termios);
+	termios.c_lflag |= ECHOCTL;
+	tcsetattr(0, TCSANOW, &termios);
 	ft_printf_fd(2, "%s", str);
 	ft_free_all_gc(&data->gc);
 	if (mode == 0)
