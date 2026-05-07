@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/30 14:09:04 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:00:03 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ char			*ft_substr_gc(char const *s, unsigned int start, size_t len,
 					t_gc **gc);
 char			*ft_scan_gc(char *prompt, int mode, t_gc **gc, int fd);
 char			*ft_getenv_gc(const char *name, char **env, t_gc **gc);
+char			*ft_itoa_gc(int n, t_gc **gc);
 
 #endif

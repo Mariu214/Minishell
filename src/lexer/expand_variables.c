@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 13:29:13 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 14:56:30 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:02:09 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ char	*rtv(t_data *data)
 	char	*content;
 	int		size;
 
-	size = ft_strlen(ft_itoa(data->dollar));
+	size = ft_strlen(ft_itoa_gc(data->dollar, &data->gc));
 	content = ft_calloc_gc(1, size, &data->gc);
 	if (!content)
 		return (NULL);
-	content = ft_itoa(data->dollar);
+	content = ft_itoa_gc(data->dollar, &data->gc);
 	if (!content)
 		return (NULL);
 	return (content);

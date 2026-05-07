@@ -6,7 +6,7 @@
 #    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/04/30 14:07:34 by jdelmott         ###   ########.fr        #
+#    Updated: 2026/05/07 17:00:18 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ENV = ft_getenv \
 
 GC = ft_calloc_gc ft_delone_gc ft_error_gc ft_free_all_gc ft_free_tab_gc ft_gnl_gc ft_lstadd_gc \
 	ft_malloc_gc ft_renew_gc ft_split_gc ft_split_sentence_gc ft_splitdup_gc ft_strdup_gc \
-	ft_strjoin_gc ft_substr_gc ft_scan_gc ft_getenv_gc ft_join_one_gc ft_renew_one_gc \
+	ft_strjoin_gc ft_substr_gc ft_scan_gc ft_getenv_gc ft_join_one_gc ft_renew_one_gc ft_itoa_gc \
 
 GET_NEXT_LINE = get_next_line gnl_lim \
 

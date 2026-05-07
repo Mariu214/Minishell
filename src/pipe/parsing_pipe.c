@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 16:54:45 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:56:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int	parsing_pipe(t_data *data, t_lexst *list)
 		temp = temp->next;
 		if (temp->type == PIPE)
 		{
-			ft_printf_fd(2, "yoloooooooooo\n");
 			if ((ft_strlen(temp->content) > 1) || (temp->previous
 				&& temp->previous->type >= INPUT
 				&& temp->previous->type <= HEREDOC))
