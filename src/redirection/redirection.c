@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 10:47:02 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 16:42:42 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	schr_redirection(t_lexst **list, t_data *data)
 		if (temp->type >= INPUT && temp->type <= HEREDOC)
 		{
 			return_value = do_redirection(temp, data);
-			if (return_value != 0)
+			if (return_value == -1)
+				return (0);
+			else if (return_value != 0)
 				return (return_value);
 		}
 		temp = temp->next;

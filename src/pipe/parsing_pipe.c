@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 10:30:26 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 16:41:25 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	find_pipe(t_data *data)
 	while (temp && ((temp->type >= INPUT && temp->type <= HEREDOC)
 			|| temp->type == WORD))
 		temp = temp->next;
-	if (!data->pipenb)
-		wait(NULL);
 	if (temp)
 		return_value = parsing_cmd(data, &temp);
 	return (return_value);
