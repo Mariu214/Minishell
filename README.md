@@ -4,6 +4,6 @@
 The objective of the minishell project is to create a working terminal environment.
 
 # Instructions
-launch minishell.
+launch minishell. mdrrrrr
 
 # Resources
