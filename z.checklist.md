@@ -5,6 +5,8 @@
 ls | <----------------------------t pas obligee si t'a la flemme les les ctrl marchent pas avec une pipe a la fin(ej crois que c'est exactement pareil que heredoc)
 pipe> (ctrl)
 
+<!-- ATOLL REGLE -->
+
 <!-- >minishell << LIM cat <---------------------------------------------------------------------------NORMALEMENT C BON
 heredoc> l
 heredoc> l
@@ -55,7 +57,7 @@ l
 l -->
 
 
-Ajouter un memeset pour initialiser la struct termios. 
+<!-- Ajouter un memeset pour initialiser la struct termios. <---------------------------------------------------------------------------NORMALEMENT C BON
 >minishell cat Makefile | cat | cat | cat 
 ==1095768== Syscall param ioctl(TCSET{S,SW,SF}) points to uninitialised byte(s)
 ==1095768==    at 0x49B48B1: tcsetattr (tcsetattr.c:79)
@@ -70,14 +72,14 @@ Ajouter un memeset pour initialiser la struct termios.
 ==1095768==  in frame #0, created by tcsetattr (tcsetattr.c:45)
 ==1095768==  Uninitialised value was created by a stack allocation
 ==1095768==    at 0x4029D4: ft_shellerror_gc (ft_shellerror_gc.c:16)
-==1095768== 
+==1095768==  -->
 
-
+<!---------------------------------------------------------------------------ALORS BASH FAIS LA MEME DONC NIQUE
 >minishell echo -nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn -nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn test
 test>minishecho -nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn -nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn test
-test>minish
+test>minish -->
 
-Quand exit : 
+<!-- Quand exit : <---------------------------------------------------------------------------NORMALEMENT C BON
 ==1094247== FILE DESCRIPTORS: 0 open (0 inherited) at exit.
 ==1094247== 
 ==1094247== HEAP SUMMARY:
@@ -116,14 +118,14 @@ Quand exit :
 ==1094247==         suppressed: 229,024 bytes in 258 blocks
 ==1094247== 
 ==1094247== For lists of detected and suppressed errors, rerun with: -s
-==1094247== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==1094247== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0) -->
 
-ctrl c = 130
+<!-- ctrl c = 130
 ctr \ = 131
 - Handle ’ (single quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence.
 - Handle " (double quote) which should prevent the shell from interpreting the meta-
-characters in the quoted sequence except for $ (dollar sign) return 127
+characters in the quoted sequence except for $ (dollar sign) return 127 -->
 
 <!-- - < should redirect input.
 - > should redirect output. -->
@@ -141,11 +143,11 @@ delimiter is seen. However, it doesn’t have to update the history! -->
 <!-- - ctrl-D exits the shell. -->
 <!-- - ctrl-\ does nothing. -->
 
-- Implement pipes (| character). The output of each command in the pipeline is
+<!-- - Implement pipes (| character). The output of each command in the pipeline is
 connected to the input of the next command via a pipe.
 
 - Handle environment variables ($ followed by a sequence of characters) which
-should expand to their values
+should expand to their values -->
 
 <!-- - Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline. -->
@@ -154,7 +156,7 @@ foreground pipeline. -->
 - cd with only a relative or absolute path
 <!-- - pwd with no options -->
 <!-- - export with no options -->
-unset with no options attention au readonly
+<!-- unset with no options attention au readonly -->
 <!-- - env with no options or arguments -->
 <!-- - exit with no options -->
 

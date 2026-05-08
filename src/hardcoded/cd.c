@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 14:09:17 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/07 10:43:02 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/08 14:00:52 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	cd(t_data *data, char *str)
 		return (ft_printf_fd(2, "minishell: cd: %s: %s\n", str,
 				strerror(errno)), 1);
 	temp = getcwd(data->current_dir, 4096);
-	old_temp = getenv("PWD");
 	if (!temp)
-		return (perror("error :"), 1);
+		return (ft_printf_fd(2, "Minishell: couldn't access directory", 1));
+	old_temp = getenv("PWD");
 	temp = ft_strjoin("PWD=", temp);
 	if (!temp)
 		return (1);

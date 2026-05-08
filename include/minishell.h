@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:54 by malaimo           #+#    #+#             */
-/*   Updated: 2026/04/30 11:10:45 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/08 13:36:11 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <limits.h>
 
 extern t_data	*g_datacpy;
 

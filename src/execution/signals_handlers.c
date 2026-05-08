@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 09:21:32 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 14:26:33 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/08 13:17:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	signal_handler(int signum)
 	(void)signum;
 	if (!g_datacpy->process)
 	{
+		g_datacpy->dollar = 130;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

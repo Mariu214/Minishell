@@ -6,7 +6,7 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 13:30:07 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/07 10:37:06 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/08 13:44:49 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_exit(t_data *data, t_lexst **list)
 {
 	*list = (*list)->next;
-	if (!list || (*list)->type != BUILT_IN)
+	if (!*list || (*list)->type != BUILT_IN)
 		ft_shellerror_gc("exit\n", data, 0, 0);
 	if ((*list)->next && (*list)->next->type == BUILT_IN)
 		ft_shellerror_gc("exit\ntoo many arguments\n", data, 1, 0);

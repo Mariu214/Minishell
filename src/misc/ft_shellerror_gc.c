@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shellerror_gc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 17:05:44 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/08 13:50:14 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_shellerror_gc(char *str, t_data *data, long out, int mode)
+int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
 {
 	struct termios	termios;
 
+	ft_memset(&termios, 0, sizeof(termios));
 	tcgetattr(0, &termios);
 	termios.c_lflag |= ECHOCTL;
 	tcsetattr(0, TCSANOW, &termios);
