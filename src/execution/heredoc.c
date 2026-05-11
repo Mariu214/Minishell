@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 11:36:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/07 17:40:04 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/11 19:05:46 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static char	*here_doc_next(char *lim, t_data *data)
 
 	sigaction(SIGINT, &data->sig_chd, NULL);
 	sigaction(SIGQUIT, &data->sig_qt, NULL);
+	ft_memset(&termios, 0, sizeof(termios));
 	tcgetattr(0, &termios);
 	termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &termios);
