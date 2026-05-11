@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 10:47:57 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/04/21 15:27:35 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/11 20:02:23 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef struct s_data	t_data;
 
 /* LAST_PIPE */
 int						is_last_pipe(char *line);
+int						parsing_last_pipe(t_data *data);
 
 /* PARSING_PIPE */
-int						last_pipe(t_data *data, t_lexst **list);
 int						apply_pipe(t_data *data, t_lexst **list);
 int						find_pipe(t_data *data);
 int						parsing_pipe(t_data *data, t_lexst *list);

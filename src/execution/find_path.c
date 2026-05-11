@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 15:01:02 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/06 17:41:33 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/11 19:08:04 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	no_fil_dir(t_command *command, t_data *data)
 		if (access(command->s_cmd[0], X_OK | F_OK) != 0)
 		{
 			path = ft_strjoin_gc("/", command->s_cmd[0], &data->gc);
-			if (access(path, X_OK | F_OK) != 0)
+			if (!path || access(path, X_OK | F_OK) != 0)
 			{
 				command->free = 1;
 				ft_printf_fd(2, "%s: %s\n", command->s_cmd[0], strerror(errno));
@@ -56,7 +56,11 @@ char	*is_accessible(char *cmd, t_data *data)
 
 	temp.i = 0;
 	temp.all_path = ft_split_gc(ft_getenv("PATH", data->env), ':', &data->gc);
+	if (!temp.all_path)
+		return (NULL);
 	temp.s_cmd = ft_strdup_gc(cmd, &data->gc);
+	if (!temp.s_cmd)
+		return (NULL);
 	while (temp.all_path[temp.i])
 	{
 		temp.join = ft_strjoin_gc(temp.all_path[temp.i], "/", &data->gc);

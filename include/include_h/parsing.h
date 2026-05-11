@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 13:58:06 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/06 14:38:45 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/11 20:01:32 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,5 @@ int						parsing_input(t_lexst *list);
 int						parsing_heredoc(t_data *data, t_lexst *list);
 int						parsing_ou_trunc(t_lexst *list);
 int						parsing_ou_append(t_lexst *list);
-
-int						parsing_quote(t_lexst **lex, t_data *data);
 
 #endif
