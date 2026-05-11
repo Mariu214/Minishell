@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 13:33:43 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/11 19:49:32 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/12 00:26:57 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	init_data(t_data *data, int argc, char *argv[], char *envp[])
 	data->dollar = 0;
 	g_datacpy->process = 0;
 	data->env = ft_splitdup(envp);
+	if (!data->env || !data->env[0])
+		ft_shellerror_gc("error: malloc\n", data, 1, 0);
 	data->old_stdin = dup(STDIN_FILENO);
 	data->old_stdout = dup(STDOUT_FILENO);
 	if (data->old_stdin < 0 || data->old_stdout < 0)
