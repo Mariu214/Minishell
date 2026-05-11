@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:53:53 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/05/11 18:14:16 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/11 20:03:04 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,22 @@ int	apply_pipe(t_data *data, t_lexst **list)
 	child = fork();
 	if (!child)
 	{
-		dup2(end_pipe[1], 1);
+		if (dup2(end_pipe[1], 1) < 0)
+			ft_shellerror_gc("error: dup2\n", data, 0, 0);
 		close(end_pipe[0]);
 		close(end_pipe[1]);
 		in_pipe(&return_value, data, list);
 	}
 	else
 	{
-		dup2(end_pipe[0], 0);
-		close(end_pipe[1]);
-		close(end_pipe[0]);
+		if (dup2(end_pipe[0], 0) < 0)
+			ft_shellerror_gc("error: malloc\n", data, 0, 0);
 		while ((*list) && (*list)->type != PIPE)
 			(*list) = (*list)->next;
 		if ((*list)->type == PIPE)
 			(*list) = (*list)->next;
 	}
-	return (0);
+	return (close(end_pipe[1]), close(end_pipe[0]), 0);
 }
 
 int	find_pipe(t_data *data)
@@ -80,34 +80,6 @@ int	find_pipe(t_data *data)
 	if (temp)
 		return_value = parsing_cmd(data, &temp);
 	return (return_value);
-}
-
-static int	parsing_last_pipe(t_data *data)
-{
-	t_lexst	*temp;
-	char	*tmp;
-
-	temp = NULL;
-	tmp = ft_strdup_gc(data->str, &data->gc);
-	tmp = ft_renew_gc(tmp, " ", 0, &data->gc);
-	ft_delone_gc(data->str, &data->gc);
-	data->str = ft_strdup_gc(NULL, &data->gc);
-	while (!data->str[0])
-	{
-		ft_delone_gc(data->str, &data->gc);
-		print_pipe(countpipe(data) - 1);
-		data->str = ft_scan_gc("pipe> ", 0, &data->gc, 0);
-	}
-	if (!data->str)
-		return (ft_shellerror_gc("last_pipe\n", data, 0, 1));
-	init_lexer(data, &temp);
-	ft_add_node_list(&data->list, &temp);
-	if (parsing_pipe(data, temp))
-		return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
-	if (parsing_quote(&data->list, data))
-		return (data->str = ft_renew_gc(tmp, data->str, 2, &data->gc), 1);
-	data->str = ft_renew_gc(tmp, data->str, 2, &data->gc);
-	return (0);
 }
 
 int	parsing_pipe(t_data *data, t_lexst *list)

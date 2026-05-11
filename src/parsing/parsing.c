@@ -6,7 +6,7 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:24:50 by malaimo           #+#    #+#             */
-/*   Updated: 2026/05/07 16:55:06 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/11 19:52:18 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	init_parser(t_data *data)
 	if (parsing_pipe(data, data->list))
 		return (2);
 	return_value = find_pipe(data);
-	dup2(data->old_stdin, STDIN_FILENO);
-	dup2(data->old_stdout, STDOUT_FILENO);
+	if (dup2(data->old_stdin, STDIN_FILENO) < 0)
+		ft_shellerror_gc("error: dup2\n", data, 0, 0);
+	if (dup2(data->old_stdout, STDOUT_FILENO) < 0)
+		ft_shellerror_gc("error: dup2\n", data, 0, 0);
 	g_datacpy->process = 0;
 	return (return_value);
 }
