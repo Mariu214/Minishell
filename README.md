@@ -20,10 +20,11 @@ Once the prompt appears, you can use it like a standard terminal:
 * **Exit**: To leave the program, simply type `exit` or press `Ctrl+D`.
 
 # Resources
-https://tiswww.case.edu/php/chet/readline/readline.html
-https://www.youtube.com/watch?v=Vax97MIL_uI&list=PLKUb7MEve0TjHQSKUWChAWyJPCpYMRovO&index=60
-https://man7.org/linux/man-pages/man3/readline.3.html
-https://www.gnu.org/savannah-checkouts/gnu/bash/manual/
-https://man7.org/linux/man-pages/man3/termios.3.html
-https://stackoverflow.com/questions/24538470/what-does-dup2-do-in-c
-https://www.ibm.com/docs/fr/aix/7.3.0?topic=w-wait-waitpid-wait3-wait364-wait4-subroutine
+<br />
+- https://tiswww.case.edu/php/chet/readline/readline.html <br />
+- https://www.youtube.com/watch?v=Vax97MIL_uI&list=PLKUb7MEve0TjHQSKUWChAWyJPCpYMRovO&index=60 <br />
+- https://man7.org/linux/man-pages/man3/readline.3.html <br />
+- https://www.gnu.org/savannah-checkouts/gnu/bash/manual/ <br />
+- https://man7.org/linux/man-pages/man3/termios.3.html <br />
+- https://stackoverflow.com/questions/24538470/what-does-dup2-do-in-c <br />
+- https://www.ibm.com/docs/fr/aix/7.3.0?topic=w-wait-waitpid-wait3-wait364-wait4-subroutine <br />
