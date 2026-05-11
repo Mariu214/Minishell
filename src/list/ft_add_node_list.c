@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_add_node_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 14:46:48 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:46 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/05/06 14:50:48 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/05/06 14:57:31 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_add_node_list(t_lexst **list, t_lexst **temp)
 {
-	while (lst)
-	{
-		f(lst->content);
-		lst = lst->next;
-	}
+	while ((*list)->next)
+		(*list) = (*list)->next;
+	(*temp)->previous = (*list);
+	(*list)->next = (*temp);
+	while ((*list)->previous)
+		(*list) = (*list)->previous;
+	return (0);
 }

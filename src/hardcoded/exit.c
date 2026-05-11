@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_heredoc.c                                  :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 10:41:11 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/30 15:29:54 by malaimo          ###   ########.fr       */
+/*   Created: 2026/05/05 13:30:07 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/08 13:44:49 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void    parsing_heredoc(t_data *data, char *lim)
+void	ft_exit(t_data *data, t_lexst **list)
 {
-    if (!data->str[1])
-    {
-        ft_shellerror_gc("minishell: syntax error near unexpected token `newline'\n", data, 1);
-    }
-    here_doc(lim, data->pipenb, data);
-    return ;
+	*list = (*list)->next;
+	if (!*list || (*list)->type != BUILT_IN)
+		ft_shellerror_gc("exit\n", data, 0, 0);
+	if ((*list)->next && (*list)->next->type == BUILT_IN)
+		ft_shellerror_gc("exit\ntoo many arguments\n", data, 1, 0);
+	ft_shellerror_gc("exit\n", data, ft_atoll((*list)->content, data) % 256, 0);
 }

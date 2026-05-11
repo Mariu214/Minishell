@@ -6,29 +6,65 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 09:15:54 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/31 15:33:26 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/07 10:29:53 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	parsing_cmd(char *cmd, t_data *data)
+int	parsing_built_in(t_data *data, t_lexst **list)
 {
-    int     j;
-	char	*temp;
+	while (*list && (*list)->type == BUILT_IN)
+	{
+		if (ft_strcmp((*list)->content, "export") == 0)
+			return (init_export(data, list));
+		else if (ft_strcmp((*list)->content, "unset") == 0)
+			return (init_unset(data, list));
+		else if (ft_strcmp((*list)->content, "cd") == 0)
+			return (init_cd(data, list));
+		else if (ft_strcmp((*list)->content, "echo") == 0)
+			return (echo(list));
+		else if (ft_strcmp((*list)->content, "pwd") == 0)
+			return (print_pwd(data, list));
+		else if (ft_strcmp((*list)->content, "env") == 0)
+			return (print_env(data, list));
+		else if (ft_strcmp((*list)->content, "exit") == 0)
+			return (ft_exit(data, list), 0);
+	}
+	return (1);
+}
 
-	if (ft_strcmp(cmd, "pwd") == 0)
+static int	parsing_exec(t_lexst **list, t_data *data)
+{
+	pid_t	child;
+	int		signal;
+
+	signal = 0;
+	child = fork();
+	if (!child)
+		exec(list, data);
+	else
+		waitpid(child, &signal, 0);
+	if (WIFSIGNALED(signal))
 	{
-		temp = ft_getenv("PWD", data->env);
-		printf("%s\n", temp);
+		if (WTERMSIG(signal) == 3)
+		{
+			printf("Quit (core dumped)\n");
+			return (131);
+		}
+		return (130);
 	}
-	else if (ft_strcmp(cmd, "env") == 0)
-	{
-		j = 0;
-		while (data->env[j])
-			printf("%s\n", data->env[j++]);
-		// return_value = 0;
-	}
-    else
-        exec(cmd, data);
+	if (WIFEXITED(signal))
+		return (WEXITSTATUS(signal));
+	return (0);
+}
+
+int	parsing_cmd(t_data *data, t_lexst **list)
+{
+	if ((*list)->type == BUILT_IN)
+		return (parsing_built_in(data, list));
+	if (ft_strnstr((*list)->content, "exit", 5))
+		return (255);
+	else
+		return (parsing_exec(list, data));
 }

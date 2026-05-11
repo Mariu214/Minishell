@@ -3,23 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+         #
+#    By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 14:01:59 by malaimo           #+#    #+#              #
-#    Updated: 2026/03/31 14:57:05 by malaimo          ###   ########.fr        #
+#    Updated: 2026/05/11 19:51:00 by jdelmott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FILES = main heredoc exec_shell parsing_heredoc signals_handlers parsing_pipe parsing cd unset export \
-		open_files redirection lexer lexer_utils parsing_cmd dollar ft_shellerror_gc echo \
+FILES = main heredoc exec_shell signals_handlers parsing_pipe parsing cd unset export \
+		open_files redirection parsing_cmd ft_shellerror_gc echo lexer define_type ft_atoll \
+		free_list parsing_redirections lexing_pipe lexing_word exit init_data \
+		ft_add_node ft_print_lex lexer_quotes lexer_redirections is_dollar is_minus ft_add_node_list \
+		lexer_cmd pipenb last_pipe expand_variables ft_delone print_pwd print_env lexer_built_in \
+		find_path lexer_quotes_utils \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
 
 CC = cc
-FLAGS = -Wall -Werror -Wextra -O0
+FLAGS = -Wall -Werror -Wextra -O0 -g -o
 
 INCLUDE =  include/minishell.h
 
@@ -38,16 +42,16 @@ RESET = \033[0;39m
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 
-vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe $(SRC_DIR)redirection $(SRC_DIR)hardcoded $(SRC_DIR)misc
+vpath %.c $(SRC_DIR) $(SRC_DIR)parsing $(SRC_DIR)execution $(SRC_DIR)pipe $(SRC_DIR)redirection $(SRC_DIR)hardcoded $(SRC_DIR)misc $(SRC_DIR)list $(SRC_DIR)lexer
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Iinclude -lreadline -g3 -o $(NAME)
+	@$(CC) $(FLAGS) -L/opt/homebrew/opt/readline/lib $(OBJ) $(LIBFT) -D_DEFAULT_SOURCE -Iinclude -lreadline -g3 -o $(NAME)
 	@echo -e "$(GREEN)Minishell Compiled!$(RESET)"
 
 $(OBJ_DIR)%.o: %.c $(INCLUDE) Makefile | $(OBJF)
-	@$(CC) $(FLAGS) -c -g3 $< -o $@
+	@$(CC) $(FLAGS) -I/opt/homebrew/opt/readline/include -D_DEFAULT_SOURCE -c -g3 $< -o $@
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)

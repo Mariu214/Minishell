@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   is_minus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 14:18:15 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:40 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/05/05 12:17:33 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/06 14:58:16 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+int	is_minus(char *str)
 {
-	if (!lst || !del)
-		return ;
-	del(lst->content);
-	free(lst);
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i] == '-')
+			return (1);
+		i++;
+	}
+	return (0);
 }

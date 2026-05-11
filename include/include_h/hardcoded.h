@@ -1,17 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hardcoded.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 13:58:19 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/06 14:06:36 by malaimo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef HARDCODED_H
 # define HARDCODED_H
 
-int 		cd_make(t_data *data, int i);
+/* CD */
+int		cd(t_data *data, char *str);
+int		init_cd(t_data *data, t_lexst **list);
 
-char        *dollar(char *envp[], char *str);
+/* EXPORT */
+int		search_export(t_data *data, char *str, int *i, int *end);
+int		fill_export(t_data *data, char *str, int end, int i);
+int		export(t_data *data, char *str);
+int		init_export(t_data *data, t_lexst **list);
 
-char        **export(char *envp[], char *str);
-int         init_export(t_data *data, int i);
+/* UNSET */
+int		del_variable(t_data *data, char *str, char *temp, int i);
+int		unset(t_data *data, char *str);
+int		init_unset(t_data *data, t_lexst **list);
 
-char        **unset(char *envp[], char *str);
-int         init_unset(t_data *data, int i);
+/* ECHO */
+int		echo(t_lexst **list);
 
-int         echo(char *str);
+/* PRINT_ENV */
+int		print_env(t_data *data, t_lexst **list);
 
+/* PRINT_PWD */
+int		print_pwd(t_data *data, t_lexst **list);
+
+/* EXIT */
+void	ft_exit(t_data *data, t_lexst **list);
 
 #endif

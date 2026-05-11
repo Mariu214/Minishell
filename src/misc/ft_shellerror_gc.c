@@ -6,16 +6,56 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:18:04 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/30 13:45:21 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/08 13:50:14 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_shellerror_gc(char *str, t_data *data, int out)
+int	ft_shellerror_gc(char *str, t_data *data, int out, int mode)
 {
+	struct termios	termios;
+
+	ft_memset(&termios, 0, sizeof(termios));
+	tcgetattr(0, &termios);
+	termios.c_lflag |= ECHOCTL;
+	tcsetattr(0, TCSANOW, &termios);
 	ft_printf_fd(2, "%s", str);
-	free(data->env);
 	ft_free_all_gc(&data->gc);
-	exit(out);
+	if (mode == 0)
+	{
+		close_fds(data);
+		close(1);
+		close(0);
+		close(2);
+		free_tab(data->env);
+		exit(out);
+	}
+	else
+		return (out);
+}
+
+int	close_fds(t_data *data)
+{
+	if (data->pipe_heredoc[0] != -1)
+	{
+		close(data->pipe_heredoc[0]);
+		data->pipe_heredoc[0] = -1;
+	}
+	if (data->pipe_heredoc[1] != -1)
+	{
+		close(data->pipe_heredoc[1]);
+		data->pipe_heredoc[1] = -1;
+	}
+	if (data->old_stdin != -1)
+	{
+		close(data->old_stdin);
+		data->old_stdin = -1;
+	}
+	if (data->old_stdout != -1)
+	{
+		close(data->old_stdout);
+		data->old_stdout = -1;
+	}
+	return (1);
 }

@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   free_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 14:27:40 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:35 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/04/21 15:53:07 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/05/06 14:57:26 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	free_list(t_lexst **gc, t_gc **g)
 {
-	t_list	*temp;
-	t_list	*tp;
+	t_lexst	*temp;
+	t_lexst	*tp;
 
-	if (!(*lst) || !del)
-		return ;
-	temp = (*lst);
+	temp = (*gc);
 	while (temp)
 	{
 		tp = temp->next;
-		ft_lstdelone(temp, del);
+		if (temp->content)
+			ft_delone_gc(temp->content, g);
+		if (temp)
+			ft_delone_gc(temp, g);
 		temp = tp;
 	}
-	(*lst) = NULL;
+	*gc = NULL;
 }

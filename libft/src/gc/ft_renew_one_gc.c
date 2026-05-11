@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_renew_one_gc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 15:14:35 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:29 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/04/30 14:06:04 by jdelmott          #+#    #+#             */
+/*   Updated: 2026/05/06 14:19:22 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+char	*ft_renew_one_gc(char *start, char end, t_gc **gc)
 {
-	t_list		*last;
+	char	*temp;
 
-	if (lst)
-	{
-		if (*lst)
-		{
-			last = ft_lstlast(*lst);
-			last->next = new;
-		}
-		else
-			*lst = new;
-	}
+	if (!start || !end || !gc)
+		return (NULL);
+	temp = ft_join_one_gc(start, end, gc);
+	ft_delone_gc(start, gc);
+	return (temp);
 }

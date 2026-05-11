@@ -1,15 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 13:58:06 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/11 20:01:32 by jdelmott         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
+# include "list.h"
+
 typedef struct s_data	t_data;
 
-void					parsing_heredoc(t_data *data, char *lim);
-void					define_line(t_data *data);
-int						parsing(t_data *data);
-int						do_comm(t_data *data, int i);
-int						is_pipe(char c);
-int						is_redirection(char c);
-void					init_null(t_data *data, int size);
-void					parsing_cmd(char *cmd, t_data *data);
+/* PARSING */
+int						init_parser(t_data *data);
+
+/* PARSING_CMD*/
+int						parsing_built_in(t_data *data, t_lexst **list);
+int						parsing_cmd(t_data *data, t_lexst **list);
+
+// /* PARSING_HEREDOC */
+// void					parsing_heredoc(t_data *data, char *lim);
+
+/* PARSING_REDIRECTIONS */
+int						parsing_input(t_lexst *list);
+int						parsing_heredoc(t_data *data, t_lexst *list);
+int						parsing_ou_trunc(t_lexst *list);
+int						parsing_ou_append(t_lexst *list);
 
 #endif

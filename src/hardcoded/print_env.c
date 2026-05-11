@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 15:06:05 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:51 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/04/21 14:25:42 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/07 10:33:21 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+int	print_env(t_data *data, t_lexst **list)
 {
-	while (lst)
-	{
-		if (!lst->next)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
+	int	j;
+
+	j = 0;
+	while (data->env[j])
+		printf("%s\n", data->env[j++]);
+	*list = (*list)->next;
+	return (0);
 }

@@ -5,14 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 15:26:25 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/30 15:27:13 by malaimo          ###   ########.fr       */
+/*   Created: 2026/05/06 14:07:59 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/08 13:50:46 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MISC_H
 # define MISC_H
 
-void	ft_shellerror_gc(char *str, t_data *data, int out);
+int		ft_shellerror_gc(char *str, t_data *data, int out, int mode);
+int		close_fds(t_data *data);
+int		is_dollar(char *str);
+int		find_dollar(char *str);
+int		is_minus(char *str);
+int		ft_atoll(const char *nptr, t_data *data);
+
+void	init_loop(t_data *data, char **line);
+void	init_data(t_data *data, int argc, char *argv[], char *envp[]);
 
 #endif

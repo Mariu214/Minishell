@@ -6,65 +6,85 @@
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:32:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/26 16:48:29 by jdelmott         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:42:42 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	schr_redirection(t_data *data, int i)
+int	schr_redirection(t_lexst **list, t_data *data)
 {
-	int		j;
+	int		return_value;
+	t_lexst	*temp;
 
-	j = i;
-	while (data->line[j].str && !data->line[j].is_pipe)
+	temp = (*list);
+	return_value = 0;
+	while (temp && temp->type != PIPE)
 	{
-		if (data->line[j].is_redirection)
-			do_redirection(data, j);
-		j++;
+		if (temp->type >= INPUT && temp->type <= HEREDOC)
+		{
+			return_value = do_redirection(temp, data);
+			if (return_value == -1)
+				return (0);
+			else if (return_value != 0)
+				return (return_value);
+		}
+		temp = temp->next;
 	}
+	return (0);
 }
 
-void	do_redirection(t_data *data, int i)
+int	do_redirection(t_lexst *list, t_data *data)
 {
-	if (data->line[i].is_redirection)
-	{
-
-		if (ft_strnstr(data->line[i].str, ">>", 2))
-			output_redirection_append(ft_split_gc(data->line[i].str, ' ', &data->gc)[1]);
-		else if (ft_strnstr(data->line[i].str, "<<", 2))
-			parsing_heredoc(data, ft_split_gc(data->line[i].str, ' ',
-					&data->gc)[1]);		
-		else if (ft_strnstr(data->line[i].str, "<", 1))
-			input_redirection(ft_split_gc(data->line[i].str, ' ', &data->gc)[1]);
-		else if (ft_strnstr(data->line[i].str, ">", 1))
-			output_redirection_trunc(ft_split_gc(data->line[i].str, ' ', &data->gc)[1]);
-	}
+	if (list->type == HEREDOC)
+		return (parsing_heredoc(data, list));
+	else if (list->type == OU_APPEND)
+		return (parsing_ou_append(list));
+	else if (list->type == OU_TRUNC)
+		return (parsing_ou_trunc(list));
+	else if (list->type == INPUT)
+		return (parsing_input(list));
+	return (0);
 }
 
-void	input_redirection(char *file)
+int	input_redirection(char *file)
 {
 	int	fd;
 
 	fd = open_file(file, 0);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
+	if (fd < 0)
+		return (fd * -1);
+	if (dup2(fd, STDIN_FILENO) < 0)
+		return (1);
+	if (close(fd) < 0)
+		return (1);
+	return (0);
 }
 
-void	output_redirection_trunc(char *file)
+int	output_redirection_trunc(char *file)
 {
 	int	fd;
 
 	fd = open_file(file, 2);
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	if (fd < 0)
+		return (fd * -1);
+	if (dup2(fd, STDOUT_FILENO) < 0)
+		return (1);
+	if (close(fd) < 0)
+		return (1);
+	return (0);
 }
 
-void	output_redirection_append(char *file)
+int	output_redirection_append(char *file)
 {
 	int	fd;
 
 	fd = open_file(file, 1);
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	if (fd < 0)
+		return (fd * -1);
+	if (dup2(fd, STDOUT_FILENO) < 0)
+		return (1);
+	if (close(fd) < 0)
+		return (1);
+	return (0);
 }

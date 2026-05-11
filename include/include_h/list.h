@@ -5,29 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdelmott <jdelmott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 15:50:24 by jdelmott          #+#    #+#             */
-/*   Updated: 2026/03/10 15:51:35 by jdelmott         ###   ########.fr       */
+/*   Created: 2026/04/08 16:43:10 by malaimo           #+#    #+#             */
+/*   Updated: 2026/05/06 14:53:48 by jdelmott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_H
 # define LIST_H
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
+/* DEFINE_TYPE */
+t_token	define_type(t_type type, t_quote quote);
 
-t_list				*ft_lstnew(void *content);
-void				ft_lstadd_front(t_list **lst, t_list *new);
-int					ft_lstsize(t_list *lst);
-t_list				*ft_lstlast(t_list *lst);
-void				ft_lstadd_back(t_list **lst, t_list *new);
-void				ft_lstdelone(t_list *lst, void (*del)(void *));
-void				ft_lstclear(t_list **lst, void (*del)(void *));
-void				ft_lstiter(t_list *lst, void (*f)(void *));
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-						void (*del)(void *));
+/* ADD_NODE */
+int		ft_add_node(t_lexst **list, void *content, t_token token, t_gc **gc);
+int		ft_add_node_list(t_lexst **list, t_lexst **temp);
+
+/* DELONE */
+int		ft_delone(t_data *data, t_lexst **target);
+
+/* PRINT_LIST */
+void	ft_print_list(t_lexst *lexer);
+void	print_type(t_type type);
+
+void	free_list(t_lexst **gc, t_gc **g);
 
 #endif

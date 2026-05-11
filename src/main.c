@@ -6,43 +6,30 @@
 /*   By: malaimo <malaimo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:16:41 by malaimo           #+#    #+#             */
-/*   Updated: 2026/03/31 15:05:50 by malaimo          ###   ########.fr       */
+/*   Updated: 2026/05/08 13:24:41 by malaimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-volatile int	process_running = 0;
+t_data	*g_datacpy = NULL;
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*line;
-	t_data	data;
+	static t_data	data;
+	char			*line;
 
-	(void)argc;
-	(void)argv;
-	if (!envp[0])
-		return (1);
-	data.gc = NULL;
-	data.dollar = 0;
-	data.env = ft_splitdup(envp);
-	line = NULL;
+	init_data(&data, argc, argv, envp);
+	line = ft_calloc(1, 1);
 	while (ft_strcmp(line, "exit") != 0)
-	{
-		init_signal(&data.sig_int, &data.sig_quit, &data.sig_child,
-			&data.sig_child_slash);
-		sigaction(SIGINT, &data.sig_int, NULL);
-		sigaction(SIGQUIT, &data.sig_quit, NULL);
-		line = readline(">minishell ");
-		if (!line)
-			ft_shellerror_gc("exit\n", &data, 0);
-		if (line[0])
-			add_history(line);
-		process_running = 1;
-		data.str = ft_split_gc(line, ' ', &data.gc);
-		data.dollar = parsing(&data);
-		process_running = 0;
-		ft_free_all_gc(&data.gc);
-	}
+		init_loop(&data, &line);
+	close(data.old_stdin);
+	close(data.old_stdout);
+	g_datacpy = NULL;
+	free(line);
+	close(1);
+	close(0);
+	close(2);
+	free_tab(data.env);
 	return (0);
 }
